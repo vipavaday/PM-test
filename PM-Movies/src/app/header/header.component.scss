@@ -1,0 +1,17 @@
+@import '../../styles.scss';
+
+header{
+
+  background-color: $primary-bg-color;
+  height: 10vh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  #title{
+    color : $primary-color;
+    font-family: krungthep;
+    font-size: 2em;
+  }
+
+}

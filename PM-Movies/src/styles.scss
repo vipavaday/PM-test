@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+
+app-root{
+  min-height: 100vh;
+}
+
+$primary-color : #FFB366;
+$primary-bg-color : #211D1D;
+
+@font-face {
+    font-family: krungthep;
+    src: url(/assets/fonts/Krungthep.ttf);
+}
+
+@font-face {
+    font-family: avenir;
+    src: url(/assets/fonts/Avenir.ttc);
+}

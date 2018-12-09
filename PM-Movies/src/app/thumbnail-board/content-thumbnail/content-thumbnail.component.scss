@@ -1,0 +1,121 @@
+@import '../../../styles.scss';
+
+.actionBar{
+
+  position: absolute;
+  top: -5vh;
+  background-color: white;
+  height: 5vh;
+  width: 100%;
+
+  align-items: center;
+}
+
+.card{
+
+  position: relative;
+  margin-top: 2em;
+  margin-left: 2em;
+  margin-right: 2em;
+  width: 20vw;
+  min-width: 300px;
+  height: auto;
+
+  box-shadow: 13px 11px 7px rgba(0,0,0,0.2);
+  border-radius: 0 12px 5px 5px;
+  overflow: hidden;
+
+  .card-body{
+
+    position: relative;
+    background-color: $primary-bg-color;
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 15px;
+    color: white;
+    padding: 0;
+    max-height: 5em;
+  }
+
+  .card-img-top{
+    height: 60vh;
+    line-height: 300px;
+    width: 100%;
+    text-align: center;
+    background-color: lighten($primary-bg-color, 15);
+    color: white;
+    font-size: 15px;
+  }
+
+  .contentTitle{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 5em;
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
+  img{
+
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  p {
+
+    margin-bottom: 0;
+    text-align: center;
+  }
+}
+
+.card .actionBar img{
+
+  height: 70%;
+  width: 3vw;
+  object-fit: contain;
+}
+
+.card .actionBar p{
+    color: $primary-bg-color;
+}
+
+.card .contentDuration{
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: $primary-bg-color;
+  height: 2.5em;
+  width: auto;
+  max-width: 60%;
+  border-radius: 0 0 21px 0;
+  opacity: 0.92;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.card .contentDuration img{
+
+  height: 100%;
+  width: 20%;
+  object-fit: contain;
+}
+
+.card .contentDuration p {
+
+  margin-bottom: 0;
+  padding-right: 0.5em;
+  color: white;
+}
+
+.contentYear{
+
+  padding: 1em;
+  background-image: url('/assets/contentYear.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}

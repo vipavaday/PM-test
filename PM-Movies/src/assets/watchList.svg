@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 28.683 36.789">
+  <defs>
+    <style>
+      .cls-1, .cls-6, .cls-7, .cls-8 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #fff;
+        stroke: #211d1d;
+        stroke-width: 4px;
+      }
+
+      .cls-3 {
+        clip-path: url(#clip-path);
+      }
+
+      .cls-4 {
+        fill: #171717;
+      }
+
+      .cls-5 {
+        stroke: none;
+      }
+
+      .cls-6 {
+        clip-path: url(#clip);
+      }
+
+      .cls-7 {
+        clip-path: url(#clip-2);
+      }
+
+      .cls-8 {
+        clip-path: url(#clip-3);
+      }
+    </style>
+    <clipPath id="clip-path">
+      <rect class="cls-1" width="21.692" height="19.72"/>
+    </clipPath>
+    <clipPath id="clip">
+      <use xlink:href="#fill"/>
+    </clipPath>
+    <clipPath id="clip-2">
+      <use xlink:href="#fill-2"/>
+    </clipPath>
+    <clipPath id="clip-3">
+      <use xlink:href="#fill-3"/>
+    </clipPath>
+  </defs>
+  <g id="Groupe_16" data-name="Groupe 16" transform="translate(-932 -502)">
+    <g id="Rectangle_55" data-name="Rectangle 55" class="cls-2" transform="translate(932 502)">
+      <rect class="cls-5" width="28.683" height="36.788" rx="5"/>
+      <rect class="cls-1" x="2" y="2" width="24.683" height="32.788" rx="3"/>
+    </g>
+    <g id="Groupe_22" data-name="Groupe 22" transform="translate(933.146 509.323)">
+      <g id="Grille_de_répétition_2" data-name="Grille de répétition 2" class="cls-3">
+        <g transform="translate(-936 -516)">
+          <g id="Rectangle_56" data-name="Rectangle 56" class="cls-2" transform="translate(944.741 518)">
+            <rect id="fill" class="cls-5" width="13.029" height="1.252" rx="0.626"/>
+            <path class="cls-6" d="M0,-0.7481800317764282h13.029119491577148M11.029119491577148,0v1.2518199682235718M13.029119491577148,2h-13.029119491577148M2,1.2518199682235718v-1.2518199682235718"/>
+          </g>
+          <rect id="Rectangle_57" data-name="Rectangle 57" class="cls-4" width="5.007" height="5.007" rx="1" transform="translate(936.23 516.496)"/>
+        </g>
+        <g transform="translate(-936 -509)">
+          <g id="Rectangle_56-2" data-name="Rectangle 56" class="cls-2" transform="translate(944.741 518)">
+            <rect id="fill-2" class="cls-5" width="13.029" height="1.252" rx="0.626"/>
+            <path class="cls-7" d="M0,-0.7481800317764282h13.029119491577148M11.029119491577148,0v1.2518199682235718M13.029119491577148,2h-13.029119491577148M2,1.2518199682235718v-1.2518199682235718"/>
+          </g>
+          <rect id="Rectangle_57-2" data-name="Rectangle 57" class="cls-4" width="5.007" height="5.007" rx="1" transform="translate(936.23 516.496)"/>
+        </g>
+        <g transform="translate(-936 -502)">
+          <g id="Rectangle_56-3" data-name="Rectangle 56" class="cls-2" transform="translate(944.741 518)">
+            <rect id="fill-3" class="cls-5" width="13.029" height="1.252" rx="0.626"/>
+            <path class="cls-8" d="M0,-0.7481800317764282h13.029119491577148M11.029119491577148,0v1.2518199682235718M13.029119491577148,2h-13.029119491577148M2,1.2518199682235718v-1.2518199682235718"/>
+          </g>
+          <rect id="Rectangle_57-3" data-name="Rectangle 57" class="cls-4" width="5.007" height="5.007" rx="1" transform="translate(936.23 516.496)"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
