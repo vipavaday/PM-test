@@ -14,9 +14,11 @@
     <div class="card-body">
 
       <div class="actionBar d-flex justify-content-around">
-        <img src="/assets/watchList.svg"/>
+        <img *ngIf="!content._toWatch" src="/assets/watchList.svg" (click)="addToWatchList()"/>
+        <div *ngIf="content._toWatch" (click)="removeFromWatchList()">To watch</div>
         <a routerLink="/detail/{{content._type}}/{{content._tmdbId}}">More infos</a>
-        <img src="/assets/watched.svg" alt="watched"/>
+        <img *ngIf="!content._seen" src="/assets/watched.svg" alt="watched" (click)="addToSeenContent()"/>
+        <div *ngIf="content._seen" (click)="removeFromSeenContent()">Seen</div>
       </div>
 
       <div class="contentTitle">

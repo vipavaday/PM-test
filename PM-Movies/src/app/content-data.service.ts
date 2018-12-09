@@ -80,6 +80,8 @@ export class ContentDataService implements OnInit{
 
           content.tmdbId = res["id"];
           content.posterUrl = this.imgBaseUrl + res["poster_path"];
+          content._seen = this.isSeen(content);
+          content._toWatch = this.isToWatch(content);
 
           this.getContentDuration(content).subscribe(duration => content.duration = duration);
 
@@ -166,6 +168,46 @@ export class ContentDataService implements OnInit{
 
     }));
   }
+
+  isSeen(content: Content):boolean{
+
+    return localStorage.getItem(content.tmdbId+'_seen') == 'true';
+  }
+
+  isToWatch(content: Content):boolean{
+
+    return localStorage.getItem(content.tmdbId+'_watch') == 'true';
+  }
+
+  addToWatchList(content: Content){
+
+    if(!localStorage.getItem(content.tmdbId+'_watch')){
+      localStorage.setItem(content.tmdbId+'_watch', 'true');
+    }
+  }
+
+  removeFromWatchList(content: Content){
+
+    if(!localStorage.getItem(content.tmdbId+'_watch')){
+      localStorage.removeItem(content.tmdbId+'_watch');
+    }
+  }
+
+  addToSeenContent(content: Content){
+
+    if(!localStorage.getItem(content.tmdbId+'_seen')){
+      localStorage.setItem(content.tmdbId+'_seen', 'true');
+    }
+  }
+
+  removeFromSeenContent(content: Content){
+
+    if(!localStorage.getItem(content.tmdbId+'_seen')){
+      localStorage.removeItem(content.tmdbId+'_seen');
+    }
+  }
+
+
 }
 
 let daysBetween = function(date1: Date, date2: Date): number{

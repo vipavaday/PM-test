@@ -5,10 +5,15 @@
   position: absolute;
   top: -5vh;
   background-color: white;
+  color: $primary-bg-color;
   height: 5vh;
   width: 100%;
 
   align-items: center;
+
+  div:hover, img:hover{
+    cursor: pointer;
+  }
 }
 
 .card{

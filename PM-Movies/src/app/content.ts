@@ -5,6 +5,10 @@ export abstract class Content{
 
   _vote_average: number;
 
+  _seen: boolean = false;
+
+  _toWatch: boolean = false;
+
   private _tmdbId: number;
 
   private _title: string;
