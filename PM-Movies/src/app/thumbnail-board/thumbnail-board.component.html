@@ -1,9 +1,15 @@
-<div class="filtersPan d-flex align-items-center">
-  <p>Filters</p>
+<div class="h-auto">
+  <div  (click)="toggleFiltersPane()" [class.expanded]="!filtersPaneHidden" class=" px-4 filtersPan d-flex justify-content-between align-items-center">
+    <img src="/assets/filter.svg" alt="" />
+    <p>Filters</p>
+    <img *ngIf="!filtersPaneHidden" src="/assets/close.svg" alt="Close filter panel"/>
+  </div>
+
+  <app-content-filters-panel (updateFilter)="onUpdateFilter($event)" [hidden]="filtersPaneHidden" ></app-content-filters-panel>
 </div>
 
-<div class="card-deck">
-  <div *ngFor="let content of contents">
-    <app-content-thumbnail [content]="content"></app-content-thumbnail>
+<div class="d-flex flex-wrap justify-content-start w-100">
+  <div *ngFor="let content of contents| slice:0:10">
+    <app-content-thumbnail *ngIf="content.visible" [content]="content"></app-content-thumbnail>
   </div>
 </div>

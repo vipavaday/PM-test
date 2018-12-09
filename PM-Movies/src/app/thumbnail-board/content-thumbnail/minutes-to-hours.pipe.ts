@@ -7,7 +7,7 @@ export class MinutesToHoursPipe implements PipeTransform {
 
   transform(minutes: number): string {
 
-    if(minutes == null || Number.isNaN(minutes)){
+    if(minutes == null || Number.isNaN(minutes) || minutes == 0){
       return 'Unknown';
     }
 

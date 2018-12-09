@@ -2,6 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { ContentDataService } from '../content-data.service';
 import { Content } from '../content';
+import { Movie } from '../movie';
+import { TvShow } from '../tv-show';
+import { Filter } from './content-filters-panel/filter';
 
 @Component({
   selector: 'app-thumbnail-board',
@@ -11,6 +14,8 @@ import { Content } from '../content';
 export class ThumbnailBoardComponent implements OnInit {
 
   private _query: string = '';
+
+  filtersPaneHidden: boolean = true;
 
   contents: Content[];
 
@@ -35,6 +40,46 @@ export class ThumbnailBoardComponent implements OnInit {
         this.contents = contents;
       });
     });
+  }
+
+  toggleFiltersPane(){
+
+    this.filtersPaneHidden = !this.filtersPaneHidden;
+  }
+
+  onUpdateFilter(filter :Filter){
+    console.log('updateFilter');
+
+    this.contents.forEach( content => content.visible = true);
+
+    for(let content of this.contents){
+
+      if(!filter.showMovies){
+
+        if(content instanceof Movie){
+          content.visible = false;
+        }
+      }
+
+      if(!filter.showTvShows){
+
+        if(content instanceof TvShow){
+          content.visible = false;
+        }
+      }
+
+      if(filter.gtReleaseDate != ''){
+        if(content.releaseDate.getTime() < new Date(filter.gtReleaseDate).getTime()){
+          content.visible = false;
+        }
+      }
+
+      if(filter.ltReleaseDate != ''){
+        if(content.releaseDate.getTime() > new Date(filter.ltReleaseDate).getTime()){
+          content.visible = false;
+        }
+      }
+    }
   }
 
 }

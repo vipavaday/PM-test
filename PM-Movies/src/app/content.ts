@@ -11,14 +11,20 @@ export abstract class Content{
 
   private _releaseDate: Date;
 
+  private _visible: boolean;
+
   constructor(titleN: string, durationN: number, releaseDateN: Date){
 
     this.title = titleN;
     this.duration = durationN;
     this.releaseDate = releaseDateN;
+    this.visible = true;
   }
 
   abstract getDetailsRoute(): string;
+
+  get visible():boolean { return this._visible; }
+  set visible(isVisible:boolean) { this._visible = isVisible; }
 
   get tmdbId(): number{ return this._tmdbId; }
   set tmdbId( tmdbIdN: number){ this._tmdbId = tmdbIdN; }

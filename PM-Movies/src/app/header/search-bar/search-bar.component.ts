@@ -9,6 +9,10 @@ export class SearchBarComponent implements OnInit {
 
   @Output() queryUpdate: EventEmitter<string> = new EventEmitter();
 
+  waitTime: number = 300;
+
+  timeOut;
+
   constructor() { }
 
   ngOnInit() {
@@ -16,7 +20,12 @@ export class SearchBarComponent implements OnInit {
 
   onSearchUpdate(searchQuery: string){
 
-    this.queryUpdate.emit(searchQuery);
+    clearTimeout(this.timeOut);
+
+    this.timeOut = setTimeout(()=>{
+      this.queryUpdate.emit(searchQuery);
+    }, this.waitTime);
+
   }
 
 }

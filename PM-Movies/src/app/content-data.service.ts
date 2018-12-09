@@ -1,4 +1,4 @@
-import { Injectable , OnInit} from '@angular/core';
+import { Injectable , OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { of } from 'rxjs';
@@ -53,7 +53,7 @@ export class ContentDataService implements OnInit{
       this.baseUrl+'/search/multi'+this.apiKey+'&query='+encodeURI(title)
     ).pipe( map( data => {
 
-        return data["results"].slice(0,10)
+        return data["results"]
         .filter( res => res["media_type"] == 'movie' || res["media_type"] == 'tv')
         .map( res => {
 
