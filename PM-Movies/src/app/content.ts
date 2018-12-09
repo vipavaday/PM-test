@@ -1,6 +1,10 @@
 
 export abstract class Content{
 
+  _type: string = '';
+
+  _vote_average: number;
+
   private _tmdbId: number;
 
   private _title: string;

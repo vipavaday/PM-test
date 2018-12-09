@@ -9,7 +9,7 @@ import { QueryService } from '../../thumbnail-board/query.service';
 })
 export class SearchBarComponent implements OnInit {
 
-  waitTime: number = 300;
+  waitTime: number = 100;
 
   timeOut;
 

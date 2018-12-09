@@ -10,10 +10,11 @@ header{
   justify-content: flex-start;
   align-items: center;
 
-  #title{
+  #title a{
     color : $primary-color;
     font-family: krungthep;
-    font-size: 2em;
+    // font-size: 2em;
+    text-decoration: none;
   }
 
   div:first-of-type{

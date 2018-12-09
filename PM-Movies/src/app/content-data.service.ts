@@ -88,6 +88,41 @@ export class ContentDataService implements OnInit{
       }));
   }
 
+  getContentDetail(type: string, id: string):Observable<Content>{
+
+    return this.http.get(this.baseUrl + '/'+type+'/'+id+this.apiKey)
+    .pipe( map( res =>{
+
+        let content: Content;
+
+        if(type =='movie'){
+
+          content = new Movie(
+           res["original_title"],
+           0,
+           new Date((res["release_date"]=='')?new Date(800, 12):res["release_date"])
+         );
+
+        }else if(type =='tv'){
+
+          content = new TvShow(
+           res["name"],
+           0,
+           new Date((res["first_air_date"]=='')?new Date(800, 12):res["first_air_date"])
+         );
+        }
+
+        content.tmdbId = res["id"];
+        content.posterUrl = this.imgBaseUrl + res["poster_path"];
+        content._vote_average = res["vote_average"];
+
+        this.getContentDuration(content).subscribe(duration => content.duration = duration);
+
+        return content;
+
+    }));
+  }
+
   getContentDuration(content: Content): Observable<number>{
 
     return this.http.get(this.baseUrl +content.getDetailsRoute()+this.apiKey)
@@ -105,7 +140,7 @@ export class ContentDataService implements OnInit{
 
   getContentCast(content: Content): Observable<Cast[]>{
 
-    return this.http.get(this.baseUrl + content.getDetailsRoute()+'/credits/'+this.apiKey)
+    return this.http.get(this.baseUrl + content.getDetailsRoute()+'/credits'+this.apiKey)
     .pipe( map( data =>{
 
       return data["cast"].map( castObj => {
@@ -118,6 +153,16 @@ export class ContentDataService implements OnInit{
 
         return cast;
       });
+
+    }));
+  }
+
+  getDirector(content: Content): Observable<string>{
+
+    return this.http.get(this.baseUrl + content.getDetailsRoute()+'/credits'+this.apiKey)
+    .pipe( map( data =>{
+      let dir = data["crew"].filter(crewMember => crewMember["job"]=='Director');
+      return (dir.length >0)?dir[0]["name"]: 'Unknown';
 
     }));
   }

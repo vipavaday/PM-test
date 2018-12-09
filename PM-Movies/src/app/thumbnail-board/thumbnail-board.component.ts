@@ -61,7 +61,6 @@ export class ThumbnailBoardComponent implements OnInit {
   }
 
   onUpdateFilter(filter :Filter){
-    console.log('updateFilter');
 
     this.contents.forEach( content => content.visible = true);
 

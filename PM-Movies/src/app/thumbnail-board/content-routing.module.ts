@@ -8,7 +8,7 @@ import {ContentDetailComponent} from './content-detail/content-detail.component'
 
 const routes: Routes = [
   { path: 'thumbnail-board', component: ThumbnailBoardComponent },
-  { path: 'detail',        component: ContentDetailComponent },
+  { path: 'detail/:type/:id', component: ContentDetailComponent },
   { path: '',   redirectTo: '/thumbnail-board', pathMatch: 'full' }
 ];
 
