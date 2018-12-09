@@ -1,4 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { QueryService } from '../../thumbnail-board/query.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -7,13 +9,11 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class SearchBarComponent implements OnInit {
 
-  @Output() queryUpdate: EventEmitter<string> = new EventEmitter();
-
   waitTime: number = 300;
 
   timeOut;
 
-  constructor() { }
+  constructor(private queryService: QueryService) { }
 
   ngOnInit() {
   }
@@ -23,7 +23,7 @@ export class SearchBarComponent implements OnInit {
     clearTimeout(this.timeOut);
 
     this.timeOut = setTimeout(()=>{
-      this.queryUpdate.emit(searchQuery);
+      this.queryService.updateQuery(searchQuery);
     }, this.waitTime);
 
   }

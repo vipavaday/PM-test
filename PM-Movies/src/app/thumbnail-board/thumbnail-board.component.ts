@@ -1,10 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Subscription }   from 'rxjs';
 
 import { ContentDataService } from '../content-data.service';
 import { Content } from '../content';
 import { Movie } from '../movie';
 import { TvShow } from '../tv-show';
 import { Filter } from './content-filters-panel/filter';
+import { QueryService } from './query.service';
 
 @Component({
   selector: 'app-thumbnail-board',
@@ -19,8 +21,19 @@ export class ThumbnailBoardComponent implements OnInit {
 
   contents: Content[];
 
+  subscription: Subscription;
 
-  constructor(private contentDataProvider: ContentDataService){}
+
+  constructor(
+    private contentDataProvider: ContentDataService,
+    private queryService: QueryService
+  ){
+
+    this.subscription = queryService.queryUpdated$.subscribe(
+      query => {
+        this.query = query;
+    });
+  }
 
   ngOnInit() {
 

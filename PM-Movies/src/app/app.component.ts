@@ -8,10 +8,4 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent{
 
   title: string = 'PM-Movies';
-
-  query: string;
-
-  onSearchQueryUpdate(query: string){
-    this.query = query;
-  }
 }

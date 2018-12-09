@@ -4,20 +4,18 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
+import { ContentRoutingModule } from './thumbnail-board/content-routing.module';
 import { ThumbnailBoardModule } from './thumbnail-board/thumbnail-board.module';
-import { HeaderComponent } from './header/header.component';
-import { SearchBarComponent } from './header/search-bar/search-bar.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HeaderComponent,
-    SearchBarComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    ThumbnailBoardModule
+    ThumbnailBoardModule,
+    ContentRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

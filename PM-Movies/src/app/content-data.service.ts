@@ -8,6 +8,7 @@ import { Content } from './content';
 import { Movie } from './movie';
 import { TvShow } from './tv-show';
 import { Config } from './config';
+import { Cast } from './thumbnail-board/content-detail/cast';
 
 @Injectable({
   providedIn: 'root'
@@ -98,6 +99,25 @@ export class ContentDataService implements OnInit{
         return Math.round(data["episode_run_time"]
         .reduce((a,b)=> a+b, 0)/data["episode_run_time"].length);
       }
+
+    }));
+  }
+
+  getContentCast(content: Content): Observable<Cast[]>{
+
+    return this.http.get(this.baseUrl + content.getDetailsRoute()+'/credits/'+this.apiKey)
+    .pipe( map( data =>{
+
+      return data["cast"].map( castObj => {
+
+        let cast:Cast = new Cast();
+        cast.cast_id = castObj["cast_id"];
+        cast.character = castObj["character"];
+        cast.gender = castObj["gender"];
+        cast.name = castObj["name"];
+
+        return cast;
+      });
 
     }));
   }
