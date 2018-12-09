@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 
 import { ThumbnailBoardModule } from './thumbnail-board/thumbnail-board.module';
 import { HeaderComponent } from './header/header.component';
+import { SearchBarComponent } from './header/search-bar/search-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    SearchBarComponent
   ],
   imports: [
     BrowserModule,

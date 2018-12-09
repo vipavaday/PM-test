@@ -1,7 +1,9 @@
-<header>
-  <img src="/assets/logo.svg" alt="logo" height="100%" class="px-4">
-  <div id="title" class="m-4">
-    The Perfect Movie
+<header class="d-flex justify-content-between">
+  <div>
+    <img src="/assets/logo.svg" alt="logo" class="px-4"/>
+    <h1 id="title" class="m-4">
+      The Perfect Movie
+    </h1>
   </div>
-
+  <app-search-bar (queryUpdate)="onQueryUpdate($event)"></app-search-bar>
 </header>

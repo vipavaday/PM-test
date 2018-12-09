@@ -1,11 +1,11 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  selector: 'app-search-bar',
+  templateUrl: './search-bar.component.html',
+  styleUrls: ['./search-bar.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class SearchBarComponent implements OnInit {
 
   @Output() queryUpdate: EventEmitter<string> = new EventEmitter();
 
@@ -14,7 +14,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
-  onQueryUpdate(searchQuery: string){
+  onSearchUpdate(searchQuery: string){
+
     this.queryUpdate.emit(searchQuery);
   }
 

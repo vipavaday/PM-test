@@ -23,10 +23,12 @@ export class ContentDataService implements OnInit{
   private lastConfigUpdate: Date;
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+
+    this.lastConfigUpdate = new Date();
+  }
 
   ngOnInit() {
-
   }
 
 
@@ -51,7 +53,7 @@ export class ContentDataService implements OnInit{
       this.baseUrl+'/search/multi'+this.apiKey+'&query='+encodeURI(title)
     ).pipe( map( data => {
 
-        return data["results"]
+        return data["results"].slice(0,10)
         .filter( res => res["media_type"] == 'movie' || res["media_type"] == 'tv')
         .map( res => {
 
@@ -62,14 +64,15 @@ export class ContentDataService implements OnInit{
              content = new Movie(
               res["original_title"],
               0,
-              new Date(res["release_date"])
+              new Date((res["release_date"]=='')?new Date(800, 12):res["release_date"])
             );
+
           }else if (res["media_type"] == 'tv'){
 
             content = new TvShow(
              res["name"],
              0,
-             new Date(res["first_air_date"])
+             new Date((res["first_air_date"]=='')?new Date(800, 12): res["first_air_date"])
            );
           }
 
@@ -91,8 +94,9 @@ export class ContentDataService implements OnInit{
       if( content instanceof Movie){
           return data["runtime"];
       }else if( content instanceof TvShow){
-        console.log(data["episode_run_time"]);
-        return Math.round(data["episode_run_time"].reduce((a,b)=> a+b)/data["episode_run_time"].length);
+
+        return Math.round(data["episode_run_time"]
+        .reduce((a,b)=> a+b, 0)/data["episode_run_time"].length);
       }
 
     }));

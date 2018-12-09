@@ -33,5 +33,5 @@ export abstract class Content{
   set duration(durationN: number){ this._duration = durationN; }
 
   get releaseDate(): Date{ return this._releaseDate; }
-  set releaseDate(releaseDateN: Date){ this._releaseDate = releaseDateN; }
+  set releaseDate(releaseDateN: Date){ this._releaseDate = releaseDateN;}
 }
