@@ -5,6 +5,9 @@ import { ContentDataService } from '../../content-data.service';
 import { Content } from '../../content';
 import { Cast } from './cast';
 
+/**
+* Represents a bunch of detail infos about a content
+**/
 @Component({
   selector: 'app-content-detail',
   templateUrl: './content-detail.component.html',

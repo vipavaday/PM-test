@@ -19,12 +19,12 @@
 
     <div class="d-flex flex-column">
       <label for="gtReleaseDate">After</label>
-      <input id="gtReleaseDate" #gtDate (input)="updateGtDate(gtDate.value)" name="gtReleaseDate" type="date" class="form-control"/>
+      <input id="gtReleaseDate" value="{{filter.gtReleaseDate}}" #gtDate (input)="updateGtDate(gtDate.value)" name="gtReleaseDate" type="date" class="form-control"/>
     </div>
 
     <div class="d-flex flex-column">
       <label for="ltRealeaseDate">Before</label>
-      <input id="ltRealeaseDate" #ltDate (input)="updateLtDate(ltDate.value)" name="ltRealeaseDate" type="date" class="form-control"/>
+      <input id="ltRealeaseDate" value="{{filter.ltReleaseDate}}" #ltDate (input)="updateLtDate(ltDate.value)" name="ltRealeaseDate" type="date" class="form-control"/>
     </div>
   </section>
 </div>

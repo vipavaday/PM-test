@@ -8,6 +8,9 @@ import { TvShow } from '../tv-show';
 import { Filter } from './content-filters-panel/filter';
 import { QueryService } from './query.service';
 
+/**
+* Represents a set of content info thumbnails
+**/
 @Component({
   selector: 'app-thumbnail-board',
   templateUrl: './thumbnail-board.component.html',

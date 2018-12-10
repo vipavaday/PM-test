@@ -2,11 +2,10 @@
 
   <div class="card w-100">
 
-    <button (click)="goBack()">Back</button>
-
     <div class="contentDuration">
       <img src="/assets/clock.svg" alt="duration" />
       <p>{{content.duration | minutesToHours}}</p>
+      <img class="ml-auto my-1 mr-2 back" src="/assets/close.svg" alt="back to home" (click)="goBack()"/>
     </div>
 
     <div class="d-flex justify-content-start">

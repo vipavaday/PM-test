@@ -3,6 +3,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Content } from '../../content';
 import { ContentDataService } from '../../content-data.service';
 
+/**
+* Represents the main data about a content in a thumbnail
+**/
 @Component({
   selector: 'app-content-thumbnail',
   templateUrl: './content-thumbnail.component.html',

@@ -10,6 +10,9 @@ import { TvShow } from './tv-show';
 import { Config } from './config';
 import { Cast } from './thumbnail-board/content-detail/cast';
 
+/**
+* Gets data about contents (Movie, Tv Show) from the TMDB API and localStorage
+**/
 @Injectable({
   providedIn: 'root'
 })
@@ -32,7 +35,9 @@ export class ContentDataService implements OnInit{
   ngOnInit() {
   }
 
-
+  /**
+  * Retrieves the baseUrl configuration for the image paths returned by the TMDB API
+  **/
   getPosterBaseUrl(): Observable<string>{
 
     if( this.imgBaseUrl == undefined || daysBetween( this.lastConfigUpdate, new Date()) > 2){
@@ -48,6 +53,9 @@ export class ContentDataService implements OnInit{
     return of<string>( this.imgBaseUrl );
   }
 
+  /**
+  * Searches for content of any type matching the provided string (title)
+  **/
   searchInfoForContent(title: string): Observable<Content[]>{
 
     return this.http.get(
@@ -90,6 +98,9 @@ export class ContentDataService implements OnInit{
       }));
   }
 
+  /**
+  * Retrieves some information about a TV Show or Movie
+  **/
   getContentDetail(type: string, id: string):Observable<Content>{
 
     return this.http.get(this.baseUrl + '/'+type+'/'+id+this.apiKey)
@@ -125,6 +136,9 @@ export class ContentDataService implements OnInit{
     }));
   }
 
+  /**
+  *  Retrieves the runtime of a movie or the average runtime of the episodes of a tv show
+  */
   getContentDuration(content: Content): Observable<number>{
 
     return this.http.get(this.baseUrl +content.getDetailsRoute()+this.apiKey)
@@ -140,6 +154,9 @@ export class ContentDataService implements OnInit{
     }));
   }
 
+  /**
+  * Retrieves the cast of the movie or TV Show
+  **/
   getContentCast(content: Content): Observable<Cast[]>{
 
     return this.http.get(this.baseUrl + content.getDetailsRoute()+'/credits'+this.apiKey)
@@ -159,6 +176,9 @@ export class ContentDataService implements OnInit{
     }));
   }
 
+  /**
+  * Retrieves the director of a movie or Tv Show
+  */
   getDirector(content: Content): Observable<string>{
 
     return this.http.get(this.baseUrl + content.getDetailsRoute()+'/credits'+this.apiKey)
@@ -169,16 +189,25 @@ export class ContentDataService implements OnInit{
     }));
   }
 
+  /**
+  * Checks in the localStorage whether the content has been marked as seen
+  */
   isSeen(content: Content):boolean{
 
     return localStorage.getItem(content.tmdbId+'_seen') == 'true';
   }
 
+  /**
+  * Checks in the localStorage whether the content is to be watched
+  */
   isToWatch(content: Content):boolean{
 
     return localStorage.getItem(content.tmdbId+'_watch') == 'true';
   }
 
+  /**
+  * If not already there, adds a content to watch in the localStorage
+  */
   addToWatchList(content: Content){
 
     if(!localStorage.getItem(content.tmdbId+'_watch')){
@@ -186,6 +215,9 @@ export class ContentDataService implements OnInit{
     }
   }
 
+  /**
+  * If exists, removes a content to watch from the localStorage
+  */
   removeFromWatchList(content: Content){
 
     if(!localStorage.getItem(content.tmdbId+'_watch')){
@@ -193,6 +225,9 @@ export class ContentDataService implements OnInit{
     }
   }
 
+  /**
+  * If not already there, adds a content to see in the localStorage
+  */
   addToSeenContent(content: Content){
 
     if(!localStorage.getItem(content.tmdbId+'_seen')){
@@ -200,6 +235,9 @@ export class ContentDataService implements OnInit{
     }
   }
 
+  /**
+  * If exists, removes a content to see from the localStorage
+  */
   removeFromSeenContent(content: Content){
 
     if(!localStorage.getItem(content.tmdbId+'_seen')){
@@ -210,6 +248,9 @@ export class ContentDataService implements OnInit{
 
 }
 
+/**
+* Works out the number of days between two js Dates
+**/
 let daysBetween = function(date1: Date, date2: Date): number{
 
   let dayInMs = 1000*60*60*24;

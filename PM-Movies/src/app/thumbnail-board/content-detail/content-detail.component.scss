@@ -11,7 +11,7 @@
   height: auto;
 
   box-shadow: 13px 11px 7px rgba(0,0,0,0.2);
-  border-radius: 0 12px 5px 5px;
+  border-radius: 0 21px 5px 5px;
   overflow: hidden;
 
   .card-body{
@@ -77,9 +77,8 @@
   left: 0;
   background-color: $primary-bg-color;
   height: 2.5em;
-  width: auto;
-  max-width: 60%;
-  border-radius: 0 0 21px 0;
+  width: 100%;
+  border-radius: 0 21px 0 0;
   opacity: 0.92;
 
   display: flex;
@@ -90,8 +89,12 @@
 .card .contentDuration img{
 
   height: 100%;
-  width: 20%;
+  width: 4em;
   object-fit: contain;
+
+  &.back{
+    width: 2em;
+  }
 }
 
 .card .contentDuration p {
@@ -107,4 +110,13 @@
   background-image: url('/assets/contentYear.svg');
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.card img.back{
+
+  &:hover{
+    cursor: pointer;
+  }
+  width: 2em;
+  right: 0;
 }
