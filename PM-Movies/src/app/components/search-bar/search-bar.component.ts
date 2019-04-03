@@ -1,6 +1,4 @@
-import {
-  Component,
-} from '@angular/core';
+import { Component } from '@angular/core';
 
 import { QueryService } from '../../../modules/thumbnail-board';
 
@@ -13,9 +11,12 @@ import { QueryService } from '../../../modules/thumbnail-board';
   styleUrls: ['./search-bar.component.scss']
 })
 export class SearchBarComponent {
+
   constructor(private queryService: QueryService) { }
 
   public onSearchUpdate(searchQuery: string) {
+
     this.queryService.updateQuery(searchQuery);
   }
+
 }

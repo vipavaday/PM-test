@@ -16,7 +16,7 @@ export class QueryService {
   queryUpdated$ = this.queryUpdatedSource.asObservable()
     .pipe(debounceTime(200));
 
-  updateQuery(query: string) {
+  public updateQuery(query: string) {
 
     this.queryUpdatedSource.next(query);
   }
