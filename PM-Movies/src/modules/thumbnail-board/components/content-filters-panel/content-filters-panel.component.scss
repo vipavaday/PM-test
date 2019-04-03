@@ -1,7 +1,6 @@
-@import '../../../styles.scss';
+@import "../../../../assets/css/variables";
 
-.filtersPanel{
-
+.filtersPanel {
   width: 30vw;
   height: 85%;
   padding-left: 3em;
@@ -11,24 +10,22 @@
 
   border: 1px $primary-bg-color solid;
   border-radius: 0 0 25px 0;
-  box-shadow:  8px 11px 11px rgba(0,0,0, 0.2);
+  box-shadow: 8px 11px 11px rgba(0, 0, 0, 0.2);
 
-
-  .contentTypes div{
+  .contentTypes div {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
   }
 
-  section{
-
+  section {
     margin-bottom: 2em;
 
-    p{
+    p {
       border-bottom: 1px $primary-bg-color solid;
     }
   }
 }
 
-input[type=checkbox]:focus{
+input[type="checkbox"]:focus {
   outline: none;
   box-shadow: none;
 }

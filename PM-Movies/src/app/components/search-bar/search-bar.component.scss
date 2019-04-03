@@ -1,19 +1,17 @@
-@import '../assets/css/variables';
+@import "../../../assets/css/variables";
 
-.searchArea{
+.search-area {
   position: relative;
 }
 
-.searchArea img{
-
+.search-area img {
   width: 1.2em;
   position: absolute;
   right: 3em;
   top: 20%;
 }
 
-.searchArea input{
-
+.search-area input {
   border-radius: 25px;
   border: none;
   width: 40vw;
@@ -25,7 +23,7 @@
 
   color: $primary-bg-color;
 
-  &:focus{
+  &:focus {
     outline: none;
   }
 }

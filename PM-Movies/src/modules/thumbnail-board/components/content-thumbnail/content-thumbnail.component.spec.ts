@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ContentThumbnailComponent } from './content-thumbnail.component';
+import { ContentThumbnailComponent } from '.';
 
 describe('ContentThumbnailComponent', () => {
   let component: ContentThumbnailComponent;

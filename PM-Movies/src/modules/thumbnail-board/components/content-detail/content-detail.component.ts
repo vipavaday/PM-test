@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-import { ContentDataService } from '../../content-data.service';
-import { Content } from '../../content';
-import { Cast } from './cast';
+import { ContentDataService } from '../../../../app/services/content-data';
+import {
+  Cast,
+  Content
+} from '../../../../app/models';
 
 /**
 * Represents a bunch of detail infos about a content
@@ -38,21 +40,21 @@ export class ContentDetailComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.type = this.route.snapshot.paramMap.get('type');
 
-    this.contentDataProvider.getPosterBaseUrl().subscribe( ()=>{
+    this.contentDataProvider.getPosterBaseUrl().subscribe(() => {
 
       this.contentDataProvider.getContentDetail(this.type, this.id)
-      .subscribe( content => {
-        this.content = content;
+        .subscribe(content => {
+          this.content = content;
 
-        this.contentDataProvider.getContentCast(this.content)
-        .subscribe( castsN => {
-          this.casts = castsN;
-        });
+          this.contentDataProvider.getContentCast(this.content)
+            .subscribe(castsN => {
+              this.casts = castsN;
+            });
 
-        this.contentDataProvider.getDirector(this.content).subscribe( dir => {
-          this.director = dir;
+          this.contentDataProvider.getDirector(this.content).subscribe(dir => {
+            this.director = dir;
+          });
         });
-      });
 
     });
   }

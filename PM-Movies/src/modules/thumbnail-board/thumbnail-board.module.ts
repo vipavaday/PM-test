@@ -10,7 +10,6 @@ import {
 import { MinutesToHoursPipe } from './pipes';
 import { ContentRoutingModule } from './content-routing.module';
 
-
 @NgModule({
   declarations: [
     ContentThumbnailComponent,

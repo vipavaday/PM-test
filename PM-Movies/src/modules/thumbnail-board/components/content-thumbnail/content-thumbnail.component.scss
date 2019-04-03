@@ -1,6 +1,6 @@
-@import '../../../styles.scss';
+@import '../../../../assets/css/variables';
 
-.actionBar{
+.action-bar{
 
   position: absolute;
   top: -5vh;
@@ -51,7 +51,7 @@
     font-size: 15px;
   }
 
-  .contentTitle{
+  .content-title{
 
     display: flex;
     align-items: center;
@@ -75,18 +75,18 @@
   }
 }
 
-.card .actionBar img{
+.card .action-bar img{
 
   height: 70%;
   width: 3vw;
   object-fit: contain;
 }
 
-.card .actionBar p{
+.card .action-bar p{
     color: $primary-bg-color;
 }
 
-.card .contentDuration{
+.card .content-duration{
 
   position: absolute;
   top: 0;
@@ -103,24 +103,24 @@
   align-items: center;
 }
 
-.card .contentDuration img{
+.card .content-duration img{
 
   height: 100%;
   width: 20%;
   object-fit: contain;
 }
 
-.card .contentDuration p {
+.card .content-duration p {
 
   margin-bottom: 0;
   padding-right: 0.5em;
   color: white;
 }
 
-.contentYear{
+.content-year{
 
   padding: 1em;
-  background-image: url('/assets/contentYear.svg');
+  background-image: url('/assets/content-year.svg');
   background-repeat: no-repeat;
   background-position: center;
 }

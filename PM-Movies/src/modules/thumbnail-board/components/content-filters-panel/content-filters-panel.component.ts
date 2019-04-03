@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { Filter } from './filter';
+import { Filter } from '../../models/filter/filter';
 
 /**
-* Represents a filter panel that permits daterange-based and content type filtering 
+* Represents a filter panel that permits daterange-based and content type filtering
 **/
 @Component({
   selector: 'app-content-filters-panel',
@@ -14,9 +14,9 @@ export class ContentFiltersPanelComponent implements OnInit {
 
   @Output() updateFilter: EventEmitter<Filter> = new EventEmitter();
 
-  @Input() hidden:boolean;
+  @Input() hidden: boolean;
 
-  filter:Filter;
+  filter: Filter;
 
   constructor() {
 
@@ -27,31 +27,31 @@ export class ContentFiltersPanelComponent implements OnInit {
     this.onUpdateFilter();
   }
 
-  updateGtDate(gtDate: string){
+  updateGtDate(gtDate: string) {
 
     this.filter.gtReleaseDate = gtDate;
     this.onUpdateFilter();
   }
 
-  updateLtDate(ltDate: string){
+  updateLtDate(ltDate: string) {
 
     this.filter.ltReleaseDate = ltDate;
     this.onUpdateFilter();
   }
 
-  toggleShowMovies(){
+  toggleShowMovies() {
 
-    this.filter.showMovies = ! this.filter.showMovies;
+    this.filter.showMovies = !this.filter.showMovies;
     this.onUpdateFilter();
   }
 
-  toggleShowTvShows(){
+  toggleShowTvShows() {
 
-    this.filter.showTvShows = ! this.filter.showTvShows;
+    this.filter.showTvShows = !this.filter.showTvShows;
     this.onUpdateFilter();
   }
 
-  onUpdateFilter(){
+  onUpdateFilter() {
     this.updateFilter.emit(this.filter);
   }
 

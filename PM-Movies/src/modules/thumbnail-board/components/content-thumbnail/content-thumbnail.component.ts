@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Content } from '../../../../app/models';
+import { ContentDataService } from '../../../../app/services/content-data';
 
-import { Content } from '../../content';
-import { ContentDataService } from '../../content-data.service';
 
 /**
 * Represents the main data about a content in a thumbnail
@@ -21,22 +21,22 @@ export class ContentThumbnailComponent implements OnInit {
 
   }
 
-  addToWatchList(){
+  addToWatchList() {
     this.content._toWatch = true;
     this.dataService.addToWatchList(this.content);
   }
 
-  removeFromWatchList(){
+  removeFromWatchList() {
     this.content._toWatch = false;
     this.dataService.removeFromWatchList(this.content);
   }
 
-  addToSeenContent(){
+  addToSeenContent() {
     this.content._seen = true;
     this.dataService.addToSeenContent(this.content);
   }
 
-  removeFromSeenContent(){
+  removeFromSeenContent() {
     this.content._seen = false;
     this.dataService.removeFromSeenContent(this.content);
   }

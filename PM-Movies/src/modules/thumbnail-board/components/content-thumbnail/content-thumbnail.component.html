@@ -1,19 +1,19 @@
-<div class="contentThumbnail d-flex flex-column align-items-center">
+<div class="content-thumbnail d-flex flex-column align-items-center">
 
   <div class="card">
 
-    <div class="contentDuration">
+    <div class="content-duration">
       <img src="/assets/clock.svg" alt="duration" />
       <p>{{content.duration | minutesToHours}}</p>
     </div>
 
     <div class="card-img-top">
-      <img src="{{content.posterUrl}}" alt="Content poster unavailable">
+      <img src="{{content.posterUrl}}" alt="Content poster unavailable"/>
     </div>
 
     <div class="card-body">
 
-      <div class="actionBar d-flex justify-content-around">
+      <div class="action-bar d-flex justify-content-around">
         <img *ngIf="!content._toWatch" src="/assets/watchList.svg" (click)="addToWatchList()"/>
         <div *ngIf="content._toWatch" (click)="removeFromWatchList()">To watch</div>
         <a routerLink="/detail/{{content._type}}/{{content._tmdbId}}">More infos</a>
@@ -21,12 +21,12 @@
         <div *ngIf="content._seen" (click)="removeFromSeenContent()">Seen</div>
       </div>
 
-      <div class="contentTitle">
+      <div class="content-title">
         <p>{{content.title}}</p>
       </div>
 
     </div>
   </div>
 
-  <div *ngIf="content.releaseDate.getFullYear() != 0801" class="contentYear">{{ content.releaseDate | date: 'yyyy'}}</div>
+  <div *ngIf="content.releaseDate.getFullYear() != 0801" class="content-year">{{ content.releaseDate | date: 'yyyy'}}</div>
 </div>

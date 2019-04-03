@@ -10,12 +10,14 @@ import {
 import {
   AppComponent,
   HeaderComponent,
+  SearchBarComponent,
 } from './components';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    SearchBarComponent
   ],
   imports: [
     BrowserModule,

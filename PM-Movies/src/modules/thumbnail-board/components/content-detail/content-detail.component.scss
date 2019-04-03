@@ -1,7 +1,6 @@
-@import '../../../styles.scss';
+@import "../../../../assets/css/variables";
 
-.card{
-
+.card {
   position: relative;
   margin-top: 1em;
   margin-left: 2em;
@@ -10,22 +9,21 @@
   min-width: 300px;
   height: auto;
 
-  box-shadow: 13px 11px 7px rgba(0,0,0,0.2);
+  box-shadow: 13px 11px 7px rgba(0, 0, 0, 0.2);
   border-radius: 0 21px 5px 5px;
   overflow: hidden;
 
-  .card-body{
-
+  .card-body {
     position: relative;
     background-color: $primary-bg-color;
-    font-family: 'Fira Sans', sans-serif;
+    font-family: "Fira Sans", sans-serif;
     font-size: 15px;
     color: white;
     padding: 0;
     max-height: 5em;
   }
 
-  .image-top{
+  .image-top {
     height: 60vh;
     line-height: 300px;
     width: 20vw;
@@ -35,8 +33,7 @@
     font-size: 15px;
   }
 
-  .contentTitle{
-
+  .content-title {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -45,33 +42,29 @@
     padding-right: 1em;
   }
 
-  img{
-
+  img {
     height: 100%;
     width: 100%;
     object-fit: cover;
   }
 
   p {
-
     margin-bottom: 0;
     text-align: center;
   }
 }
 
-.card .actionBar img{
-
+.card .action-bar img {
   height: 70%;
   width: 3vw;
   object-fit: contain;
 }
 
-.card .actionBar p{
-    color: $primary-bg-color;
+.card .action-bar p {
+  color: $primary-bg-color;
 }
 
-.card .contentDuration{
-
+.card .content-duration {
   position: absolute;
   top: 0;
   left: 0;
@@ -86,35 +79,31 @@
   align-items: center;
 }
 
-.card .contentDuration img{
-
+.card .content-duration img {
   height: 100%;
   width: 4em;
   object-fit: contain;
 
-  &.back{
+  &.back {
     width: 2em;
   }
 }
 
-.card .contentDuration p {
-
+.card .content-duration p {
   margin-bottom: 0;
   padding-right: 0.5em;
   color: white;
 }
 
-.contentYear{
-
+.content-year {
   padding: 1em;
-  background-image: url('/assets/contentYear.svg');
+  background-image: url("/assets/content-year.svg");
   background-repeat: no-repeat;
   background-position: center;
 }
 
-.card img.back{
-
-  &:hover{
+.card img.back {
+  &:hover {
     cursor: pointer;
   }
   width: 2em;
