@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { ContentDataService } from '../../../../app/services/content-data';
 import {
   Cast,
   Content
 } from '../../../../app/models';
+import { switchMap } from 'rxjs/operators';
+import { zip } from 'rxjs/internal/observable/zip';
+import { of, Subscription } from 'rxjs';
 
 /**
 * Represents a bunch of detail infos about a content
@@ -15,7 +18,7 @@ import {
   templateUrl: './content-detail.component.html',
   styleUrls: ['./content-detail.component.scss']
 })
-export class ContentDetailComponent implements OnInit {
+export class ContentDetailComponent implements OnInit, OnDestroy {
 
   id: string;
 
@@ -27,6 +30,7 @@ export class ContentDetailComponent implements OnInit {
 
   director: string;
 
+  private subscription: Subscription;
 
 
   constructor(
@@ -36,27 +40,25 @@ export class ContentDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.id = this.route.snapshot.paramMap.get('id');
     this.type = this.route.snapshot.paramMap.get('type');
 
-    this.contentDataProvider.getPosterBaseUrl().subscribe(() => {
+    this.subscription = this.contentDataProvider.getContentDetail(this.type, this.id)
+      .pipe(switchMap(content => {
+        const cast$ = this.contentDataProvider.getContentCast(content);
+        const director$ = this.contentDataProvider.getDirector(content);
 
-      this.contentDataProvider.getContentDetail(this.type, this.id)
-        .subscribe(content => {
-          this.content = content;
+        return zip(of(content), cast$, director$);
+      }))
+      .subscribe(([content, casts, director]) => {
+        this.content = content;
+        this.casts = casts;
+        this.director = director;
+      });
+  }
 
-          this.contentDataProvider.getContentCast(this.content)
-            .subscribe(castsN => {
-              this.casts = castsN;
-            });
-
-          this.contentDataProvider.getDirector(this.content).subscribe(dir => {
-            this.director = dir;
-          });
-        });
-
-    });
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   goBack() {

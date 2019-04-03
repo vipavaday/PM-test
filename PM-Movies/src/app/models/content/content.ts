@@ -15,7 +15,7 @@ export abstract class Content {
 
   private _posterUrl: string;
 
-  private _duration: number;
+  public duration: number;
 
   private _releaseDate: Date;
 
@@ -42,9 +42,6 @@ export abstract class Content {
 
   get posterUrl(): string { return this._posterUrl; }
   set posterUrl(posterUrlN: string) { this._posterUrl = posterUrlN; }
-
-  get duration(): number { return this._duration; }
-  set duration(durationN: number) { this._duration = durationN; }
 
   get releaseDate(): Date { return this._releaseDate; }
   set releaseDate(releaseDateN: Date) { this._releaseDate = releaseDateN; }

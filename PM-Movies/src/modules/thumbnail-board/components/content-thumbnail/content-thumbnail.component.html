@@ -1,5 +1,4 @@
 <div class="content-thumbnail d-flex flex-column align-items-center">
-
   <div class="card">
 
     <div class="content-duration">
@@ -28,5 +27,5 @@
     </div>
   </div>
 
-  <div *ngIf="content.releaseDate.getFullYear() != 0801" class="content-year">{{ content.releaseDate | date: 'yyyy'}}</div>
+  <div *ngIf="content.releaseDate" class="content-year">{{ content.releaseDate | date: 'yyyy'}}</div>
 </div>

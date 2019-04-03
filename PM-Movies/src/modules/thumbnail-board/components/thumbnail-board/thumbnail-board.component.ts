@@ -9,6 +9,7 @@ import {
 } from '../../../../app/models';
 import { Filter } from '../../models';
 import { QueryService } from '../../services';
+import { take } from 'rxjs/operators';
 
 /**
 * Represents a set of content info thumbnails
@@ -51,13 +52,12 @@ export class ThumbnailBoardComponent implements OnInit {
     this._query = searchQuery;
     this.contents = [];
 
-    this.contentDataProvider.getPosterBaseUrl().subscribe(() => {
 
-      this.contentDataProvider.searchInfoForContent(this._query)
-        .subscribe(contents => {
-          this.contents = contents;
-        });
-    });
+    this.contentDataProvider.searchInfoForContent(this._query)
+      .pipe(take(1))
+      .subscribe(contents => {
+        this.contents = contents;
+      });
   }
 
   toggleFiltersPane() {
