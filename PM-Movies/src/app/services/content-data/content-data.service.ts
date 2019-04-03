@@ -1,8 +1,8 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, withLatestFrom, combineLatest, take, shareReplay } from 'rxjs/operators';
 
 import { Cast } from '../../../app/models';
 
@@ -12,6 +12,13 @@ import {
   TvShow,
   Config,
 } from '../../models';
+import {
+  IContentDataService,
+  MDBSearchResponseJSON,
+  MDBSearchResultMovieJSON,
+  MDBSearchResultTvShowJSON,
+  MDBSearchResultPersonJSON,
+} from './content-data.service.interface';
 
 
 /**
@@ -31,100 +38,88 @@ const daysBetween = function (date1: Date, date2: Date): number {
 @Injectable({
   providedIn: 'root'
 })
-export class ContentDataService implements OnInit {
+export class ContentDataService implements IContentDataService {
 
   private readonly apiKey = '?api_key=422113b1d8f5bb170e051db92b9e84b5';
 
   private readonly baseUrl: string = 'https://api.themoviedb.org/3';
 
-  private imgBaseUrl: string;
+  private imgBaseUrl$: Observable<string>;
 
   private lastConfigUpdate: Date;
 
 
   constructor(private http: HttpClient) {
-
     this.lastConfigUpdate = new Date();
-  }
-
-  ngOnInit() {
-  }
-
-  /**
-  * Retrieves the baseUrl configuration for the image paths returned by the TMDB API
-  **/
-  public getPosterBaseUrl(): Observable<string> {
-
-    if (!!this.imgBaseUrl || daysBetween(this.lastConfigUpdate, new Date()) > 2) {
-
-      this.http.get<Config>(this.baseUrl + '/configuration' + this.apiKey).subscribe(data => {
-
-        this.imgBaseUrl = data.images['base_url'] + '/original/';
-
-        return this.imgBaseUrl;
-      });
-    }
-
-    return of<string>(this.imgBaseUrl);
+    this.imgBaseUrl$ = this.http.get<Config>(`${this.baseUrl}/configuration${this.apiKey}`)
+      .pipe(
+        map(config => `${config.images.base_url}/original/`),
+        shareReplay(1)
+      );
   }
 
   /**
   * Searches for content of any type matching the provided string (title)
   **/
   public searchInfoForContent(title: string): Observable<Content[]> {
+    if (title === '') {
+      return of([]);
+    }
 
-    return this.http.get(
-      this.baseUrl + '/search/multi' + this.apiKey + '&query=' + encodeURI(title)
-    ).pipe(map(data => {
+    const search$ = this.http.get<MDBSearchResponseJSON>(`${this.baseUrl}/search/multi${this.apiKey}&query=${encodeURI(title)}`);
 
-      return data['results']
-        .filter(res => res['media_type'] === 'movie' || res['media_type'] === 'tv')
-        .map(res => {
+    return search$
+      .pipe(
+        withLatestFrom(this.imgBaseUrl$),
+        map(([response, imgBaseUrl]) => {
+          return response.results
+            .filter(res => res.media_type === 'movie' || res.media_type === 'tv')
+            .map(res => {
 
-          const content: Content = this.parseContent(res);
-          this.getContentDuration(content).subscribe(duration => content.duration = duration);
+              const content: Content = this.parseContent(res, imgBaseUrl);
+              this.getContentDuration(content).subscribe(duration => content.duration = duration);
 
-          return content;
-        });
-    }));
+              return content;
+            });
+        }));
   }
 
   /**
   * Retrieves some information about a TV Show or Movie
   **/
   public getContentDetail(type: string, id: string): Observable<Content> {
-
     return this.http.get(this.baseUrl + '/' + type + '/' + id + this.apiKey)
-      .pipe(map(res => {
+      .pipe(
+        withLatestFrom(this.imgBaseUrl$),
+        map(([response, imgBaseUrl]: [any, string]) => {
 
-        let content: Content;
+          let content: Content;
 
-        if (type === 'movie') {
+          if (type === 'movie') {
 
-          content = new Movie(
-            res['original_title'],
-            0,
-            new Date((res['release_date'] === '') ? new Date(800, 12) : res['release_date'])
-          );
+            content = new Movie(
+              response['original_title'],
+              0,
+              new Date((response['release_date'] === '') ? new Date(800, 12) : response['release_date'])
+            );
 
-        } else if (type === 'tv') {
+          } else if (type === 'tv') {
 
-          content = new TvShow(
-            res['name'],
-            0,
-            new Date((res['first_air_date'] === '') ? new Date(800, 12) : res['first_air_date'])
-          );
-        }
+            content = new TvShow(
+              response['name'],
+              0,
+              new Date((response['first_air_date'] === '') ? new Date(800, 12) : response['first_air_date'])
+            );
+          }
 
-        content.tmdbId = res['id'];
-        content.posterUrl = this.imgBaseUrl + res['poster_path'];
-        content._vote_average = res['vote_average'];
+          content.tmdbId = response['id'];
+          content.posterUrl = imgBaseUrl + response['poster_path'];
+          content._vote_average = response['vote_average'];
+          content.duration = this.extractDuration(response);
 
-        this.getContentDuration(content).subscribe(duration => content.duration = duration);
+          return content;
 
-        return content;
-
-      }));
+        }));
   }
 
   /**
@@ -133,16 +128,7 @@ export class ContentDataService implements OnInit {
   public getContentDuration(content: Content): Observable<number> {
 
     return this.http.get(this.baseUrl + content.getDetailsRoute() + this.apiKey)
-      .pipe(map(data => {
-        if (content instanceof Movie) {
-          return data['runtime'];
-        } else if (content instanceof TvShow) {
-
-          return Math.round(data['episode_run_time']
-            .reduce((a, b) => a + b, 0) / data['episode_run_time'].length);
-        }
-
-      }));
+      .pipe(map((data: any) => this.extractDuration(data)));
   }
 
   /**
@@ -236,18 +222,36 @@ export class ContentDataService implements OnInit {
     }
   }
 
-  private parseContent(content: string): Content {
+  private extractDuration(data: { runtime: number } | { episode_run_time: number[] }): number {
+    if (Array.isArray(data['episode_run_time'])) {
+      return Math.round(data['episode_run_time']
+        .reduce((a, b) => a + b, 0) / data['episode_run_time'].length);
+    }
+
+    if (typeof data['runtime'] === 'number') {
+      return data['runtime'];
+    }
+  }
+
+  private parseContent(
+    content: MDBSearchResultMovieJSON | MDBSearchResultTvShowJSON | MDBSearchResultPersonJSON,
+    imgBaseUrl: string
+  ): Content {
 
     let parsedContent: Content;
 
-    if (content['media_type'] === 'movie') {
-      parsedContent = new Movie(content['original_title'], 0, this.parseDate(content['release_date']));
-    } else {
-      parsedContent = new TvShow(content['name'], 0, this.parseDate(content['first_air_date']));
+    if (content.media_type === 'person') {
+      return;
     }
 
-    parsedContent.tmdbId = content['id'];
-    parsedContent.posterUrl = this.imgBaseUrl + content['poster_path'];
+    if (content.media_type === 'movie') {
+      parsedContent = new Movie(content.original_title, 0, this.parseDate(content.release_date));
+    } else if (content.media_type === 'tv') {
+      parsedContent = new TvShow(content.name, 0, this.parseDate(content.first_air_date));
+    }
+
+    parsedContent.tmdbId = content.id;
+    parsedContent.posterUrl = imgBaseUrl + content.poster_path;
     parsedContent._seen = this.isSeen(parsedContent);
     parsedContent._toWatch = this.isToWatch(parsedContent);
 
@@ -255,6 +259,12 @@ export class ContentDataService implements OnInit {
   }
 
   private parseDate(date: string): Date {
-   return new Date((!!date) ? new Date(800, 12) : date);
+    const dateN = Date.parse(date);
+
+    if (isNaN(dateN)) {
+      return null;
+    }
+
+    return new Date(dateN);
   }
 }

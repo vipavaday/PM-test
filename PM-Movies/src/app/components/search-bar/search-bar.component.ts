@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
 } from '@angular/core';
 
 import { QueryService } from '../../../modules/thumbnail-board';
@@ -13,25 +12,10 @@ import { QueryService } from '../../../modules/thumbnail-board';
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.scss']
 })
-export class SearchBarComponent implements OnInit {
-
-  waitTime = 100;
-
-  timeOut;
-
+export class SearchBarComponent {
   constructor(private queryService: QueryService) { }
 
-  ngOnInit() {
+  public onSearchUpdate(searchQuery: string) {
+    this.queryService.updateQuery(searchQuery);
   }
-
-  onSearchUpdate(searchQuery: string) {
-
-    clearTimeout(this.timeOut);
-
-    this.timeOut = setTimeout(() => {
-      this.queryService.updateQuery(searchQuery);
-    }, this.waitTime);
-
-  }
-
 }

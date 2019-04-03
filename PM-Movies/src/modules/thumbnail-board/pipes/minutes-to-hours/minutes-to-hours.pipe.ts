@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class MinutesToHoursPipe implements PipeTransform {
 
   public transform(minutes: number): string {
-    if (!!minutes || Number.isNaN(minutes)) {
+    if (minutes === 0 || Number.isNaN(minutes)) {
       return null;
     }
 
@@ -16,6 +16,10 @@ export class MinutesToHoursPipe implements PipeTransform {
     const result: string[] = [ minutesLeft.padStart(2, '0') ];
     if (hours > 0) {
       result.unshift('' + hours);
+    }
+
+    if (result.length === 1) {
+      return result[0] + ' min ';
     }
 
     return result.join(' h ');
