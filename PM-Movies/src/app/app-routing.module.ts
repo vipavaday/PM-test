@@ -1,17 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
+import {
+  RouterModule,
+  Routes
+} from '@angular/router';
 
 import {
   ContentDetailComponent,
   ThumbnailBoardComponent,
- } from './components';
+} from './components';
 
 
 const routes: Routes = [
   { path: 'thumbnail-board', component: ThumbnailBoardComponent },
   { path: 'detail/:type/:id', component: ContentDetailComponent },
-  { path: '',   redirectTo: '/thumbnail-board', pathMatch: 'full' }
+  { path: '', redirectTo: '/thumbnail-board', pathMatch: 'full' }
 ];
 
 @NgModule({

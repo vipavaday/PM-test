@@ -7,10 +7,4 @@ export class Movie extends Content {
     super(titleN, durationN, releaseDateN);
     this.type = 'movie';
   }
-
-  public getDetailsRoute(): string {
-
-    return '/movie/' + this.tmdbId;
-  }
-
 }

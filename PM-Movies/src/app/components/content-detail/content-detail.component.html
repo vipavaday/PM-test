@@ -14,23 +14,23 @@
         <img src="{{content.posterUrl}}" alt="Content poster unavailable"/>
       </div>
 
-      <div *ngIf="casts != undefined && director != undefined" class="m-auto">
+      <div *ngIf="content.cast != undefined && content.director != undefined" class="m-auto">
         <div class="d-flex justify-content-between ">
           <div class="px-4">
             <h2>Main cast</h2>
             <ul class="list-group">
-              <li *ngFor="let cast of casts | slice:0:5" class="list-group-item">{{cast.name}}</li>
+              <li *ngFor="let cast of content.cast | slice:0:5" class="list-group-item">{{cast.name}}</li>
             </ul>
           </div>
 
           <div class="px-4">
             <h2>Director</h2>
-            <p>{{director}}</p>
+            <p>{{content.director}}</p>
           </div>
 
           <div class="px-4">
             <h2>Vote average</h2>
-            <p>{{content._vote_average}}</p>
+            <p>{{content.vote_average}}</p>
           </div>
         </div>
       </div>

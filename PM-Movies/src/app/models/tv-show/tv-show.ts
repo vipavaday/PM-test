@@ -7,10 +7,4 @@ export class TvShow extends Content {
     super(titleN, durationN, releaseDateN);
     this.type = 'tv';
   }
-
-  public getDetailsRoute(): string {
-
-    return '/tv/' + this.tmdbId;
-  }
-
 }

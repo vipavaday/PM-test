@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { QueryService } from '../../../modules/thumbnail-board';
+import { QueryService } from '../../services';
 
 /**
 * Represents a searchbar able to notify others  of its update through the QueryService
@@ -18,5 +18,4 @@ export class SearchBarComponent {
 
     this.queryService.updateQuery(searchQuery);
   }
-
 }

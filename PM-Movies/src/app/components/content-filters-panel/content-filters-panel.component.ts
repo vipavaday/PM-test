@@ -1,4 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
 
 import { Filter } from '../../models/filter/filter';
 
@@ -12,46 +18,46 @@ import { Filter } from '../../models/filter/filter';
 })
 export class ContentFiltersPanelComponent implements OnInit {
 
-  @Output() updateFilter: EventEmitter<Filter> = new EventEmitter();
+  @Output() public updateFilter: EventEmitter<Filter> = new EventEmitter();
 
-  @Input() hidden: boolean;
+  @Input() public hidden: boolean;
 
-  filter: Filter;
+  public filter: Filter;
 
   constructor() {
 
     this.filter = new Filter();
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.onUpdateFilter();
   }
 
-  updateGtDate(gtDate: string) {
+  public updateGtDate(gtDate: string) {
 
     this.filter.gtReleaseDate = gtDate;
     this.onUpdateFilter();
   }
 
-  updateLtDate(ltDate: string) {
+  public updateLtDate(ltDate: string) {
 
     this.filter.ltReleaseDate = ltDate;
     this.onUpdateFilter();
   }
 
-  toggleShowMovies() {
+  public toggleShowMovies() {
 
     this.filter.showMovies = !this.filter.showMovies;
     this.onUpdateFilter();
   }
 
-  toggleShowTvShows() {
+  public toggleShowTvShows() {
 
     this.filter.showTvShows = !this.filter.showTvShows;
     this.onUpdateFilter();
   }
 
-  onUpdateFilter() {
+  public onUpdateFilter() {
     this.updateFilter.emit(this.filter);
   }
 

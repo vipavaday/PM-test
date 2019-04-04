@@ -1,7 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Content } from '../../../../app/models';
-import { ContentDataService } from '../../../../app/services/content-data';
+import {
+  Component,
+  Input
+} from '@angular/core';
 
+import { ContentDataService } from '../../services';
+import { Content } from '../../models';
 
 /**
 * Represents the main data about a content in a thumbnail
@@ -11,34 +14,29 @@ import { ContentDataService } from '../../../../app/services/content-data';
   templateUrl: './content-thumbnail.component.html',
   styleUrls: ['./content-thumbnail.component.scss']
 })
-export class ContentThumbnailComponent implements OnInit {
+export class ContentThumbnailComponent {
 
-  @Input() content: Content;
+  @Input() public content: Content;
 
   constructor(private dataService: ContentDataService) { }
 
-  ngOnInit() {
-
-  }
-
-  addToWatchList() {
-    this.content._toWatch = true;
+  public addToWatchList() {
+    this.content.toWatch = true;
     this.dataService.addToWatchList(this.content);
   }
 
-  removeFromWatchList() {
-    this.content._toWatch = false;
+  public removeFromWatchList() {
+    this.content.toWatch = false;
     this.dataService.removeFromWatchList(this.content);
   }
 
-  addToSeenContent() {
-    this.content._seen = true;
+  public addToSeenContent() {
+    this.content.seen = true;
     this.dataService.addToSeenContent(this.content);
   }
 
-  removeFromSeenContent() {
-    this.content._seen = false;
+  public removeFromSeenContent() {
+    this.content.seen = false;
     this.dataService.removeFromSeenContent(this.content);
   }
-
 }

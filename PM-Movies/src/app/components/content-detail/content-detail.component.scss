@@ -1,23 +1,6 @@
-@import '../../../../assets/css/variables';
+@import "../../../assets/css/variables";
 
-.action-bar{
-
-  position: absolute;
-  top: -5vh;
-  background-color: white;
-  color: $primary-bg-color;
-  height: 5vh;
-  width: 100%;
-
-  align-items: center;
-
-  div:hover, img:hover{
-    cursor: pointer;
-  }
-}
-
-.card{
-
+.card {
   position: relative;
   margin-top: 1em;
   margin-left: 2em;
@@ -26,33 +9,31 @@
   min-width: 300px;
   height: auto;
 
-  box-shadow: 13px 11px 7px rgba(0,0,0,0.2);
-  border-radius: 0 12px 5px 5px;
+  box-shadow: 13px 11px 7px rgba(0, 0, 0, 0.2);
+  border-radius: 0 21px 5px 5px;
   overflow: hidden;
 
-  .card-body{
-
+  .card-body {
     position: relative;
     background-color: $primary-bg-color;
-    font-family: 'Fira Sans', sans-serif;
+    font-family: "Fira Sans", sans-serif;
     font-size: 15px;
     color: white;
     padding: 0;
     max-height: 5em;
   }
 
-  .card-img-top{
+  .image-top {
     height: 60vh;
     line-height: 300px;
-    width: 100%;
+    width: 20vw;
     text-align: center;
     background-color: lighten($primary-bg-color, 15);
     color: white;
     font-size: 15px;
   }
 
-  .content-title{
-
+  .content-title {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -61,41 +42,36 @@
     padding-right: 1em;
   }
 
-  img{
-
+  img {
     height: 100%;
     width: 100%;
     object-fit: cover;
   }
 
   p {
-
     margin-bottom: 0;
     text-align: center;
   }
 }
 
-.card .action-bar img{
-
+.card .action-bar img {
   height: 70%;
   width: 3vw;
   object-fit: contain;
 }
 
-.card .action-bar p{
-    color: $primary-bg-color;
+.card .action-bar p {
+  color: $primary-bg-color;
 }
 
-.card .content-duration{
-
+.card .content-duration {
   position: absolute;
   top: 0;
   left: 0;
   background-color: $primary-bg-color;
   height: 2.5em;
-  width: auto;
-  max-width: 60%;
-  border-radius: 0 0 21px 0;
+  width: 100%;
+  border-radius: 0 21px 0 0;
   opacity: 0.92;
 
   display: flex;
@@ -103,24 +79,33 @@
   align-items: center;
 }
 
-.card .content-duration img{
-
+.card .content-duration img {
   height: 100%;
-  width: 20%;
+  width: 4em;
   object-fit: contain;
+
+  &.back {
+    width: 2em;
+  }
 }
 
 .card .content-duration p {
-
   margin-bottom: 0;
   padding-right: 0.5em;
   color: white;
 }
 
-.content-year{
-
+.content-year {
   padding: 1em;
-  background-image: url('/assets/content-year.svg');
+  background-image: url("/assets/content-year.svg");
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.card img.back {
+  &:hover {
+    cursor: pointer;
+  }
+  width: 2em;
+  right: 0;
 }

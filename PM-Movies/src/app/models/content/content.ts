@@ -1,3 +1,4 @@
+import { Cast } from '../cast';
 
 export abstract class Content {
 
@@ -21,6 +22,12 @@ export abstract class Content {
 
   public visible: boolean;
 
+  public poster_path: string;
+
+  public cast: Cast[];
+
+  public director: string;
+
   constructor(titleN: string, durationN: number, releaseDateN: Date) {
 
     this.title = titleN;
@@ -28,6 +35,4 @@ export abstract class Content {
     this.releaseDate = releaseDateN;
     this.visible = true;
   }
-
-  public abstract getDetailsRoute(): string;
 }

@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs';
+
 import {
   Cast,
   Content,
@@ -6,13 +7,10 @@ import {
 
 
 export interface IContentDataService {
-  searchInfoForContent(title: string): Observable<Content[]>;
-  getContentDetail(type: string, id: string): Observable<Content>;
-  getContentDuration(content: Content): Observable<number>;
-  getContentCast(content: Content): Observable<Cast[]>;
-  getDirector(content: Content): Observable<string>;
-  isSeen(content: Content): boolean;
-  isToWatch(content: Content): boolean;
+  getContentInfo(title: string): Observable<Content[]>;
+  getContentDetails(type: string, id: string): Observable<Content>;
+  isSeen(tmdbId: number): boolean;
+  isToWatch(tmdbId: number): boolean;
   addToWatchList(content: Content): void;
   removeFromWatchList(content: Content): void;
   addToSeenContent(content: Content): void;
@@ -22,25 +20,6 @@ export interface IContentDataService {
 export type MDBOriginCountryJSON = string[];
 
 export type MDBGenreIdsJSON = string[];
-
-/* export interface MDBSearchResultJSON {
-  poster_path: string;
-  popularity: number;
-  id: number;
-  overview: string;
-  backdrop_path: string;
-  vote_average: number;
-  media_type: string;
-  first_air_date: string;
-  origin_country: MDBOriginCountryJSON;
-  genre_ids: MDBGenreIdsJSON;
-  original_language: string;
-  vote_count: number;
-  name: string;
-  original_name: string;
-  original_title: string;
-  release_date: string;
-} */
 
 export interface MDBSearchResultMovieJSON {
   poster_path?: string;
@@ -84,6 +63,45 @@ export interface MDBSearchResultPersonJSON {
   media_type: 'person';
 }
 
+export interface MDBCreditsResponseJSON {
+
+  cast: MDBCastResponseJSON[];
+  crew: MDBCrewResponseJSON[];
+}
+
+export interface MDBCastResponseJSON {
+
+  cast_id: number;
+  character: string;
+  gender: number;
+  name: string;
+}
+
+export interface MDBCrewResponseJSON {
+
+  name: string;
+  job: string;
+}
+
+export interface MDBMovieDetailsResponseJSON {
+
+  id: number;
+  poster_path: any;
+  vote_average: number;
+  original_title: string;
+  release_date: string;
+  runtime: number;
+}
+
+export interface MDBTvShowDetailsResponseJSON {
+
+  id: number;
+  poster_path: any;
+  vote_average: number;
+  first_air_date: string;
+  name: string;
+  episode_run_time: number[];
+}
 
 export interface MDBSearchResponseJSON {
   page: number;
