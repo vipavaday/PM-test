@@ -11,8 +11,8 @@
         <img *ngIf="!content.toWatch" src="/assets/watchList.svg" (click)="addToWatchList()"/>
         <div *ngIf="content.toWatch" (click)="removeFromWatchList()">To watch</div>
         <a routerLink="/detail/{{content.type}}/{{content.tmdbId}}">More infos</a>
-        <img *ngIf="!content.seen" src="/assets/watched.svg" alt="watched" (click)="addToSeenContent()"/>
-        <div *ngIf="content.seen" (click)="removeFromSeenContent()">Seen</div>
+        <img *ngIf="!content.watched" src="/assets/watched.svg" alt="watched" (click)="addToWatchedContents()"/>
+        <div *ngIf="content.watched" (click)="removeFromWatchedContents()">Seen</div>
       </div>
 
       <div class="content-title">

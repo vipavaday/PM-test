@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { QueryService } from '../../services';
+import { ContentListStateService } from '../../services';
 
 /**
 * Represents a searchbar able to notify others  of its update through the QueryService
@@ -12,7 +12,7 @@ import { QueryService } from '../../services';
 })
 export class SearchBarComponent {
 
-  constructor(private queryService: QueryService) { }
+  constructor(private queryService: ContentListStateService) { }
 
   public onSearchUpdate(searchQuery: string) {
 

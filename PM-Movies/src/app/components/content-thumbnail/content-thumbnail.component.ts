@@ -3,7 +3,11 @@ import {
   Input
 } from '@angular/core';
 
-import { ContentDataService } from '../../services';
+import {
+  ContentFetcherService,
+  StorageService
+} from '../../services';
+
 import { Content } from '../../models';
 
 /**
@@ -18,25 +22,28 @@ export class ContentThumbnailComponent {
 
   @Input() public content: Content;
 
-  constructor(private dataService: ContentDataService) { }
+  constructor(
+    private dataService: ContentFetcherService,
+    private storage: StorageService,
+  ) { }
 
   public addToWatchList() {
     this.content.toWatch = true;
-    this.dataService.addToWatchList(this.content);
+    this.storage.addToWatchlist(this.content);
   }
 
   public removeFromWatchList() {
     this.content.toWatch = false;
-    this.dataService.removeFromWatchList(this.content);
+    this.storage.removeFromWatchList(this.content);
   }
 
-  public addToSeenContent() {
-    this.content.seen = true;
-    this.dataService.addToSeenContent(this.content);
+  public addToWatchedContents() {
+    this.content.watched = true;
+    this.storage.addToWatchedContents(this.content);
   }
 
-  public removeFromSeenContent() {
-    this.content.seen = false;
-    this.dataService.removeFromSeenContent(this.content);
+  public removeFromWatchedContents() {
+    this.content.watched = false;
+    this.storage.removeFromWatchedContents(this.content);
   }
 }

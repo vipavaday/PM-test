@@ -13,7 +13,7 @@ import {
   shareReplay
 } from 'rxjs/operators';
 
-import { Cast } from '../../../app/models';
+import { Cast } from '../../models';
 
 import {
   Content,
@@ -22,8 +22,10 @@ import {
   Config,
 } from '../../models';
 
+import { IContentFetcherService } from '../content-fetcher/content-fetcher.service.interface';
+import { StorageService } from '../storage';
+
 import {
-  IContentDataService,
   MDBSearchResponseJSON,
   MDBSearchResultMovieJSON,
   MDBSearchResultTvShowJSON,
@@ -31,7 +33,7 @@ import {
   MDBMovieDetailsResponseJSON,
   MDBTvShowDetailsResponseJSON,
   MDBCreditsResponseJSON,
-} from './content-data.service.interface';
+} from './moviedb-fetcher.service.interface';
 
 /**
 * Gets data about contents (Movie, Tv Show) from the TMDB API and localStorage
@@ -39,7 +41,7 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class ContentDataService implements IContentDataService {
+export class MoviedbDataService implements IContentFetcherService {
 
   private readonly apiKey = '422113b1d8f5bb170e051db92b9e84b5';
 
@@ -47,7 +49,9 @@ export class ContentDataService implements IContentDataService {
 
   private imgBaseUrl$: Observable<string>;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private storage: StorageService) {
 
     this.imgBaseUrl$ = this.http.get<Config>(`${this.baseUrl}/configuration?api_key=${this.apiKey}`)
       .pipe(
@@ -165,62 +169,6 @@ export class ContentDataService implements IContentDataService {
     });
   }
 
-  /**
-  * Checks in the localStorage whether the content has been marked as seen
-  */
-  public isSeen(tmdbId: number): boolean {
-
-    return localStorage.getItem(`${tmdbId}_seen`) === 'true';
-  }
-
-  /**
-  * Checks in the localStorage whether the content is to be watched
-  */
-  public isToWatch(tmdbId: number): boolean {
-
-    return localStorage.getItem(`${tmdbId}_watch'`) === 'true';
-  }
-
-  /**
-  * If not already there, adds a content to watch in the localStorage
-  */
-  public addToWatchList(content: Content): void {
-
-    if (!localStorage.getItem(content.tmdbId + '_watch')) { } {
-      localStorage.setItem(content.tmdbId + '_watch', 'true');
-    }
-  }
-
-  /**
-  * If exists, removes a content to watch from the localStorage
-  */
-  public removeFromWatchList(content: Content): void {
-
-    if (!localStorage.getItem(content.tmdbId + '_watch')) { } {
-      localStorage.removeItem(content.tmdbId + '_watch');
-    }
-  }
-
-  /**
-  * If not already there, adds a content to see in the localStorage
-  */
-  public addToSeenContent(content: Content): void {
-
-    if (!localStorage.getItem(content.tmdbId + '_seen')) { } {
-      localStorage.setItem(content.tmdbId + '_seen', 'true');
-    }
-  }
-
-  /**
-  * If exists, removes a content to see from the localStorage
-  */
-  public removeFromSeenContent(content: Content): void {
-
-    if (!localStorage.getItem(content.tmdbId + '_seen')) { } {
-      localStorage.removeItem(content.tmdbId + '_seen');
-    }
-  }
-
   private extractDuration(data: { runtime: number } | { episode_run_time: number[] }): number {
 
     if (Array.isArray(data['episode_run_time'])) {
@@ -248,8 +196,6 @@ export class ContentDataService implements IContentDataService {
 
     parsedContent.tmdbId = content.id;
     parsedContent.posterUrl = (!!content.poster_path) ? imgBaseUrl + content.poster_path : null;
-    parsedContent.seen = this.isSeen(content.id);
-    parsedContent.toWatch = this.isToWatch(content.id);
     parsedContent.vote_average = content.vote_average;
 
     return parsedContent;

@@ -14,7 +14,7 @@ import { Filter } from '../../models';
 @Injectable({
   providedIn: 'root'
 })
-export class QueryService {
+export class ContentListStateService {
 
   public queryUpdatedSource = new ReplaySubject<string>();
   public queryUpdated$ = this.queryUpdatedSource.asObservable().pipe(debounceTime(300));

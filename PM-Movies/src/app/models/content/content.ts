@@ -6,7 +6,7 @@ export abstract class Content {
 
   public vote_average: number;
 
-  public seen = false;
+  public watched = false;
 
   public toWatch = false;
 

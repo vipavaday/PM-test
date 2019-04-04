@@ -1,22 +1,3 @@
-import { Observable } from 'rxjs';
-
-import {
-  Cast,
-  Content,
-} from '../../models';
-
-
-export interface IContentDataService {
-  getContentInfo(title: string): Observable<Content[]>;
-  getContentDetails(type: string, id: string): Observable<Content>;
-  isSeen(tmdbId: number): boolean;
-  isToWatch(tmdbId: number): boolean;
-  addToWatchList(content: Content): void;
-  removeFromWatchList(content: Content): void;
-  addToSeenContent(content: Content): void;
-  removeFromSeenContent(content: Content): void;
-}
-
 export type MDBOriginCountryJSON = string[];
 
 export type MDBGenreIdsJSON = string[];

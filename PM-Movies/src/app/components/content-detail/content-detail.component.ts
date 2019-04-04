@@ -12,8 +12,8 @@ import {
 import { Subscription } from 'rxjs';
 
 import {
-  ContentDataService,
-  QueryService
+  ContentFetcherService,
+  ContentListStateService
 } from '../../services';
 
 import { Content } from '../../models';
@@ -40,10 +40,10 @@ export class ContentDetailComponent implements OnInit, OnDestroy {
 
 
   constructor(
-    private contentDataProvider: ContentDataService,
+    private contentDataProvider: ContentFetcherService,
     private route: ActivatedRoute,
     private router: Router,
-    private queryService: QueryService
+    private queryService: ContentListStateService
   ) { }
 
   public ngOnInit() {

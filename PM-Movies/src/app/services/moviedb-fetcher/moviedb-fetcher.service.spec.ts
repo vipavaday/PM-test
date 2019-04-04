@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { QueryService } from './query.service';
+import { MoviedbDataService } from './moviedb-fetcher.service';
 
-describe('QueryServiceService', () => {
+describe('MoviedbFetcherService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: QueryService = TestBed.get(QueryService);
+    const service: MoviedbDataService = TestBed.get(MoviedbDataService);
     expect(service).toBeTruthy();
   });
 });

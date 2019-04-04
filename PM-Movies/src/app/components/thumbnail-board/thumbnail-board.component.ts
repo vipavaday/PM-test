@@ -8,8 +8,8 @@ import { Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import {
-  ContentDataService,
-  QueryService
+  ContentFetcherService,
+  ContentListStateService
  } from '../../services';
 
 import {
@@ -36,8 +36,8 @@ export class ThumbnailBoardComponent implements OnInit, OnDestroy {
   public querySubscription: Subscription;
 
   constructor(
-    private contentDataProvider: ContentDataService,
-    private queryService: QueryService
+    private contentDataProvider: ContentFetcherService,
+    private queryService: ContentListStateService
   ) {
 
     this.querySubscription = queryService.queryUpdated$
