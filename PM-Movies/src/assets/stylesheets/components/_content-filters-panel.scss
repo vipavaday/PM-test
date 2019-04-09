@@ -1,32 +1,74 @@
 app-content-filters-panel {
-  .filters-panel {
-    height: 100%;
+
+  .filters-panel-fluid-container {
+    margin-right: $spacing-large;
+    min-width: $sidebar-collapsed-size;
+
+    &.expanded {
+      width: $sidebar-size;
+    }
+  }
+
+  .filters-panel-fixed-container {
+    top: 6rem;
     position: fixed;
-    top: 11rem;
+  }
+
+  .filters-panel {
+    height: 80vh;
     width: $sidebar-size;
-    padding-left: $spacing-xxlarge;
-    padding-right: $spacing-xxlarge;
-    padding-top: $spacing-medium;
-    padding-bottom: $spacing-medium;
-    background: linear-gradient(#e8e8e8 40%, rgba(0, 0, 0, 0.5) 100%);
+    padding: $spacing-medium $spacing-xxlarge $spacing-medium $spacing-xxlarge;
+    background: $filter-tab-gradient;
     border-top-left-radius: $card-top-left-border-radius;
     border-top-right-radius: $card-top-right-border-radius;
     border-bottom-left-radius: $card-bottom-left-border-radius;
     border-bottom-right-radius: $card-bottom-right-border-radius;
-    box-shadow: 0.5rem 1rem 1rem rgba(0, 0, 0, 0.2);
     color: lighten($base-color, 30%);
+  }
 
-    section {
-      padding-top: $spacing-xxlarge;
-      padding-bottom: $spacing-small;
+  .filters-panel-header {
+    background-color: $accent-bg-color;
+    min-width: $sidebar-collapsed-size;
+    width: $sidebar-collapsed-size;
+    height: 4rem;
 
-      &>div{
-        margin-left: $spacing-medium;
+    &.expanded {
+      background: $base-bg-color;
+      width: $sidebar-size;
+      padding-left: $spacing-large;
+      padding-right: $spacing-large;
+    }
+
+    img {
+      width: 2rem;
+
+      &:hover {
+        cursor: pointer;
       }
+    }
+  }
 
-      p {
-        border-bottom: 1px $base-color solid;
-      }
+  .filter-category {
+    padding-top: $spacing-xxlarge;
+    padding-bottom: $spacing-small;
+
+    & > div {
+      margin-left: $spacing-medium;
+    }
+  }
+
+  .filter-category-title {
+    border-bottom: 1px $base-color solid;
+    font-size: $size-xlarge;
+    font-weight: $weight-normal;
+  }
+
+  .filter {
+    padding-top: $spacing-large;
+    padding-bottom: $spacing-large;
+
+    input {
+      width: 25%;
     }
   }
 

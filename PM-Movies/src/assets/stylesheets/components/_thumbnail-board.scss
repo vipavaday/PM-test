@@ -3,6 +3,7 @@ app-thumbnail-board {
 
   .sidebar {
     min-width: 5rem;
+    //box-shadow: $shadow-large-3;
 
     &.expanded {
       width: $sidebar-size;
