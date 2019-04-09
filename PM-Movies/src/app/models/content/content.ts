@@ -4,7 +4,7 @@ export abstract class Content {
 
   public type = '';
 
-  public vote_average: number;
+  public voteAverage: number;
 
   public watched = false;
 
@@ -22,11 +22,17 @@ export abstract class Content {
 
   public visible: boolean;
 
-  public poster_path: string;
+  public posterPath: string;
+
+  public overview: string;
 
   public cast: Cast[];
 
-  public director: string;
+  public directors: string[];
+
+  public originCountries: string[];
+
+  public genres: string[];
 
   constructor(titleN: string, durationN: number, releaseDateN: Date) {
 

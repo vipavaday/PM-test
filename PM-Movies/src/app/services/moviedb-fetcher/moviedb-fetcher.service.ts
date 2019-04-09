@@ -32,8 +32,9 @@ import {
   MDBSearchResultPersonJSON,
   MDBMovieDetailsResponseJSON,
   MDBTvShowDetailsResponseJSON,
-  MDBCreditsResponseJSON,
+  MDBCreditsResponseJSON
 } from './moviedb-fetcher.service.interface';
+import { getRenderedText } from '@angular/core/src/render3';
 
 /**
 * Gets data about contents (Movie, Tv Show) from the TMDB API and localStorage
@@ -120,51 +121,51 @@ export class MoviedbDataService implements IContentFetcherService {
 
   private parseTvShowDetails(contentDetail: MDBTvShowDetailsResponseJSON, credits: MDBCreditsResponseJSON, imgBaseUrl: string): Content {
 
-    const content: Content = new TvShow(
-      contentDetail.name,
-      0,
-      this.parseDate(contentDetail.first_air_date)
-    );
+    const content: Content = new TvShow(contentDetail.name, 0, this.parseDate(contentDetail.first_air_date));
+    this.parseContentCommonDetails(content, contentDetail, imgBaseUrl, credits);
 
-    content.tmdbId = contentDetail.id;
-    content.posterUrl = (!!contentDetail.poster_path) ? imgBaseUrl + contentDetail.poster_path : null;
-    content.vote_average = contentDetail.vote_average;
-    content.duration = this.extractDuration(contentDetail);
-    content.cast = this.getCasts(credits);
-
-    const directors = credits.crew.filter(crewMember => crewMember.job === 'Director');
-    content.director = (directors.length > 0) ? directors[0].name : 'Unknown';
+    const directors = credits.crew.filter(crewMember => crewMember.job === 'Executive Producer');
+    content.directors = directors.map(dir => dir.name);
+    content.originCountries = contentDetail.origin_country;
 
     return content;
   }
 
   private parseMovieDetails(contentDetail: MDBMovieDetailsResponseJSON, credits: MDBCreditsResponseJSON, imgBaseUrl: string): Content {
 
-    const content: Content = new Movie(
-      contentDetail.original_title,
-      0,
-      this.parseDate(contentDetail.release_date)
-    );
-
-    content.tmdbId = contentDetail.id;
-    content.posterUrl = (!!contentDetail.poster_path) ? imgBaseUrl + contentDetail.poster_path : null;
-    content.vote_average = contentDetail.vote_average;
-    content.duration = this.extractDuration(contentDetail);
-    content.cast = this.getCasts(credits);
+    const content: Content = new Movie(contentDetail.original_title, 0, this.parseDate(contentDetail.release_date));
+    this.parseContentCommonDetails(content, contentDetail, imgBaseUrl, credits);
 
     const directors = credits.crew.filter(crewMember => crewMember.job === 'Director');
-    content.director = (directors.length > 0) ? directors[0].name : 'Unknown';
+    content.directors = directors.map(dir => dir.name);
+    content.originCountries = contentDetail.production_countries.map(country => country.iso_3166_1);
 
     return content;
   }
 
-  private getCasts(credits: MDBCreditsResponseJSON): Cast[] {
+  private parseContentCommonDetails(
+    content: Content, contentDetail: MDBTvShowDetailsResponseJSON | MDBMovieDetailsResponseJSON,
+    imgBaseUrl: string,
+    credits: MDBCreditsResponseJSON
+  ) {
+    content.tmdbId = contentDetail.id;
+    content.posterUrl = (!!contentDetail.poster_path) ? imgBaseUrl + contentDetail.poster_path : null;
+    content.voteAverage = contentDetail.vote_average;
+    content.duration = this.extractDuration(contentDetail);
+    content.cast = this.getCasts(credits, imgBaseUrl);
+    content.overview = contentDetail.overview;
+    content.genres = contentDetail.genres.map(genre => genre.name);
+  }
+
+  private getCasts(credits: MDBCreditsResponseJSON, imgBaseUrl: string): Cast[] {
     return credits.cast.map(castJSON => {
       const cast: Cast = new Cast();
       cast.cast_id = castJSON.cast_id;
       cast.character = castJSON.character;
       cast.gender = castJSON.gender;
       cast.name = castJSON.name;
+      cast.avatarPath = imgBaseUrl + castJSON.profile_path;
+
       return cast;
     });
   }
@@ -196,7 +197,8 @@ export class MoviedbDataService implements IContentFetcherService {
 
     parsedContent.tmdbId = content.id;
     parsedContent.posterUrl = (!!content.poster_path) ? imgBaseUrl + content.poster_path : null;
-    parsedContent.vote_average = content.vote_average;
+    parsedContent.voteAverage = content.vote_average;
+    parsedContent.overview = content.overview;
 
     return parsedContent;
   }

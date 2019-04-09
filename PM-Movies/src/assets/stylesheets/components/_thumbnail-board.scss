@@ -1,0 +1,39 @@
+app-thumbnail-board {
+  min-height: 80vh;
+
+  .sidebar {
+    min-width: 5rem;
+
+    &.expanded {
+      width: $sidebar-size;
+      margin-right: $spacing-xxlarge * 3;
+
+      .filters-pan {
+        border-bottom-right-radius: 0;
+        width: $sidebar-size;
+        background-color: $base-bg-color;
+      }
+    }
+  }
+
+  .filters-pan {
+    position: fixed;
+    top: 6rem;
+    margin-top: $spacing-medium;
+    background-color: $accent-bg-color;
+    height: 4rem;
+    text-align: center;
+    vertical-align: middle;
+
+    border-top-left-radius: 0;
+    border-top-right-radius: $card-top-right-border-radius;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: $card-bottom-right-border-radius;
+
+    p {
+      margin-bottom: $spacing-none;
+      padding-left: $spacing-medium;
+      color: $accent-color;
+    }
+  }
+}

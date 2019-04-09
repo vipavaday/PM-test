@@ -1,0 +1,34 @@
+// Font-sizes
+$size-xxsmall: 0.5rem;
+$size-xsmall: 0.72rem;
+$size-small: 0.85rem;
+$size-medium: 1rem;
+$size-large: 1.14rem;
+$size-xlarge: 1.35rem;
+$size-xxlarge: 1.7rem;
+
+// Font-weight
+$weight-normal: 300;
+$weight-bold: 600;
+
+// Inputs size
+$input-size-xxsmall: 0.5rem;
+$input-size-xsmall: 0.72rem;
+$input-size-small: 0.85rem;
+$input-size-medium: 1rem;
+$input-size-large: 1.14rem;
+$input-size-xlarge: 1.35rem;
+$input-size-xxlarge: 50rem;
+
+//Responsive breakpoints
+$breakpoints: (
+  'small':  800px,
+  'medium': 992px,
+  'large':  1200px
+) !default;
+
+//Sidebar width
+$sidebar-size: 18rem;
+
+//Cards width
+$card-size: 18rem;

@@ -1,0 +1,41 @@
+app-content-filters-panel {
+  .filters-panel {
+    height: 100%;
+    position: fixed;
+    top: 11rem;
+    width: $sidebar-size;
+    padding-left: $spacing-xxlarge;
+    padding-right: $spacing-xxlarge;
+    padding-top: $spacing-medium;
+    padding-bottom: $spacing-medium;
+    background: linear-gradient(#e8e8e8 40%, rgba(0, 0, 0, 0.5) 100%);
+    border-top-left-radius: $card-top-left-border-radius;
+    border-top-right-radius: $card-top-right-border-radius;
+    border-bottom-left-radius: $card-bottom-left-border-radius;
+    border-bottom-right-radius: $card-bottom-right-border-radius;
+    box-shadow: 0.5rem 1rem 1rem rgba(0, 0, 0, 0.2);
+    color: lighten($base-color, 30%);
+
+    section {
+      padding-top: $spacing-xxlarge;
+      padding-bottom: $spacing-small;
+
+      &>div{
+        margin-left: $spacing-medium;
+      }
+
+      p {
+        border-bottom: 1px $base-color solid;
+      }
+    }
+  }
+
+  input[type="checkbox"] {
+    height: 1.5rem;
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+}

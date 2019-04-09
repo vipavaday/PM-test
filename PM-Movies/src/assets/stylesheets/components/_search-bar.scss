@@ -1,0 +1,26 @@
+app-search-bar{
+
+  width: 50%;
+
+  img {
+    width: 1.2rem;
+    position: absolute;
+    right: $spacing-xxlarge*1.25;
+    top: 20%;
+  }
+
+  input {
+    border-top-left-radius: $input-top-left-border-radius;
+    border-top-right-radius: $input-top-right-border-radius;
+    border-bottom-left-radius: $input-bottom-left-border-radius;
+    border-bottom-right-radius: $input-bottom-right-border-radius;
+    border: none;
+    padding-left: $spacing-medium;
+    padding-right: $spacing-medium;
+    color: $base-color ;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

@@ -4,20 +4,27 @@
   ],
   "extends": "stylelint-config-standard",
   "rules": {
-    "selector-pseudo-class-no-unknown": [ true, {
-      "ignorePseudoClasses": ["host"]
-    } ],
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": [
+          "host"
+        ]
+      }
+    ],
     "selector-pseudo-element-no-unknown": [
       true,
       {
-        "ignorePseudoElements": ["ng-deep"]
+        "ignorePseudoElements": [
+          "ng-deep"
+        ]
       }
     ],
     "selector-type-no-unknown": null,
-    "order/declaration-block-order": [
+    "order/order": [
       "custom-properties",
       "declarations"
     ],
-    "order/declaration-block-properties-alphabetical-order": true
+    "order/properties-alphabetical-order": true
   }
 }

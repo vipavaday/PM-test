@@ -8,4 +8,6 @@ export class Cast {
 
   public gender: number;
 
+  public avatarPath: string;
+
 }

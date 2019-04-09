@@ -1,0 +1,111 @@
+app-content-thumbnail {
+  .card {
+    margin-top: $spacing-medium;
+    margin-left: $spacing-xxlarge;
+    margin-right: $spacing-xxlarge;
+    width: $card-size;
+    height: $card-size;
+    box-shadow: 1rem 1rem 0.5rem rgba(0, 0, 0, 0.2);
+    border-radius: 0 1rem 0.5rem 0.5rem;
+  }
+
+  .card-body {
+    position: absolute;
+    display: none;
+    height: 80%;
+    width: 100%;
+    background : linear-gradient(0deg, rgba(0, 0, 0, 0.9) 100%, rgba(0, 0, 0, 1) 34%);
+    font-family: "Fira Sans", sans-serif;
+    font-size: $size-medium;
+    color: $contrast-color;
+    padding: $spacing-none;
+    padding-bottom: $spacing-medium;
+    cursor: pointer;
+
+    p{
+      font-size: $size-small;
+      text-align: left;
+      padding: $spacing-medium;
+    }
+  }
+
+  .card-img-top {
+    position: relative;
+    background-color: lighten($base-bg-color, 15);
+    color: $contrast-color;
+    font-size: $size-medium;
+    width: 100%;
+    height: $card-size;
+    text-align: center;
+  }
+
+  .content-title {
+    font-weight: $weight-bold;
+    padding-left: $spacing-medium;
+    padding-right: $spacing-medium;
+    background: linear-gradient(0deg, #000000 6%, rgba(0, 0, 0, 0) 50%);
+
+    p {
+      margin-bottom: $spacing-medium;
+    }
+  }
+
+  p {
+    margin-bottom: $spacing-none;
+  }
+
+  .action-bar {
+    color: $base-bg-color;
+    height: 3rem;
+    width: 12rem;
+    align-items: center;
+
+    div:hover,
+    img:hover {
+      cursor: pointer;
+    }
+
+    img {
+      height: 1.5rem;
+      width: 2rem;
+      object-fit: contain;
+    }
+
+    p {
+      color: $base-bg-color;
+    }
+  }
+
+  .btn{
+    padding-top: $spacing-tiny;
+    padding-bottom: $spacing-tiny;
+    padding-left: $spacing-small;
+    padding-right: $spacing-small;
+
+
+    &:focus{
+      box-shadow: 0 0 0 0.2rem rgba($accent-color,.5);
+    }
+
+    &:hover{
+      background-color: $accent-color;
+      border-color: $accent-color;
+    }
+  }
+
+  .btn-primary {
+    color: $contrast-color;
+    background-color: $accent-color;
+    border-color: $accent-color;
+  }
+
+  .btn-outline-primary {
+    color: $contrast-color;
+    background-color: none;
+    border-color: $accent-color;
+  }
+
+  .content-year {
+    padding: $spacing-medium;
+  }
+}

@@ -1,0 +1,19 @@
+app-root {
+  app-thumbnail-board {
+    width: 100%;
+    margin-top: 5rem;
+  }
+
+  .footer{
+
+    background-color: $accent-bg-color;
+    height: 10vh;
+    z-index: 1000;
+    img{
+
+      height: 60%;
+      object-fit: contain;
+    }
+  }
+
+}

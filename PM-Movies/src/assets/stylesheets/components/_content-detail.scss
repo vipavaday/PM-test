@@ -1,0 +1,91 @@
+app-content-detail {
+  & > div {
+    margin-top: $spacing-xxlarge * 6;
+  }
+
+  section {
+    padding: $spacing-medium;
+    padding-left: $spacing-xxlarge * 4;
+    margin-bottom: $spacing-xxlarge;
+
+    h2 {
+      color: $accent-color;
+    }
+  }
+
+  .title-banner {
+    width: 100%;
+    background: linear-gradient(0.75turn, #e8e8e8 -273%, rgba(0, 0, 0, 0.9));
+    color: $contrast-color;
+
+    p {
+      margin-top: $spacing-xlarge;
+      font-size: $size-large;
+
+      & > span:not(:first-of-type) {
+        padding-left: $spacing-medium;
+      }
+    }
+
+    .director{
+      margin-top: $spacing-tiny;
+      margin-bottom: $spacing-tiny;
+    }
+
+  }
+
+  .content-poster {
+    width: 20rem;
+    position: absolute;
+    right: 10rem;
+  }
+
+  .origin-countries img {
+    padding: $spacing-medium;
+    padding-left: $spacing-none;
+  }
+
+  .directors p strong:not(:first-of-type) {
+    margin-right: $spacing-medium;
+    margin-left: $spacing-medium;
+  }
+
+  .synopsis {
+    width: 50vw;
+    max-width: 50rem;
+
+    h2 {
+      color: $accent-color;
+      margin-bottom: $spacing-large;
+    }
+  }
+
+  .cast-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .cast {
+    display: flex;
+    width: 30rem;
+    align-items: center;
+    padding: $spacing-medium;
+  }
+
+  .cast-avatar {
+    margin: $spacing-medium;
+    background-color: $accent-bg-color;
+    object-fit: cover;
+    object-position: 25% 1%;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 3rem;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  }
+}

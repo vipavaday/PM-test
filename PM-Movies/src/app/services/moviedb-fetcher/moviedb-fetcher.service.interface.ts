@@ -56,6 +56,7 @@ export interface MDBCastResponseJSON {
   character: string;
   gender: number;
   name: string;
+  profile_path: string;
 }
 
 export interface MDBCrewResponseJSON {
@@ -64,6 +65,16 @@ export interface MDBCrewResponseJSON {
   job: string;
 }
 
+export interface MDBProdCountryJSON {
+
+  iso_3166_1: string;
+  name: string;
+}
+
+export interface MDBGenreDetailsResponseJSON {
+  id: number;
+  name: string;
+}
 export interface MDBMovieDetailsResponseJSON {
 
   id: number;
@@ -72,6 +83,9 @@ export interface MDBMovieDetailsResponseJSON {
   original_title: string;
   release_date: string;
   runtime: number;
+  production_countries: MDBProdCountryJSON[];
+  overview: string;
+  genres: MDBGenreDetailsResponseJSON[];
 }
 
 export interface MDBTvShowDetailsResponseJSON {
@@ -82,6 +96,9 @@ export interface MDBTvShowDetailsResponseJSON {
   first_air_date: string;
   name: string;
   episode_run_time: number[];
+  overview: string;
+  origin_country: string[];
+  genres: MDBGenreDetailsResponseJSON[];
 }
 
 export interface MDBSearchResponseJSON {

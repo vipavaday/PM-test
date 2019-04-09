@@ -4,7 +4,6 @@ import {
 } from '@angular/core';
 
 import {
-  ContentFetcherService,
   StorageService
 } from '../../services';
 
@@ -23,27 +22,31 @@ export class ContentThumbnailComponent {
   @Input() public content: Content;
 
   constructor(
-    private dataService: ContentFetcherService,
     private storage: StorageService,
   ) { }
 
-  public addToWatchList() {
-    this.content.toWatch = true;
-    this.storage.addToWatchlist(this.content);
+  public toggleWatchList(event: Event) {
+    this.content.toWatch = !this.content.toWatch ;
+
+    if (this.content.toWatch) {
+      this.storage.addToWatchlist(this.content);
+    } else {
+      this.storage.removeFromWatchList(this.content);
+    }
+
+    event.stopPropagation();
   }
 
-  public removeFromWatchList() {
-    this.content.toWatch = false;
-    this.storage.removeFromWatchList(this.content);
-  }
+  public addToWatchedContents(event: Event) {
 
-  public addToWatchedContents() {
-    this.content.watched = true;
-    this.storage.addToWatchedContents(this.content);
-  }
+    this.content.watched = !this.content.watched;
 
-  public removeFromWatchedContents() {
-    this.content.watched = false;
-    this.storage.removeFromWatchedContents(this.content);
+    if (this.content.toWatch) {
+      this.storage.addToWatchedContents(this.content);
+    } else {
+      this.storage.removeFromWatchedContents(this.content);
+    }
+
+    event.stopPropagation();
   }
 }

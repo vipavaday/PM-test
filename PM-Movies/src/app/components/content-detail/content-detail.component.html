@@ -1,50 +1,56 @@
-<div *ngIf="content != undefined" class="d-flex flex-column align-items-center justify-content-center">
+<div *ngIf="content != undefined" class="d-flex flex-column align-items-start justify-content-center">
 
-  <div class="card w-100">
-
-    <div class="content-duration">
-      <img src="/assets/clock.svg" alt="duration" />
-      <p *ngIf="content.duration | minutesToHours as d; else nullDuration">{{ d }}</p>
-      <ng-template #nullDuration><p i18n="@@content-detail.unknown">Unknown</p></ng-template>
-      <img class="ml-auto my-1 mr-2 back" src="/assets/close.svg" alt="back to home" (click)="goBack()"/>
-    </div>
-
-    <div class="d-flex justify-content-start">
-      <div class="image-top">
-        <img src="{{content.posterUrl}}" alt="Content poster unavailable"/>
+  <section class="title-banner d-flex flex-column justify-content-center">
+    <div>
+      <h1 class="display-4">{{content.title}}</h1>
+      <div>
+        <span>Released on <span class="font-weight-bold">{{ content.releaseDate | date: 'dd MMMM yyyy'}}</span></span>
+        <span> - </span>
+        <span *ngIf="content.duration | minutesToHours as d; else nullDuration" class="font-weight-bold">{{ d }}</span>
+        <ng-template #nullDuration>
+          <span i18n="@@content-detail.unknown">Unknown</span>
+        </ng-template>
+        <span> - </span>
+        <span>{{content.genres.join(' , ')}}</span>
       </div>
+      <div class="directors">
+        <p *ngIf="content.type == 'movie' && content.directors.length < 3; else manyDirectorsMovie">Realized by <strong>{{content.directors.join(" & ")}}</strong></p>
+        <p *ngIf="content.type == 'tv' && content.directors.length < 3; else manyDirectorsTv">Created by <strong>{{content.directors.join(" & ")}}</strong></p>
+        <ng-template *ngIf="content.type == 'tv'" #manyDirectorsTv>
+            <p>Created by : </p>
+            <p *ngFor="let director of content.directors" class="director"><strong>{{director}}</strong></p>
+        </ng-template>
+        <ng-template *ngIf="content.type == 'tv'" #manyDirectorsMovie>
+            <p>Realized by : </p>
+            <p *ngFor="let director of content.directors" class="director"><strong>{{director}}</strong></p>
+        </ng-template>
+      </div>
+      <div class="origin-countries">
+        <img *ngFor="let country of content.originCountries"
+          src="https://www.countryflags.io/{{country}}/flat/32.png" />
+      </div>
+    </div>
+    <img class="content-poster" src="{{content.posterUrl}}" alt="content poster" />
+  </section>
 
-      <div *ngIf="content.cast != undefined && content.director != undefined" class="m-auto">
-        <div class="d-flex justify-content-between ">
-          <div class="px-4">
-            <h2>Main cast</h2>
-            <ul class="list-group">
-              <li *ngFor="let cast of content.cast | slice:0:5" class="list-group-item">{{cast.name}}</li>
-            </ul>
-          </div>
+  <section class="synopsis">
+    <h2>Synopsis</h2>
+    <p>{{content.overview}}</p>
+  </section>
 
-          <div class="px-4">
-            <h2>Director</h2>
-            <p>{{content.director}}</p>
-          </div>
-
-          <div class="px-4">
-            <h2>Vote average</h2>
-            <p>{{content.vote_average}}</p>
-          </div>
+  <section>
+    <h2>Cast</h2>
+    <div class="cast-list">
+      <div *ngFor="let cast of content.cast | slice:0:10" class="cast">
+        <div class="cast-avatar">
+          <img *ngIf="!cast.avatarPath.includes('null')" src="{{cast.avatarPath}}" alt="cast avatar" />
         </div>
+        <div>
+          <h3 class="lead">{{cast.name}}</h3>
+          <p>In the role of <strong>{{cast.character}}</strong></p>
+        </div>
+
       </div>
     </div>
 
-
-    <div class="card-body">
-
-      <div class="content-title">
-        <p>{{content.title}}</p>
-      </div>
-
-    </div>
-  </div>
-
-  <div *ngIf="content.releaseDate.getFullYear() != 0801" class="content-year">{{ content.releaseDate | date: 'yyyy'}}</div>
-</div>
+  </section>

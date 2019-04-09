@@ -1,9 +1,8 @@
 <div class="mx-auto d-flex justify-content-between">
-  <div class="h-auto">
-    <div (click)="toggleFiltersPane()" [class.expanded]="!filtersPaneHidden" class=" px-4 filters-pan d-flex justify-content-between align-items-center">
-      <img src="/assets/filter.svg" alt="" />
-      <p>Filters</p>
-      <img *ngIf="!filtersPaneHidden" src="/assets/close.svg" alt="Close filter panel" />
+  <div class="h-auto sidebar" [class.expanded]="!filtersPaneHidden">
+    <div (click)="toggleFiltersPane()" class=" px-4 filters-pan d-flex justify-content-between align-items-center">
+      <img src="/assets/icons/filter.svg" alt="" />
+      <img *ngIf="!filtersPaneHidden" src="/assets/icons/close.svg" alt="Close filter panel" />
     </div>
 
     <app-content-filters-panel (updateFilter)="onUpdateFilter($event)" [hidden]="filtersPaneHidden">
