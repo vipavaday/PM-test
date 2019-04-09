@@ -1,18 +1,18 @@
-.card {
-  position: relative;
+.detail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 }
 
-.card-body {
-  position: relative;
-  max-height: 5rem;
+.detail-jumbotron {
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  width: 100%;
 }
 
-.image-top {
-  height: 25rem;
-  text-align: center;
-}
-
-.content-main-information {
+.content-main-info {
   align-items: center;
   display: flex;
 }
@@ -21,5 +21,4 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 5rem;
 }

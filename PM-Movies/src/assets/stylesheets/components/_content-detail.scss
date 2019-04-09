@@ -13,8 +13,7 @@ app-content-detail {
     }
   }
 
-  .title-banner {
-    width: 100%;
+  .detail-jumbotron {
     background: linear-gradient(0.75turn, #e8e8e8 -273%, rgba(0, 0, 0, 0.9));
     color: $contrast-color;
 
@@ -26,19 +25,41 @@ app-content-detail {
         padding-left: $spacing-medium;
       }
     }
-
-    .director{
-      margin-top: $spacing-tiny;
-      margin-bottom: $spacing-tiny;
-    }
-
   }
 
-  .content-main-property:not(:last-child),
-  .separator {
+  .jumbotron-title {
+    font-size: $input-size-xxlarge;
+  }
+
+  .jumbotron-section{
+    margin-top: $spacing-medium;
+    margin-bottom: $spacing-medium;
+  }
+
+  .jumbotron-property {
+    font-size: $size-large;
+
+    &:not(:last-child), & label {
+      margin-right: $spacing-xxsmall;
+    }
+  }
+
+  .director {
+    margin-top: $spacing-tiny;
+    margin-bottom: $spacing-tiny;
+  }
+
+  label{
+    margin: $spacing-none;
+  }
+
+  .error-label{
+    font-size: $size-large;
+  }
+
+  .separator{
     margin-right: $spacing-xxsmall;
   }
-
 
   .content-poster {
     width: 20rem;
@@ -46,7 +67,15 @@ app-content-detail {
     right: 10rem;
   }
 
-  .origin-countries img {
+  ul{
+    padding: $spacing-none;
+  }
+
+  li{
+    list-style: none;
+  }
+
+  .content-origin-countries img {
     padding: $spacing-medium;
     padding-left: $spacing-none;
   }

@@ -1,45 +1,58 @@
-<div *ngIf="content" class="d-flex flex-column align-items-start justify-content-center">
+<div *ngIf="content" class="detail-container">
 
-  <section class="title-banner d-flex flex-column justify-content-center">
-    <div class="title-banner-content">
-      <h1 class="display-4">{{content.title}}</h1>
-      <div class="content-main-information">
-        <div class="content-main-property">Released on <span class="content-release-date">{{ content.releaseDate | date: 'dd MMMM yyyy'}}</span></div>
-        <span class="separator"> - </span>
-        <div
-          *ngIf="content.duration > 0 | minutesToHours as duration; else nullDuration"
-          class="content-duration content-main-property"
-        >{{ duration }}</div>
+  <section class="detail-jumbotron">
+    <div class="detail-jumbotron-content">
+      <h1 class="jumbotron-title">{{ content.title }}</h1>
+      <div class="jumbotron-section content-main-info">
+        <div class="jumbotron-property">
+          <label>Released on</label>
+          <strong class="content-release-date">{{ content.releaseDate | date: 'dd MMMM yyyy' }}</strong>
+        </div>
+        <span class="separator">-</span>
+        <div *ngIf="content.duration | minutesToHours as duration; else nullDuration"
+          class="content-duration jumbotron-property">{{ duration }}
+        </div>
         <ng-template #nullDuration>
-          <div i18n="@@content-detail.unknown">Unknown</div>
+          <label class="error-label" i18n="@@content-detail.unknown">Unknown duration</label>
         </ng-template>
-        <span class="separator"> - </span>
-        <div class="content-genres content-main-property">{{content.genres.join(', ')}}</div>
-      </div>
-
-      <div class="title-banner-directors">
-        <p *ngIf="content.type == 'movie' && content.directors.length < 3; else manyDirectorsMovie">Realized by <strong>{{content.directors.join(" & ")}}</strong></p>
-        <p *ngIf="content.type == 'tv' && content.directors.length < 3; else manyDirectorsTv">Created by <strong>{{content.directors.join(" & ")}}</strong></p>
-        <ng-template *ngIf="content.type == 'tv'" #manyDirectorsTv>
-          <label>Created by :</label>
-          <p *ngFor="let director of content.directors" class="director"><strong>{{director}}</strong></p>
-        </ng-template>
-        <ng-template *ngIf="content.type == 'tv'" #manyDirectorsMovie>
-          <label>Realized by :</label>
-          <p *ngFor="let director of content.directors" class="title-banner-director"><strong>{{director}}</strong></p>
+        <span class="separator">-</span>
+        <div *ngIf="content.genres.length; else nullGenres" class="content-genres jumbotron-property">
+          {{ content.genres.join(', ') }}
+        </div>
+        <ng-template #nullGenres>
+          <label class="error-label" i18n="@@content-genres.unknown">Unknown genre</label>
         </ng-template>
       </div>
-      <div class="origin-countries">
-        <img *ngFor="let country of content.originCountries"
-          src="https://www.countryflags.io/{{country}}/flat/32.png" />
+      <div class="jumbotron-section content-directors">
+        <ng-template *ngIf="!content.directors.length">
+          <label class="error-label" i18n="@@content-directors.unknown">Unknown directors</label>
+        </ng-template>
+        <ng-container *ngIf="content.directors.length < 3; else manyDirectors">
+          <div class="jumbotron-property">
+            <label>{{ content.type === 'movie'? 'Movie realized by':'Tv show created by' }}</label>
+            <strong>{{ content.directors.join(' & ') }}</strong>
+          </div>
+        </ng-container>
+        <ng-template #manyDirectors>
+          <label>{{ content.type === 'movie'? 'Movie realized by :':'Tv show created by :' }}</label>
+          <p *ngFor="let director of content.directors" class="director"><strong>{{ director }}</strong></p>
+        </ng-template>
       </div>
+      <ul class="jumbotron-section content-origin-countries">
+        <li *ngFor="let country of content.originCountries">
+          <img src="https://www.countryflags.io/{{ country }}/flat/32.png" />
+        </li>
+        <li *ngIf="!content.originCountries.length" i18n="@@content-origin-countries.unknown">
+          <label class="error-label">Unknown origin country</label>
+        </li>
+      </ul>
     </div>
-    <img class="content-poster" src="{{content.posterUrl}}" alt="content poster" />
+    <img class="content-poster" src="{{ content.posterUrl }}" alt="content poster" />
   </section>
 
   <section class="synopsis">
     <h2>Synopsis</h2>
-    <p>{{content.overview}}</p>
+    <p>{{ content.overview }}</p>
   </section>
 
   <section>
@@ -47,12 +60,13 @@
     <div class="cast-list">
       <div *ngFor="let cast of content.cast | slice:0:10" class="cast">
         <div class="cast-avatar">
-          <img *ngIf="!cast.avatarPath.includes('null')" src="{{cast.avatarPath}}" alt="cast avatar" />
+          <img *ngIf="!cast.avatarPath.includes('null')" src="{{ cast.avatarPath }}" alt="cast avatar" />
         </div>
         <div>
-          <h3 class="lead">{{cast.name}}</h3>
-          <p>In the role of <strong>{{cast.character}}</strong></p>
+          <h3 class="lead">{{ cast.name }}</h3>
+          <p>In the role of <strong>{{ cast.character }}</strong></p>
         </div>
       </div>
     </div>
   </section>
+</div>

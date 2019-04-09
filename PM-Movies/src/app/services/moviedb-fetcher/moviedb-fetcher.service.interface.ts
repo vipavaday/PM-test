@@ -99,6 +99,7 @@ export interface MDBTvShowDetailsResponseJSON {
   overview: string;
   origin_country: string[];
   genres: MDBGenreDetailsResponseJSON[];
+  created_by: MDBCrewResponseJSON[];
 }
 
 export interface MDBSearchResponseJSON {

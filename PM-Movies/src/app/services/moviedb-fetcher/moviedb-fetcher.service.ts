@@ -35,6 +35,7 @@ import {
   MDBCreditsResponseJSON
 } from './moviedb-fetcher.service.interface';
 import { getRenderedText } from '@angular/core/src/render3';
+import { createWiresService } from 'selenium-webdriver/firefox';
 
 /**
 * Gets data about contents (Movie, Tv Show) from the TMDB API and localStorage
@@ -123,9 +124,7 @@ export class MoviedbDataService implements IContentFetcherService {
 
     const content: Content = new TvShow(contentDetail.name, 0, this.parseDate(contentDetail.first_air_date));
     this.parseContentCommonDetails(content, contentDetail, imgBaseUrl, credits);
-
-    const directors = credits.crew.filter(crewMember => crewMember.job === 'Executive Producer');
-    content.directors = directors.map(dir => dir.name);
+    content.directors = contentDetail.created_by.map(creator => creator.name);
     content.originCountries = contentDetail.origin_country;
 
     return content;
