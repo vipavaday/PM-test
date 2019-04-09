@@ -34,6 +34,12 @@ app-content-detail {
 
   }
 
+  .content-main-property:not(:last-child),
+  .separator {
+    margin-right: $spacing-xxsmall;
+  }
+
+
   .content-poster {
     width: 20rem;
     position: absolute;

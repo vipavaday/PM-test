@@ -1,28 +1,32 @@
-<div *ngIf="content != undefined" class="d-flex flex-column align-items-start justify-content-center">
+<div *ngIf="content" class="d-flex flex-column align-items-start justify-content-center">
 
   <section class="title-banner d-flex flex-column justify-content-center">
-    <div>
+    <div class="title-banner-content">
       <h1 class="display-4">{{content.title}}</h1>
-      <div>
-        <span>Released on <span class="font-weight-bold">{{ content.releaseDate | date: 'dd MMMM yyyy'}}</span></span>
-        <span> - </span>
-        <span *ngIf="content.duration | minutesToHours as d; else nullDuration" class="font-weight-bold">{{ d }}</span>
+      <div class="content-main-information">
+        <div class="content-main-property">Released on <span class="content-release-date">{{ content.releaseDate | date: 'dd MMMM yyyy'}}</span></div>
+        <span class="separator"> - </span>
+        <div
+          *ngIf="content.duration > 0 | minutesToHours as duration; else nullDuration"
+          class="content-duration content-main-property"
+        >{{ duration }}</div>
         <ng-template #nullDuration>
-          <span i18n="@@content-detail.unknown">Unknown</span>
+          <div i18n="@@content-detail.unknown">Unknown</div>
         </ng-template>
-        <span> - </span>
-        <span>{{content.genres.join(' , ')}}</span>
+        <span class="separator"> - </span>
+        <div class="content-genres content-main-property">{{content.genres.join(', ')}}</div>
       </div>
-      <div class="directors">
+
+      <div class="title-banner-directors">
         <p *ngIf="content.type == 'movie' && content.directors.length < 3; else manyDirectorsMovie">Realized by <strong>{{content.directors.join(" & ")}}</strong></p>
         <p *ngIf="content.type == 'tv' && content.directors.length < 3; else manyDirectorsTv">Created by <strong>{{content.directors.join(" & ")}}</strong></p>
         <ng-template *ngIf="content.type == 'tv'" #manyDirectorsTv>
-            <p>Created by : </p>
-            <p *ngFor="let director of content.directors" class="director"><strong>{{director}}</strong></p>
+          <label>Created by :</label>
+          <p *ngFor="let director of content.directors" class="director"><strong>{{director}}</strong></p>
         </ng-template>
         <ng-template *ngIf="content.type == 'tv'" #manyDirectorsMovie>
-            <p>Realized by : </p>
-            <p *ngFor="let director of content.directors" class="director"><strong>{{director}}</strong></p>
+          <label>Realized by :</label>
+          <p *ngFor="let director of content.directors" class="title-banner-director"><strong>{{director}}</strong></p>
         </ng-template>
       </div>
       <div class="origin-countries">
@@ -49,8 +53,6 @@
           <h3 class="lead">{{cast.name}}</h3>
           <p>In the role of <strong>{{cast.character}}</strong></p>
         </div>
-
       </div>
     </div>
-
   </section>
