@@ -6,12 +6,12 @@ app-search-bar {
     padding-right: $spacing-xlarge;
   }
 
-  img {
+  .search-bar-icon {
     width: 40px;
     height: 40px;
   }
 
-  input {
+  .search-bar-input {
     background-color: $accent-bg-color;
     border-top-left-radius: $input-top-left-border-radius;
     border-top-right-radius: $input-top-right-border-radius;

@@ -9,17 +9,15 @@ app-root {
     margin-top: $margin-to-header;
   }
 
-  .footer{
-
+  .app-footer{
     background-color: $accent-bg-color;
     height: 10vh;
     z-index: 1000;
+  }
 
-    img{
-
-      height: 60%;
-      object-fit: contain;
-    }
+  .api-use-logo{
+    height: 60%;
+    object-fit: contain;
   }
 
 }

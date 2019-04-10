@@ -7,7 +7,8 @@ app-content-thumbnail {
     width: $card-size;
     height: $card-size;
     box-shadow: $shadow-medium-3;
-    border-radius: $card-top-left-border-radius $card-top-right-border-radius $card-bottom-left-border-radius $card-bottom-right-border-radius;
+    border-radius: $card-top-left-border-radius $card-top-right-border-radius $card-bottom-left-border-radius
+      $card-bottom-right-border-radius;
   }
 
   .card-body {
@@ -22,12 +23,12 @@ app-content-thumbnail {
     padding: $spacing-none;
     padding-bottom: $spacing-medium;
     cursor: pointer;
+  }
 
-    p {
-      font-size: $size-small;
-      text-align: left;
-      padding: $spacing-medium;
-    }
+  .content-overview {
+    font-size: $size-small;
+    text-align: left;
+    margin: $spacing-large;
   }
 
   .card-img-top {
@@ -42,18 +43,12 @@ app-content-thumbnail {
 
   .content-title {
     font-weight: $weight-bold;
-    padding-left: $spacing-medium;
-    padding-right: $spacing-medium;
-    background: linear-gradient(0deg, #000000 6%, rgba(0, 0, 0, 0) 50%);
-
-    p {
-      margin-bottom: $spacing-medium;
-      text-align: left;
-    }
-  }
-
-  p {
+    padding: $spacing-medium;
     margin-bottom: $spacing-none;
+    background: linear-gradient(0deg, #000000 6%, rgba(0, 0, 0, 0) 50%);
+    position: absolute;
+    bottom: 0;
+    text-align: left;
   }
 
   .action-bar {
@@ -61,24 +56,9 @@ app-content-thumbnail {
     height: 3rem;
     width: 12rem;
     align-items: center;
-
-    div:hover,
-    img:hover {
-      cursor: pointer;
-    }
-
-    img {
-      height: 1.5rem;
-      width: 2rem;
-      object-fit: contain;
-    }
-
-    p {
-      color: $base-bg-color;
-    }
   }
 
-  img {
+  .content-poster {
     height: 100%;
     width: 100%;
     object-fit: cover;
@@ -95,12 +75,13 @@ app-content-thumbnail {
     }
 
     &:hover {
-      background-color: darken($accent-color,5);
-      border-color: darken($accent-color,5);
+      background-color: darken($accent-color, 5);
+      border-color: darken($accent-color, 5);
     }
 
-    &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled):focus:active{
-      background-color: darken($accent-color,5);
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled):focus:active {
+      background-color: darken($accent-color, 5);
       border-color: $accent-color;
       box-shadow: 0 0 0 0.2rem $accent-color;
     }
@@ -127,7 +108,7 @@ app-content-thumbnail {
     padding: $spacing-medium;
   }
 
-  .content-year-val{
+  .content-year-val {
     font-weight: $weight-bold;
   }
 }

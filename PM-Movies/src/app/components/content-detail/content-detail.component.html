@@ -1,11 +1,11 @@
 <div *ngIf="content" class="detail-container">
 
-  <section class="detail-jumbotron">
+  <section class="detail-section detail-jumbotron">
     <div class="detail-jumbotron-content">
       <h1 class="jumbotron-title">{{ content.title }}</h1>
       <div class="jumbotron-section content-main-info">
         <div class="jumbotron-property">
-          <label>Released on</label>
+          <label class="jumbotron-property-label">Released on</label>
           <strong class="content-release-date">{{ content.releaseDate | date: 'dd MMMM yyyy' }}</strong>
         </div>
         <span class="separator">-</span>
@@ -24,23 +24,26 @@
         </ng-template>
       </div>
       <div class="jumbotron-section content-directors">
-        <ng-template *ngIf="!content.directors.length">
-          <label class="error-label" i18n="@@content-directors.unknown">Unknown directors</label>
-        </ng-template>
-        <ng-container *ngIf="content.directors.length < 3; else manyDirectors">
+        <label *ngIf="content.directors.length === 0" class="error-label" i18n="@@content-directors.unknown">Unknown director</label>
+        <ng-container *ngIf="content.directors.length !== 0 && content.directors.length < 3; else manyDirectors">
           <div class="jumbotron-property">
-            <label>{{ content.type === 'movie'? 'Movie realized by':'Tv show created by' }}</label>
+            <label
+              class="jumbotron-property-label">{{ content.type === 'movie'? 'Movie realized by':'Tv show created by' }}</label>
             <strong>{{ content.directors.join(' & ') }}</strong>
           </div>
         </ng-container>
-        <ng-template #manyDirectors>
-          <label>{{ content.type === 'movie'? 'Movie realized by :':'Tv show created by :' }}</label>
-          <p *ngFor="let director of content.directors" class="director"><strong>{{ director }}</strong></p>
+        <ng-template *ngIf="content.directors.length !== 0" #manyDirectors>
+          <label
+            class="jumbotron-property-label">{{ content.type === 'movie'? 'Movie realized by :':'Tv show created by :' }}
+          </label>
+          <p *ngFor="let director of content.directors" class="director">
+            <strong class="director-name">{{ director }}</strong>
+          </p>
         </ng-template>
       </div>
-      <ul class="jumbotron-section content-origin-countries">
-        <li *ngFor="let country of content.originCountries">
-          <img src="https://www.countryflags.io/{{ country }}/flat/32.png" />
+      <ul class="jumbotron-section content-origin-country-list">
+        <li class="content-origin-country" *ngFor="let country of content.originCountries">
+          <img class="country-flag" src="https://www.countryflags.io/{{ country }}/flat/32.png" />
         </li>
         <li *ngIf="!content.originCountries.length" i18n="@@content-origin-countries.unknown">
           <label class="error-label">Unknown origin country</label>
@@ -50,21 +53,24 @@
     <img class="content-poster" src="{{ content.posterUrl }}" alt="content poster" />
   </section>
 
-  <section class="synopsis">
-    <h2>Synopsis</h2>
+  <section class="detail-section synopsis">
+    <h2 class="detail-section-title">Synopsis</h2>
     <p>{{ content.overview }}</p>
   </section>
 
-  <section>
-    <h2>Cast</h2>
+  <section class="detail-section">
+    <h2 class="detail-section-title">Cast</h2>
     <div class="cast-list">
       <div *ngFor="let cast of content.cast | slice:0:10" class="cast">
-        <div class="cast-avatar">
-          <img *ngIf="!cast.avatarPath.includes('null')" src="{{ cast.avatarPath }}" alt="cast avatar" />
-        </div>
+        <img src="{{ cast.avatarPath.includes('null')? '': cast.avatarPath }}" alt="cast avatar"
+        class="cast-avatar" [class.broken]="(cast.avatarPath.includes('null'))"
+        />
         <div>
-          <h3 class="lead">{{ cast.name }}</h3>
-          <p>In the role of <strong>{{ cast.character }}</strong></p>
+          <h3 class="cast-name">{{ cast.name }}</h3>
+          <p *ngIf="cast.character; else nullRole">In the role of <strong>{{ cast.character }}</strong></p>
+          <ng-template #nullRole>
+              <label class="error-label" i18n="@@content-cast-role.unknown">Unknown role</label>
+          </ng-template>
         </div>
       </div>
     </div>

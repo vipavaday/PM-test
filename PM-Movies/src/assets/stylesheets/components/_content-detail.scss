@@ -1,37 +1,29 @@
 app-content-detail {
-  & > div {
+  .detail-container {
     margin-top: $spacing-xxlarge * 6;
   }
 
-  section {
+  .detail-section {
     padding: $spacing-medium;
     padding-left: $spacing-xxlarge * 4;
     margin-bottom: $spacing-xxlarge;
+  }
 
-    h2 {
-      color: $accent-color;
-    }
+  .detail-section-title {
+    color: $accent-color;
+    margin-bottom: $spacing-large;
   }
 
   .detail-jumbotron {
-    background: linear-gradient(0.75turn, #e8e8e8 -273%, rgba(0, 0, 0, 0.9));
+    background: $detail-jumbotron-gradient;
     color: $contrast-color;
-
-    p {
-      margin-top: $spacing-xlarge;
-      font-size: $size-large;
-
-      & > span:not(:first-of-type) {
-        padding-left: $spacing-medium;
-      }
-    }
   }
 
   .jumbotron-title {
     font-size: $input-size-xxlarge;
   }
 
-  .jumbotron-section{
+  .jumbotron-section {
     margin-top: $spacing-medium;
     margin-bottom: $spacing-medium;
   }
@@ -39,7 +31,8 @@ app-content-detail {
   .jumbotron-property {
     font-size: $size-large;
 
-    &:not(:last-child), & label {
+    &:not(:last-child),
+    & label {
       margin-right: $spacing-xxsmall;
     }
   }
@@ -49,15 +42,15 @@ app-content-detail {
     margin-bottom: $spacing-tiny;
   }
 
-  label{
+  .jumbotron-property-label {
     margin: $spacing-none;
   }
 
-  .error-label{
+  .error-label {
     font-size: $size-large;
   }
 
-  .separator{
+  .separator {
     margin-right: $spacing-xxsmall;
   }
 
@@ -67,20 +60,20 @@ app-content-detail {
     right: 10rem;
   }
 
-  ul{
+  .content-origin-country-list {
     padding: $spacing-none;
   }
 
-  li{
+  .content-origin-country {
     list-style: none;
   }
 
-  .content-origin-countries img {
+  .country-flag {
     padding: $spacing-medium;
     padding-left: $spacing-none;
   }
 
-  .directors p strong:not(:first-of-type) {
+  .director-name {
     margin-right: $spacing-medium;
     margin-left: $spacing-medium;
   }
@@ -88,11 +81,6 @@ app-content-detail {
   .synopsis {
     width: 50vw;
     max-width: 50rem;
-
-    h2 {
-      color: $accent-color;
-      margin-bottom: $spacing-large;
-    }
   }
 
   .cast-list {
@@ -105,22 +93,37 @@ app-content-detail {
     width: 30rem;
     align-items: center;
     padding: $spacing-medium;
+    padding-left: $spacing-none;
   }
 
   .cast-avatar {
+    position: relative;
     margin: $spacing-medium;
-    background-color: $accent-bg-color;
+    margin-left: $spacing-none;
     object-fit: cover;
     object-position: 25% 1%;
     width: 5rem;
     height: 5rem;
     border-radius: 3rem;
     overflow: hidden;
+    display: block;
 
-    img {
-      width: 100%;
-      height: auto;
+    &.broken:after {
+      position: absolute;
       display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: $accent-bg-color;
+      width: 5rem;
+      height: 5rem;
+      border-radius: 3rem;
+      content: "";
     }
+  }
+
+  .cast-name {
+    font-weight: $weight-bold;
+    font-size: $size-large;
   }
 }

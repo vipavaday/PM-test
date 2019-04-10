@@ -1,5 +1,4 @@
 app-content-filters-panel {
-
   .filters-panel-fluid-container {
     margin-right: $spacing-large;
     min-width: $sidebar-collapsed-size;
@@ -42,23 +41,19 @@ app-content-filters-panel {
       padding-left: $spacing-large;
       padding-right: $spacing-large;
     }
+  }
 
-    img {
-      width: 2rem;
+  .filters-panel-header-icon {
+    width: 2rem;
 
-      &:hover {
-        cursor: pointer;
-      }
+    &:hover {
+      cursor: pointer;
     }
   }
 
   .filter-category {
     padding-top: $spacing-xxlarge;
     padding-bottom: $spacing-small;
-
-    & > div {
-      margin-left: $spacing-medium;
-    }
   }
 
   .filter-category-title {
@@ -70,18 +65,19 @@ app-content-filters-panel {
   .filter {
     padding-top: $spacing-large;
     padding-bottom: $spacing-large;
+    margin-left: $spacing-medium;
+  }
 
-    input {
-      width: 25%;
+  .filter-input {
+    width: 25%;
+
+    &[type="checkbox"] {
+      height: 1.5rem;
     }
   }
 
-  input[type="checkbox"] {
-    height: 1.5rem;
-
-    &:focus {
-      outline: none;
-      box-shadow: none;
-    }
+  .form-control:focus{
+    outline: none;
+    box-shadow: none;
   }
 }

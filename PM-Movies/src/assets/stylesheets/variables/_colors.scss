@@ -10,6 +10,7 @@ $contrast-bg-color: #000000;
 
 // Gradients
 $filter-tab-gradient: linear-gradient($base-bg-color 40%, rgba($contrast-bg-color, 0.5) 100%);
+$detail-jumbotron-gradient: linear-gradient(0.75turn, $base-bg-color -273%, rgba($contrast-bg-color, 0.9));
 
 // Shadows
 $shadow-small-1: 7px 14px 2px rgba($contrast-bg-color, 0.4);

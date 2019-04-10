@@ -1,8 +1,8 @@
 <div class="filters-panel-fluid-container" [class.expanded]="!hidden"></div>
 <div class="filters-panel-fixed-container" >
   <div class="filters-panel-header" [class.expanded]="!hidden" (click)="hidden=!hidden">
-    <img src="/assets/icons/filter.svg" alt="" />
-    <img *ngIf="!hidden" src="/assets/icons/close.svg" alt="Close filter panel" />
+    <img src="/assets/icons/filter.svg" alt="filter icon" class="filters-panel-header-icon" />
+    <img *ngIf="!hidden" src="/assets/icons/close.svg" alt="Close filter panel" class="filters-panel-header-icon"/>
   </div>
 
   <div class="filters-panel" *ngIf="!hidden">
@@ -12,11 +12,11 @@
 
       <div class="filter">
         <label for="movieCat">Movies</label>
-        <input type="checkbox" checked (click)="toggleShowMovies()" name="movieCat" class="form-control" />
+        <input type="checkbox" checked (click)="toggleShowMovies()" name="movieCat" class="form-control filter-input" />
       </div>
       <div class="filter">
         <label for="tvCat">TV Shows</label>
-        <input type="checkbox" checked (click)="toggleShowTvShows()" name="tvCat" class="form-control" />
+        <input type="checkbox" checked (click)="toggleShowTvShows()" name="tvCat" class="form-control filter-input" />
       </div>
     </section>
 
@@ -27,7 +27,7 @@
         <label for="gt-release-date">After</label>
         <div class="input-group">
           <input id="gt-release-date" value="{{ filter.gtReleaseDate }}" #gtDate (input)="updateGtDate(gtDate.value)"
-            name="gt-release-date" type="date" class="form-control" />
+            name="gt-release-date" type="date" class="form-control filter-input"/>
           <div class="input-group-append">
             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
           </div>
@@ -38,7 +38,7 @@
         <label for="lt-realease-date">Before</label>
         <div class="input-group">
           <input id="lt-realease-date" value="{{ filter.ltReleaseDate }}" #ltDate (input)="updateLtDate(ltDate.value)"
-            name="lt-realease-date" type="date" class="form-control" />
+            name="lt-realease-date" type="date" class="form-control filter-input"/>
           <div class="input-group-append">
             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
           </div>
