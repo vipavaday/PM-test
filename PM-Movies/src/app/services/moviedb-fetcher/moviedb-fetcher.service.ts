@@ -34,8 +34,6 @@ import {
   MDBTvShowDetailsResponseJSON,
   MDBCreditsResponseJSON
 } from './moviedb-fetcher.service.interface';
-import { getRenderedText } from '@angular/core/src/render3';
-import { createWiresService } from 'selenium-webdriver/firefox';
 
 /**
 * Gets data about contents (Movie, Tv Show) from the TMDB API and localStorage

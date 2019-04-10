@@ -11,12 +11,12 @@
       <div class="action-bar">
         <button type="button" [class.btn-primary]="content.toWatch"
           [class.btn-outline-primary]="!content.toWatch"
-          class="btn" (click)="toggleWatchList($event)"
+          class="btn" [class.enabled]="content.toWatch" (click)="toggleWatchList($event)"
           >A voir
         </button>
         <button type="button" [class.btn-primary]="content.watched"
           [class.btn-outline-primary]="!content.watched"
-          class="btn" (click)="addToWatchedContents($event)"
+          class="btn" [class.enabled]="content.watched" (click)="addToWatchedContents($event)"
           >Déja vu
         </button>
       </div>

@@ -9,3 +9,6 @@ $spacing-medium: 1rem;
 $spacing-large: 1.25rem;
 $spacing-xlarge: 1.563rem;
 $spacing-xxlarge: 1.965rem;
+
+// Margin after header
+$margin-to-header: $header-height + $spacing-xxlarge*1.5;

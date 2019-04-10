@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ContentListStateService } from './content-state.service';
+import { ContentListStateService } from './content-list-state.service';
 
 describe('ContentListStateService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

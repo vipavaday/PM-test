@@ -1,7 +1,4 @@
 <div class="search-area">
-  <input
-    #searchQuery type="search" placeholder="Search"
-    (input)="onSearchUpdate(searchQuery.value)"
-  />
   <img src="/assets/icons/search.svg" alt="search-icon" />
+  <input #searchQuery type="search" placeholder="Search" (input)="onSearchUpdate(searchQuery.value)" />
 </div>

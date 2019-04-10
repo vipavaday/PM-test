@@ -1,7 +1,12 @@
 app-root {
+
+  .app-root-container{
+    min-height: 100vh;
+  }
+
   app-thumbnail-board {
     width: 100%;
-    margin-top: 5rem;
+    margin-top: $margin-to-header;
   }
 
   .footer{
@@ -9,6 +14,7 @@ app-root {
     background-color: $accent-bg-color;
     height: 10vh;
     z-index: 1000;
+
     img{
 
       height: 60%;

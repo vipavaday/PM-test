@@ -1,8 +1,15 @@
 app-thumbnail-board {
-  min-height: 80vh;
 
   .thumbnail-board-container{
     margin-left: auto;
     margin-left: auto;
+    min-height: 80vh;
+  }
+
+  .thumbnail-board-empty-msg{
+    text-align: center;
+    color: lighten($base-color,70);
+    font-weight: $weight-bold;
+    font-size: $size-xxlarge;
   }
 }

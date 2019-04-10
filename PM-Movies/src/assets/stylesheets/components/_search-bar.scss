@@ -7,13 +7,12 @@ app-search-bar {
   }
 
   img {
-    width: 1.2rem;
-    position: absolute;
-    right: $spacing-xxlarge * 1.25;
-    top: 20%;
+    width: 40px;
+    height: 40px;
   }
 
   input {
+    background-color: $accent-bg-color;
     border-top-left-radius: $input-top-left-border-radius;
     border-top-right-radius: $input-top-right-border-radius;
     border-bottom-left-radius: $input-bottom-left-border-radius;
@@ -21,7 +20,9 @@ app-search-bar {
     border: none;
     padding-left: $spacing-medium;
     padding-right: $spacing-medium;
-    color: $base-color;
+    color: $contrast-color;
+    font-weight: $weight-normal;
+    font-size: $size-xxlarge;
     height: 13rem;
     max-height: 2rem;
     min-height: 1.5rem;
