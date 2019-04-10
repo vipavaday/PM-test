@@ -1,12 +1,11 @@
-.filters-pan {
+.thumbnail-board-container{
+  display: flex;
+  justify-content: space-between;
+}
 
-  &:hover {
-    cursor: pointer;
-  }
-
-  img {
-    width: 2rem;
-    height: 100%;
-    display: block;
-  }
+.thumbnail-board-thumbnails{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 100%;
 }

@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  Input,
   Output,
   EventEmitter
 } from '@angular/core';
@@ -20,7 +19,7 @@ export class ContentFiltersPanelComponent implements OnInit {
 
   @Output() public updateFilter: EventEmitter<Filter> = new EventEmitter();
 
-  @Input() public hidden: boolean;
+  public hidden: boolean;
 
   public filter: Filter;
 

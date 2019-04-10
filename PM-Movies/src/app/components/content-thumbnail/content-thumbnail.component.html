@@ -1,24 +1,28 @@
-<div class="content-thumbnail d-flex flex-column align-items-center">
+<div class="content-thumbnail">
   <div class="card">
-
     <div class="card-img-top">
       <img src="{{ content.posterUrl || '' }}" alt="Content poster unavailable" />
-      <div class="content-title w-100">
-        <p class="mr-auto">{{ content.title }}</p>
+      <div class="content-title">
+        <p>{{ content.title }}</p>
       </div>
     </div>
-
     <div class="card-body" routerLink="/detail/{{content.type}}/{{content.tmdbId}}">
-
-      <p>{{content.overview | slice:0:250}}...</p>
-
-      <div class="action-bar d-flex justify-content-around">
-        <button type="button" [class.btn-primary]="content.toWatch" [class.btn-outline-primary]="!content.toWatch"  class="btn" (click)="toggleWatchList($event)">A voir</button>
-        <button type="button" [class.btn-primary]="content.watched" [class.btn-outline-primary]="!content.watched" class="btn" (click)="addToWatchedContents($event)">Déja vu</button>
+      <p>{{ content.overview | slice:0:250 }}...</p>
+      <div class="action-bar">
+        <button type="button" [class.btn-primary]="content.toWatch"
+          [class.btn-outline-primary]="!content.toWatch"
+          class="btn" (click)="toggleWatchList($event)"
+          >A voir
+        </button>
+        <button type="button" [class.btn-primary]="content.watched"
+          [class.btn-outline-primary]="!content.watched"
+          class="btn" (click)="addToWatchedContents($event)"
+          >Déja vu
+        </button>
       </div>
-
     </div>
   </div>
-
-  <div *ngIf="content.releaseDate" class="content-year">Released on<span class="font-weight-bold">{{ content.releaseDate | date: 'dd MMMM yyyy'}}</span></div>
+  <div *ngIf="content.releaseDate" class="content-year">Released on
+    <span class="content-year-val">{{ content.releaseDate | date: 'dd MMMM yyyy' }}</span>
+  </div>
 </div>

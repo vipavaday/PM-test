@@ -15,7 +15,7 @@ app-content-filters-panel {
   }
 
   .filters-panel {
-    height: 80vh;
+    height: 100vh;
     width: $sidebar-size;
     padding: $spacing-medium $spacing-xxlarge $spacing-medium $spacing-xxlarge;
     background: $filter-tab-gradient;
@@ -31,6 +31,10 @@ app-content-filters-panel {
     min-width: $sidebar-collapsed-size;
     width: $sidebar-collapsed-size;
     height: 4rem;
+    border-top-left-radius: 0;
+    border-top-right-radius: $card-top-right-border-radius;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: $card-bottom-right-border-radius;
 
     &.expanded {
       background: $base-bg-color;

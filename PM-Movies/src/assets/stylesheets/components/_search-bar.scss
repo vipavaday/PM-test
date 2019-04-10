@@ -1,11 +1,15 @@
-app-search-bar{
-
+app-search-bar {
   width: 50%;
+
+  .search-area {
+    padding-left: $spacing-xlarge;
+    padding-right: $spacing-xlarge;
+  }
 
   img {
     width: 1.2rem;
     position: absolute;
-    right: $spacing-xxlarge*1.25;
+    right: $spacing-xxlarge * 1.25;
     top: 20%;
   }
 
@@ -17,7 +21,10 @@ app-search-bar{
     border: none;
     padding-left: $spacing-medium;
     padding-right: $spacing-medium;
-    color: $base-color ;
+    color: $base-color;
+    height: 13rem;
+    max-height: 2rem;
+    min-height: 1.5rem;
 
     &:focus {
       outline: none;

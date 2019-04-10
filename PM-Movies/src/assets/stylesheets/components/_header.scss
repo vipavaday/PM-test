@@ -1,12 +1,30 @@
 app-header {
   header {
+    position: fixed;
     background-color: $accent-bg-color;
+    height: 4rem;
+    min-height: 3rem;
+    z-index: 10;
   }
 
-  #title a {
-    color: $accent-color;
-    font-family: $font-title-sans;
-    text-decoration: none;
+  .header-tiltle{
+    width: 20rem;
+  }
+
+  .header-tiltle-logo{
+    padding-left: $spacing-large;
+    padding-right: $spacing-large;
+  }
+
+  .header-title-text{
+    margin-top: auto;
+    margin-bottom: auto;
+
+    a {
+      color: $accent-color;
+      font-family: $font-title-sans;
+      text-decoration: none;
+    }
   }
 
   img[alt="logo"] {

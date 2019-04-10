@@ -1,8 +1,8 @@
-<div class="mx-auto d-flex justify-content-between">
-  <app-content-filters-panel (updateFilter)="onUpdateFilter($event)" [hidden]="filtersPaneHidden"></app-content-filters-panel>
+<div class="thumbnail-board-container">
+  <app-content-filters-panel (updateFilter)="onUpdateFilter($event)"></app-content-filters-panel>
 
-  <div class="d-flex flex-wrap justify-content-start w-100">
-    <div *ngFor="let content of contents| slice:0:10">
+  <div class="thumbnail-board-thumbnails">
+    <div *ngFor="let content of contents | slice:0:10">
       <app-content-thumbnail *ngIf="content.visible" [content]="content"></app-content-thumbnail>
     </div>
   </div>
