@@ -4,16 +4,19 @@
     <div class="detail-jumbotron-content">
       <h1 class="jumbotron-title">{{ content.title }}</h1>
       <div class="jumbotron-section content-main-info">
-        <div class="jumbotron-property">
+        <div class="jumbotron-property" *ngIf="content.releaseDate; else nullReleaseDate">
           <label class="jumbotron-property-label">Released on</label>
           <strong class="content-release-date">{{ content.releaseDate | date: 'dd MMMM yyyy' }}</strong>
         </div>
+        <ng-template #nullReleaseDate>
+          <label class="error-label" i18n="@@content-detail-release-date.unknown">Unknown release date</label>
+        </ng-template>
         <span class="separator">-</span>
         <div *ngIf="content.duration | minutesToHours as duration; else nullDuration"
           class="content-duration jumbotron-property">{{ duration }}
         </div>
         <ng-template #nullDuration>
-          <label class="error-label" i18n="@@content-detail.unknown">Unknown duration</label>
+          <label class="error-label" i18n="@@content-detail-duration.unknown">Unknown duration</label>
         </ng-template>
         <span class="separator">-</span>
         <div *ngIf="content.genres.length; else nullGenres" class="content-genres jumbotron-property">
@@ -45,7 +48,7 @@
         <li class="content-origin-country" *ngFor="let country of content.originCountries">
           <img class="country-flag" src="https://www.countryflags.io/{{ country }}/flat/32.png" />
         </li>
-        <li *ngIf="!content.originCountries.length" i18n="@@content-origin-countries.unknown">
+        <li class="content-origin-country" *ngIf="!content.originCountries.length" i18n="@@content-origin-countries.unknown">
           <label class="error-label">Unknown origin country</label>
         </li>
       </ul>

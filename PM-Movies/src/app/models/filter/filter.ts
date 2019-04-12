@@ -4,7 +4,13 @@ export class Filter {
 
   public ltReleaseDate = '';
 
-  public showMovies = true;
+  public contentTypes;
 
-  public showTvShows = true;
+  constructor() {
+    this.contentTypes = new Set<string>();
+  }
+
+  public toggleContentType(contentType: string) {
+    this.contentTypes.has(contentType) ? this.contentTypes.delete(contentType) : this.contentTypes.add(contentType);
+  }
 }

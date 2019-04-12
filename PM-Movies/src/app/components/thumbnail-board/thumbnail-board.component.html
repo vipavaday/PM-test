@@ -1,8 +1,8 @@
 <div class="thumbnail-board-container">
-  <app-content-filters-panel (updateFilter)="onUpdateFilter($event)"></app-content-filters-panel>
+  <app-content-filters-panel></app-content-filters-panel>
 
   <div class="thumbnail-board-thumbnails" [class.empty]="!contents.length">
-    <div *ngFor="let content of contents | slice:0:10">
+    <div *ngFor="let content of contents">
       <app-content-thumbnail *ngIf="content.visible" [content]="content"></app-content-thumbnail>
     </div>
     <p *ngIf="!contents.length" class="thumbnail-board-empty-msg">No content to display</p>
