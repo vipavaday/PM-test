@@ -11,7 +11,8 @@ app-root {
 
   .app-footer{
     background-color: $accent-bg-color;
-    height: 10vh;
+    height: $footer-height;
+    margin-top: auto;
     z-index: 1000;
   }
 

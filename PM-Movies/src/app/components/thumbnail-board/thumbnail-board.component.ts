@@ -4,19 +4,24 @@ import {
   OnDestroy
 } from '@angular/core';
 
-import { Subscription } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import {
+  Subscription,
+  zip
+} from 'rxjs';
+
+import {
+  switchMap,
+  map
+} from 'rxjs/operators';
 
 import {
   ContentFetcherService,
-  ContentListStateService
- } from '../../services';
+  ContentListStateService,
+  FilterManagerService
+} from '../../services';
 
 import {
-  Content,
-  Movie,
-  TvShow,
-  Filter
+  Content
 } from '../../models';
 
 /**
@@ -29,53 +34,35 @@ import {
 })
 export class ThumbnailBoardComponent implements OnInit, OnDestroy {
 
-  public filtersPaneHidden = true;
-
-  public contents: Content[];
-
-  public querySubscription: Subscription;
+  private contents: Content[];
+  public contentListStateSubscription: Subscription;
 
   constructor(
     private contentDataProvider: ContentFetcherService,
-    private queryService: ContentListStateService
+    contentListStateService: ContentListStateService,
+    private filterManager: FilterManagerService
   ) {
 
-    this.querySubscription = queryService.queryUpdated$
+    this.contentListStateSubscription = contentListStateService.queryUpdated$
       .pipe(switchMap(query => this.contentDataProvider.getContentInfo(query)))
       .subscribe(contents => this.contents = contents);
+
+    this.filterManager.$filtersUpdated.pipe(
+      map( filters => {
+        return this.filterManager.filterContents(filters, this.contents);
+      })
+    ).subscribe(contents => this.contents = contents);
   }
 
   public ngOnInit() {
-
     this.contents = [];
   }
 
   public ngOnDestroy(): void {
-
-    this.querySubscription.unsubscribe();
+    this.contentListStateSubscription.unsubscribe();
   }
 
-  public toggleFiltersPane() {
-
-    this.filtersPaneHidden = !this.filtersPaneHidden;
-  }
-
-  public onUpdateFilter(filter: Filter) {
-
-    this.contents.forEach(content => content.visible = true);
-    this.applyContentTypeFilters(filter);
-    this.applyReleaseDateFilters(filter);
-  }
-
-  private applyReleaseDateFilters(filter: Filter) {
-    this.contents.filter(content => content.releaseDate.getTime() < new Date(filter.gtReleaseDate).getTime())
-      .map(content => content.visible = filter.showTvShows);
-    this.contents.filter(content => content.releaseDate.getTime() > new Date(filter.ltReleaseDate).getTime())
-      .map(content => content.visible = filter.showTvShows);
-  }
-
-  private applyContentTypeFilters(filter: Filter) {
-    this.contents.filter(content => content instanceof Movie).map(content => content.visible = filter.showMovies);
-    this.contents.filter(content => content instanceof TvShow).map(content => content.visible = filter.showTvShows);
+  public getVisibleContents(): Content[] {
+    return this.contents.filter(content => content.visible);
   }
 }

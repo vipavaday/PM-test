@@ -48,10 +48,12 @@ app-content-detail {
 
   .error-label {
     font-size: $size-large;
+    margin-bottom: $spacing-none;
   }
 
   .separator {
     margin-right: $spacing-xxsmall;
+    margin-left: $spacing-xxsmall;
   }
 
   .content-poster {

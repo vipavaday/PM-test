@@ -1,9 +1,16 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import {
+  Observable,
+  ReplaySubject
+} from 'rxjs';
+
 import { map } from 'rxjs/operators';
 
-import { Content } from '../../models';
+import {
+  Content,
+  Filter
+} from '../../models';
 
 import { MoviedbDataService } from '../moviedb-fetcher/moviedb-fetcher.service';
 import { StorageService } from '../storage';
@@ -18,7 +25,7 @@ export class ContentFetcherService {
 
   constructor(
     private contentFetcher: MoviedbDataService,
-    private storage: StorageService) { }
+    private storage: StorageService) {}
 
   /**
   * Searches for content of any type matching the provided string (title)
