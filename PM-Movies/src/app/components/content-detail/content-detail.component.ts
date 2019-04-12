@@ -28,7 +28,7 @@ import { Content } from '../../models';
 })
 export class ContentDetailComponent implements OnInit, OnDestroy {
 
-  public id: string;
+  public id: number;
 
   public type: string;
 
@@ -47,10 +47,10 @@ export class ContentDetailComponent implements OnInit, OnDestroy {
   ) { }
 
   public ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id');
+    this.id = parseInt(this.route.snapshot.paramMap.get('id'), 10);
     this.type = this.route.snapshot.paramMap.get('type');
 
-    this.subscription = this.contentDataProvider.getContentDetails(this.type, this.id)
+    this.subscription = this.contentDataProvider.getContentDetails(this.id, this.type)
       .subscribe(content => {
         this.content = content;
       });

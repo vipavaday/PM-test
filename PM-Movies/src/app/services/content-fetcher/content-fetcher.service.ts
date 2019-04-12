@@ -2,14 +2,16 @@ import { Injectable } from '@angular/core';
 
 import {
   Observable,
-  ReplaySubject
+  of,
+  forkJoin,
+  merge
 } from 'rxjs';
 
-import { map } from 'rxjs/operators';
+import { map, switchMap, scan } from 'rxjs/operators';
 
 import {
   Content,
-  Filter
+  Cast
 } from '../../models';
 
 import { MoviedbDataService } from '../moviedb-fetcher/moviedb-fetcher.service';
@@ -41,9 +43,18 @@ export class ContentFetcherService {
   /**
   * Retrieves some information about a TV Show or Movie
   **/
-  public getContentDetails(type: string, id: string): Observable<Content> {
+  public getContentDetails(tmdbId: number, type: string ): Observable<Content> {
 
-    return this.contentFetcher.getContentDetails(type, id);
+    return this.contentFetcher.getContentDetails(type, tmdbId);
+  }
+
+  /**
+   * Fetch casts details for the specified content
+   * @param content content for which we want to fetch casts details
+   */
+  public getCastDetails(content: Content): Observable<Cast[]> {
+
+    return forkJoin(content.cast.map( eachCast => this.contentFetcher.getCastDetails(eachCast.id)));
   }
 
   private checkStoredContent(content: Content): Content {

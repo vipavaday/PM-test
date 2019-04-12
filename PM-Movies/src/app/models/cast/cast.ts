@@ -12,4 +12,5 @@ export class Cast {
 
   public avatarPath: string;
 
+  public biography: string;
 }

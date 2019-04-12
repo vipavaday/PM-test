@@ -71,6 +71,7 @@
         <div>
           <h3 class="cast-name">{{ cast.name }}</h3>
           <p *ngIf="cast.character; else nullRole">In the role of <strong>{{ cast.character }}</strong></p>
+          <p>{{cast.}}</p>
           <ng-template #nullRole>
               <label class="error-label" i18n="@@content-cast-role.unknown">Unknown role</label>
           </ng-template>

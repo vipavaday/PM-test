@@ -13,26 +13,19 @@ import {
   shareReplay
 } from 'rxjs/operators';
 
-import { Cast } from '../../models';
-
 import {
   Content,
-  Movie,
-  TvShow,
   Config,
+  Cast
 } from '../../models';
-
-import { IContentFetcherService } from '../content-fetcher/content-fetcher.service.interface';
-import { StorageService } from '../storage';
 
 import {
   MDBSearchResponseJSON,
-  MDBSearchResultMovieJSON,
-  MDBSearchResultTvShowJSON,
-  MDBSearchResultPersonJSON,
-  MDBMovieDetailsResponseJSON,
-  MDBTvShowDetailsResponseJSON,
-  MDBCreditsResponseJSON
+  MDBMovieJSON,
+  MDBTvShowJSON,
+  ContentParserService,
+  MDBCreditsJSON,
+  MDBCastJSON
 } from '../content-parser';
 
 /**
@@ -41,16 +34,15 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class MoviedbDataService implements IContentFetcherService {
+export class MoviedbDataService {
 
   private readonly apiKey = '422113b1d8f5bb170e051db92b9e84b5';
-
   private readonly baseUrl: string = 'https://api.themoviedb.org/3';
-
   private imgBaseUrl$: Observable<string>;
 
   constructor(
     private http: HttpClient,
+    private contentParser: ContentParserService
   ) {
 
     this.imgBaseUrl$ = this.http.get<Config>(`${this.baseUrl}/configuration?api_key=${this.apiKey}`)
@@ -71,35 +63,46 @@ export class MoviedbDataService implements IContentFetcherService {
 
     const search$ = this.http.get<MDBSearchResponseJSON>(`${this.baseUrl}/search/multi?api_key=${this.apiKey}&query=${encodeURI(title)}`);
 
-    return search$
-      .pipe(
+    return search$.pipe(
         withLatestFrom(this.imgBaseUrl$),
-        map(([response, imgBaseUrl]) => {
-          return response.results
-            .filter(this.excludePerson)
-            .map((res: MDBSearchResultMovieJSON | MDBSearchResultTvShowJSON) => this.parseContent(res, imgBaseUrl));
-        }));
+        map(([response, imgBaseUrl]) => this.parseContentList(response, imgBaseUrl)
+      ));
   }
 
   /**
   * Retrieves some information about a TV Show or Movie
   **/
-  public getContentDetails(type: string, id: string): Observable<Content> {
+  public getContentDetails(type: string, id: number): Observable < Content > {
 
-    const credits$ = this.http.get<MDBCreditsResponseJSON>(`${this.baseUrl}/${type}/${id}/credits?api_key=${this.apiKey}`);
+    const credits$ = this.http.get<MDBCreditsJSON>(`${this.baseUrl}/${type}/${id}/credits?api_key=${this.apiKey}`);
     const details$ = this.http.get(`${this.baseUrl}/${type}/${id}?api_key=${this.apiKey}`);
 
     return zip(details$, credits$).pipe(
       withLatestFrom(this.imgBaseUrl$),
-      map(([[contentDetail, credits], imgBaseUrl]: [[MDBTvShowDetailsResponseJSON, MDBCreditsResponseJSON], string]) => {
-        return this.parseDetails(contentDetail, credits, imgBaseUrl, type);
+      map(([[contentDetail, credits], imgBaseUrl]: [[MDBMovieJSON | MDBTvShowJSON, MDBCreditsJSON], string]) => {
+        if (type === 'movie' ) {
+          return this.contentParser.parseMovie((<MDBMovieJSON>contentDetail), credits, imgBaseUrl);
+        } else if (type === 'tv') {
+          return this.contentParser.parseTvShow((<MDBTvShowJSON>contentDetail), credits, imgBaseUrl);
+        }
       }));
 
   }
 
-  private excludePerson(
-    result: MDBSearchResultMovieJSON | MDBSearchResultTvShowJSON | MDBSearchResultPersonJSON
-  ): result is (MDBSearchResultMovieJSON | MDBSearchResultTvShowJSON) {
-    return result.media_type === 'movie' || result.media_type === 'tv';
+  /**
+   * Retrieves detailed information about a cast member
+   * @param personId Person identifier for the MovieDB API
+   */
+  public getCastDetails(personId: number): Observable<Cast> {
+
+    return this.http.get<MDBCastJSON>(`${this.baseUrl}/person/${personId}?api_key=${this.apiKey}`)
+    .pipe(
+      withLatestFrom(this.imgBaseUrl$),
+      map(([cast, imgBaseUrl]) => this.contentParser.parseCast(cast, imgBaseUrl)));
   }
+
+  private parseContentList(response: MDBSearchResponseJSON, imgBaseUrl: string) {
+    return response.results.map(res => this.contentParser.parse(res, imgBaseUrl));
+  }
+
 }

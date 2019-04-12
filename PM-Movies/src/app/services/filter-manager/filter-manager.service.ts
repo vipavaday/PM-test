@@ -3,9 +3,7 @@ import { ReplaySubject } from 'rxjs';
 
 import {
   Filter,
-  Content,
-  Movie,
-  TvShow
+  Content
 } from 'src/app/models';
 
 /**
