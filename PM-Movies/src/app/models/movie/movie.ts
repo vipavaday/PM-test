@@ -5,12 +5,6 @@ export class Movie extends Content {
   constructor(titleN: string, durationN: number, releaseDateN: Date) {
 
     super(titleN, durationN, releaseDateN);
-    this._type = 'movie';
+    this.type = 'movie';
   }
-
-  getDetailsRoute(): string {
-
-    return '/movie/' + this.tmdbId;
-  }
-
 }

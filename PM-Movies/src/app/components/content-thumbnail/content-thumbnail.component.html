@@ -1,0 +1,22 @@
+<div class="content-thumbnail">
+  <div class="card">
+    <div class="card-img-top" [class.empty]="!content.posterUrl">
+      <img class="content-poster" src="{{ content.posterUrl || '' }}" alt="Content poster unavailable" />
+    </div>
+    <div class="card-body" routerLink="/detail/{{content.type}}/{{content.tmdbId}}">
+      <p class="card-text" title="{{content.overview}}">{{ content.overview | slice:0:250 }}...</p>
+      <div class="btn-toolbar">
+        <button type="button" [class.btn-primary]="content.toWatch" [class.btn-outline-primary]="!content.toWatch"
+          class="btn" [class.enabled]="content.toWatch" (click)="toggleWatchList($event)">A voir
+        </button>
+        <button type="button" [class.btn-primary]="content.watched" [class.btn-outline-primary]="!content.watched"
+          class="btn" [class.enabled]="content.watched" (click)="addToWatchedContents($event)">Déja vu
+        </button>
+      </div>
+      <h2 class="card-title">{{ content.title }}</h2>
+    </div>
+  </div>
+  <div *ngIf="content.releaseDate" class="content-year">Released on
+    <span class="content-year-val">{{ content.releaseDate | date: 'dd MMMM yyyy' }}</span>
+  </div>
+</div>

@@ -1,9 +1,6 @@
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component } from '@angular/core';
 
-import { QueryService } from '../../../modules/thumbnail-board';
+import { ContentListStateService } from '../../services';
 
 /**
 * Represents a searchbar able to notify others  of its update through the QueryService
@@ -13,25 +10,12 @@ import { QueryService } from '../../../modules/thumbnail-board';
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.scss']
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent {
 
-  waitTime = 100;
+  constructor(private queryService: ContentListStateService) { }
 
-  timeOut;
+  public onSearchUpdate(searchQuery: string) {
 
-  constructor(private queryService: QueryService) { }
-
-  ngOnInit() {
+    this.queryService.updateQuery(searchQuery);
   }
-
-  onSearchUpdate(searchQuery: string) {
-
-    clearTimeout(this.timeOut);
-
-    this.timeOut = setTimeout(() => {
-      this.queryService.updateQuery(searchQuery);
-    }, this.waitTime);
-
-  }
-
 }

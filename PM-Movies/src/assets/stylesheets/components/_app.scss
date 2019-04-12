@@ -1,0 +1,24 @@
+app-root {
+
+  .app-root-container{
+    min-height: 100vh;
+  }
+
+  app-thumbnail-board {
+    width: 100%;
+    margin-top: $margin-to-header;
+  }
+
+  .app-footer{
+    background-color: $accent-bg-color;
+    height: $footer-height;
+    margin-top: auto;
+    z-index: 1000;
+  }
+
+  .api-use-logo{
+    height: 60%;
+    object-fit: contain;
+  }
+
+}

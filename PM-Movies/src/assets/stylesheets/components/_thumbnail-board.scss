@@ -1,0 +1,20 @@
+app-thumbnail-board {
+
+  .thumbnail-board-container{
+    margin-left: auto;
+    margin-left: auto;
+    min-height: 60vh;
+  }
+
+  .thumbnail-board-empty-msg{
+    text-align: center;
+    color: lighten($base-color,70);
+    font-weight: $weight-bold;
+    font-size: $size-xxlarge;
+  }
+
+  app-content-thumbnail{
+    margin: $spacing-none $spacing-xlarge $spacing-xlarge $spacing-xlarge;
+    display: flex;
+  }
+}

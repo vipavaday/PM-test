@@ -1,3 +1,6 @@
 export interface Config {
-  images: Object;
+
+  images: {
+    base_url: string;
+  };
 }

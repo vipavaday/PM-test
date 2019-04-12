@@ -1,0 +1,30 @@
+// Fonts colors
+$accent-color: #ffb366;
+$base-color: lighten(#000000, 0.1);
+$contrast-color: #ffffff;
+
+// Background colors
+$accent-bg-color: #1f1e1e;
+$base-bg-color: #e8e8e8;
+$contrast-bg-color: #000000;
+
+// Gradients
+$filter-tab-gradient: linear-gradient($base-bg-color 40%, rgba($contrast-bg-color, 0.5) 100%);
+$detail-jumbotron-gradient: linear-gradient(0.75turn, $base-bg-color -273%, rgba($contrast-bg-color, 0.9));
+$card-backdrop-gradient: linear-gradient(0deg, #000000 6%, rgba(0, 0, 0, 0) 53%);
+
+// Shadows
+$shadow-small-1: 7px 14px 2px rgba($contrast-bg-color, 0.4);
+$shadow-small-2: 7px 14px 5px rgba($contrast-bg-color, 0.4);
+$shadow-small-3: 7px 14px 8px rgba($contrast-bg-color, 0.4);
+$shadow-small-4: 7px 14px 13px rgba($contrast-bg-color, 0.4);
+
+$shadow-medium-1: 7px 14px 2px rgba($contrast-bg-color, 0.4);
+$shadow-medium-2: 7px 14px 5px rgba($contrast-bg-color, 0.4);
+$shadow-medium-3: 7px 14px 8px rgba($contrast-bg-color, 0.4);
+$shadow-small-4: 7px 14px 13px rgba($contrast-bg-color, 0.4);
+
+$shadow-large-1: 7px 14px 2px rgba($contrast-bg-color, 0.4);
+$shadow-large-2: 7px 14px 5px rgba($contrast-bg-color, 0.4);
+$shadow-large-3: 7px 14px 8px rgba($contrast-bg-color, 0.4);
+$shadow-small-4: 7px 14px 13px rgba($contrast-bg-color, 0.4);

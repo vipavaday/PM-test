@@ -1,11 +1,15 @@
 export class Cast {
 
-  cast_id: number;
+  public id: number;
 
-  character: string;
+  public cast_id: number;
 
-  name: string;
+  public character: string;
 
-  gender: number;
+  public name: string;
+
+  public gender: number;
+
+  public avatarPath: string;
 
 }

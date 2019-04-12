@@ -1,29 +1,8 @@
-@import "../../../assets/css/variables";
-
 .search-area {
-  position: relative;
+  display: flex;
+  align-items: center;
 }
 
-.search-area img {
-  width: 1.2em;
-  position: absolute;
-  right: 3em;
-  top: 20%;
-}
-
-.search-area input {
-  border-radius: 25px;
-  border: none;
-  width: 40vw;
-  height: 5vh;
-  max-height: 2em;
-  min-height: 1.5em;
-  padding-left: 1em;
-  padding-right: 1em;
-
-  color: $primary-bg-color;
-
-  &:focus {
-    outline: none;
-  }
+input {
+  width: 100%;
 }

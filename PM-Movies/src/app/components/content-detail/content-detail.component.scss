@@ -1,0 +1,28 @@
+.detail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.detail-jumbotron {
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  width: 100%;
+}
+
+.content-main-info {
+  align-items: center;
+  display: flex;
+}
+
+.content-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content-origin-country-list{
+  display: flex;
+}

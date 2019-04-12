@@ -1,0 +1,20 @@
+.thumbnail-board-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.thumbnail-board-thumbnails{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 100%;
+
+  &.empty{
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.thumbnail-board-empty-msg{
+  width: 100%;
+}

@@ -1,0 +1,131 @@
+app-content-detail {
+  .detail-container {
+    margin-top: $spacing-xxlarge * 6;
+  }
+
+  .detail-section {
+    padding: $spacing-medium;
+    padding-left: $spacing-xxlarge * 4;
+    margin-bottom: $spacing-xxlarge;
+  }
+
+  .detail-section-title {
+    color: $accent-color;
+    margin-bottom: $spacing-large;
+  }
+
+  .detail-jumbotron {
+    background: $detail-jumbotron-gradient;
+    color: $contrast-color;
+  }
+
+  .jumbotron-title {
+    font-size: $input-size-xxlarge;
+  }
+
+  .jumbotron-section {
+    margin-top: $spacing-medium;
+    margin-bottom: $spacing-medium;
+  }
+
+  .jumbotron-property {
+    font-size: $size-large;
+
+    &:not(:last-child),
+    & label {
+      margin-right: $spacing-xxsmall;
+    }
+  }
+
+  .director {
+    margin-top: $spacing-tiny;
+    margin-bottom: $spacing-tiny;
+  }
+
+  .jumbotron-property-label {
+    margin: $spacing-none;
+  }
+
+  .error-label {
+    font-size: $size-large;
+    margin-bottom: $spacing-none;
+  }
+
+  .separator {
+    margin-right: $spacing-xxsmall;
+    margin-left: $spacing-xxsmall;
+  }
+
+  .content-poster {
+    width: 20rem;
+    position: absolute;
+    right: 10rem;
+  }
+
+  .content-origin-country-list {
+    padding: $spacing-none;
+  }
+
+  .content-origin-country {
+    list-style: none;
+  }
+
+  .country-flag {
+    padding: $spacing-medium;
+    padding-left: $spacing-none;
+  }
+
+  .director-name {
+    margin-right: $spacing-medium;
+    margin-left: $spacing-medium;
+  }
+
+  .synopsis {
+    width: 50vw;
+    max-width: 50rem;
+  }
+
+  .cast-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .cast {
+    display: flex;
+    width: 30rem;
+    align-items: center;
+    padding: $spacing-medium;
+    padding-left: $spacing-none;
+  }
+
+  .cast-avatar {
+    position: relative;
+    margin: $spacing-medium;
+    margin-left: $spacing-none;
+    object-fit: cover;
+    object-position: 25% 1%;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 3rem;
+    overflow: hidden;
+    display: block;
+
+    &.broken:after {
+      position: absolute;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: $accent-bg-color;
+      width: 5rem;
+      height: 5rem;
+      border-radius: 3rem;
+      content: "";
+    }
+  }
+
+  .cast-name {
+    font-weight: $weight-bold;
+    font-size: $size-large;
+  }
+}

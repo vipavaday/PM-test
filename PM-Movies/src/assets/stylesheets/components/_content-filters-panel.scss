@@ -1,0 +1,83 @@
+app-content-filters-panel {
+  .filters-panel-fluid-container {
+    margin-right: $spacing-large;
+    min-width: $sidebar-collapsed-size;
+
+    &.expanded {
+      width: $sidebar-size;
+    }
+  }
+
+  .filters-panel-fixed-container {
+    top: $margin-to-header;
+    position: fixed;
+  }
+
+  .filters-panel {
+    height: 100vh;
+    width: $sidebar-size;
+    padding: $spacing-medium $spacing-xxlarge $spacing-medium $spacing-xxlarge;
+    background: $filter-tab-gradient;
+    border-top-left-radius: $card-top-left-border-radius;
+    border-top-right-radius: $card-top-right-border-radius;
+    border-bottom-left-radius: $card-bottom-left-border-radius;
+    border-bottom-right-radius: $card-bottom-right-border-radius;
+    color: lighten($base-color, 30%);
+  }
+
+  .filters-panel-header {
+    background-color: $accent-bg-color;
+    min-width: $sidebar-collapsed-size;
+    width: $sidebar-collapsed-size;
+    height: 4rem;
+    border-top-left-radius: 0;
+    border-top-right-radius: $card-top-right-border-radius;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: $card-bottom-right-border-radius;
+
+    &.expanded {
+      background: $base-bg-color;
+      width: $sidebar-size;
+      padding-left: $spacing-large;
+      padding-right: $spacing-large;
+    }
+  }
+
+  .filters-panel-header-icon {
+    width: 2rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .filter-category {
+    padding-top: $spacing-xxlarge;
+    padding-bottom: $spacing-small;
+  }
+
+  .filter-category-title {
+    border-bottom: 1px $base-color solid;
+    font-size: $size-xlarge;
+    font-weight: $weight-normal;
+  }
+
+  .filter {
+    padding-top: $spacing-large;
+    padding-bottom: $spacing-large;
+    margin-left: $spacing-medium;
+  }
+
+  .filter-input {
+    width: 25%;
+
+    &[type="checkbox"] {
+      height: 1.5rem;
+    }
+  }
+
+  .form-control:focus{
+    outline: none;
+    box-shadow: none;
+  }
+}

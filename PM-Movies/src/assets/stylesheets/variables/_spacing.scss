@@ -1,0 +1,14 @@
+// Spacing
+// ratio: 1.25
+$spacing-none: 0rem;
+$spacing-tiny: 0.25rem;
+$spacing-xxsmall: 0.512rem;
+$spacing-xsmall: 0.64rem;
+$spacing-small: 0.8rem;
+$spacing-medium: 1rem;
+$spacing-large: 1.25rem;
+$spacing-xlarge: 1.563rem;
+$spacing-xxlarge: 1.965rem;
+
+// Margin after header
+$margin-to-header: $header-height + $spacing-xxlarge*1.5;

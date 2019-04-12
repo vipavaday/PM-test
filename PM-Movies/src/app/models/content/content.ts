@@ -1,25 +1,38 @@
+import { Cast } from '../cast';
 
 export abstract class Content {
 
-  _type = '';
+  public type = '';
 
-  _vote_average: number;
+  public voteAverage: number;
 
-  _seen = false;
+  public watched = false;
 
-  _toWatch = false;
+  public toWatch = false;
 
-  private _tmdbId: number;
+  public tmdbId: number;
 
-  private _title: string;
+  public title: string;
 
-  private _posterUrl: string;
+  public posterUrl: string;
 
-  private _duration: number;
+  public duration: number;
 
-  private _releaseDate: Date;
+  public releaseDate: Date;
 
-  private _visible: boolean;
+  public visible: boolean;
+
+  public posterPath: string;
+
+  public overview: string;
+
+  public cast: Cast[];
+
+  public directors: string[];
+
+  public originCountries: string[];
+
+  public genres: string[];
 
   constructor(titleN: string, durationN: number, releaseDateN: Date) {
 
@@ -28,24 +41,4 @@ export abstract class Content {
     this.releaseDate = releaseDateN;
     this.visible = true;
   }
-
-  abstract getDetailsRoute(): string;
-
-  get visible(): boolean { return this._visible; }
-  set visible(isVisible: boolean) { this._visible = isVisible; }
-
-  get tmdbId(): number { return this._tmdbId; }
-  set tmdbId(tmdbIdN: number) { this._tmdbId = tmdbIdN; }
-
-  get title(): string { return this._title; }
-  set title(titleN: string) { this._title = titleN; }
-
-  get posterUrl(): string { return this._posterUrl; }
-  set posterUrl(posterUrlN: string) { this._posterUrl = posterUrlN; }
-
-  get duration(): number { return this._duration; }
-  set duration(durationN: number) { this._duration = durationN; }
-
-  get releaseDate(): Date { return this._releaseDate; }
-  set releaseDate(releaseDateN: Date) { this._releaseDate = releaseDateN; }
 }
