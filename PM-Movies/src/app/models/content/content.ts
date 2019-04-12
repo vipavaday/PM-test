@@ -1,6 +1,6 @@
 import { Cast } from '../cast';
 
-export abstract class Content {
+export class Content {
 
   public type = '';
 
@@ -34,7 +34,7 @@ export abstract class Content {
 
   public genres: string[];
 
-  constructor(titleN: string, durationN: number, releaseDateN: Date) {
+  constructor(titleN?: string, durationN?: number, releaseDateN?: Date) {
 
     this.title = titleN;
     this.duration = durationN;
