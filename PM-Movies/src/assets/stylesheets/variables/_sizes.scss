@@ -24,7 +24,8 @@ $input-size-xxlarge: 4rem;
 $breakpoints: (
   'small':  800px,
   'medium': 992px,
-  'large':  1200px
+  'large':  1200px,
+  'xlarge':  1800px
 ) !default;
 
 //Sidebar width
@@ -37,3 +38,23 @@ $card-size: 18rem;
 //Header & footer height
 $header-height: 5rem;
 $footer-height: 5rem;
+
+//Content img aspect ratio
+$content-img-width: 28rem;
+$content-img-heigth: 20rem;
+$content-img-group-height: 30rem;
+$grow-factor: 2;
+
+@mixin contentImgSmallAspectRatio() {
+  width: $content-img-width;
+  min-width: $content-img-width;
+  height: $content-img-heigth;
+  min-height: $content-img-heigth;
+}
+
+@mixin contentImgHugeAspectRatio() {
+  width: $content-img-width*$grow-factor;
+  min-width: $content-img-width*$grow-factor;
+  height: $content-img-heigth*$grow-factor;
+  min-height: $content-img-heigth*$grow-factor;
+}

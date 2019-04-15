@@ -53,8 +53,13 @@
         </li>
       </ul>
     </div>
-    <img class="content-poster" src="{{ content.posterUrl }}" alt="content poster" />
+
   </section>
+
+  <div class="content-img-group-top">
+    <img class="content-img content-img-left-top" src="{{ getBackdropImg(0) }}" [class.empty]="(content.posterUrl.includes('null'))" alt="content poster" />
+    <img class="content-img empty content-img-right-bottom" src="{{ getBackdropImg(1) }}" [class.empty]="true" alt="content poster" />
+  </div>
 
   <section class="detail-section synopsis">
     <h2 class="detail-section-title">Synopsis</h2>
@@ -65,13 +70,13 @@
     <h2 class="detail-section-title">Cast</h2>
     <div class="cast-list">
       <div *ngFor="let cast of content.cast | slice:0:10" class="cast">
-        <img src="{{ cast.avatarPath.includes('null')? '': cast.avatarPath }}" alt="cast avatar"
-        class="cast-avatar" [class.broken]="(cast.avatarPath.includes('null'))"
+        <img src="{{ cast.person.avatarPath.includes('null')? '': cast.person.avatarPath }}" alt="cast avatar"
+        class="cast-avatar" [class.broken]="(cast.person.avatarPath.includes('null'))"
         />
         <div>
-          <h3 class="cast-name">{{ cast.name }}</h3>
-          <p *ngIf="cast.character; else nullRole">In the role of <strong>{{ cast.character }}</strong></p>
-          <p>{{cast.}}</p>
+          <h3 class="cast-name">{{ cast.person.name }}</h3>
+          <p class="cast-role" *ngIf="cast.character; else nullRole">In the role of <strong>{{ cast.character }}</strong></p>
+          <p class="cast-biography">{{getFormatedBiography(cast.person.biography, 1)}}</p>
           <ng-template #nullRole>
               <label class="error-label" i18n="@@content-cast-role.unknown">Unknown role</label>
           </ng-template>
@@ -79,4 +84,9 @@
       </div>
     </div>
   </section>
+
+  <div class="content-img-group-bottom">
+    <img class="content-img content-img-left-top" src="{{ getBackdropImg(2) }}" [class.empty]="(content.posterUrl.includes('null'))" alt="content poster" />
+    <img class="content-img empty content-img-right-bottom" src="{{ getBackdropImg(3) }}" [class.empty]="true" alt="content poster" />
+  </div>
 </div>

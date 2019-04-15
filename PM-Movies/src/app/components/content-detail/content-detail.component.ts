@@ -16,7 +16,11 @@ import {
   ContentListStateService
 } from '../../services';
 
-import { Content } from '../../models';
+import { Content, Cast } from '../../models';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 /**
 * Represents a bunch of detail infos about a content
@@ -50,10 +54,13 @@ export class ContentDetailComponent implements OnInit, OnDestroy {
     this.id = parseInt(this.route.snapshot.paramMap.get('id'), 10);
     this.type = this.route.snapshot.paramMap.get('type');
 
-    this.subscription = this.contentDataProvider.getContentDetails(this.id, this.type)
-      .subscribe(content => {
-        this.content = content;
-      });
+    this.subscription = this.contentDataProvider.getContentDetails(this.id, this.type).pipe(
+      switchMap(content => this.contentDataProvider.getCastDetails(content).pipe(map(cast => ({ cast, content })))),
+      switchMap(res => this.contentDataProvider.getExtraImages(res.content).pipe(map(cast => res)))
+    ).subscribe(result => {
+      this.content = result.content;
+      this.content.cast = result.cast;
+    });
   }
 
   public ngOnDestroy() {
@@ -64,6 +71,23 @@ export class ContentDetailComponent implements OnInit, OnDestroy {
 
     this.queryService.updateQuery('');
     this.router.navigate(['/thumbnail-board']);
+  }
+
+  public getFormatedBiography(biography: string, maxPhrase: number): string {
+    if (!biography) {
+      return '';
+    }
+
+    return biography.split('.').slice(0, maxPhrase).join('.') + '.';
+  }
+
+  public getBackdropImg(backdropNo: number): string {
+
+    if (!this.content.backdrops || this.content.backdrops.length <= backdropNo) {
+      return '';
+    }
+
+    return this.content.backdrops[backdropNo];
   }
 
 }

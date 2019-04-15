@@ -1,16 +1,14 @@
-export class Cast {
+import { Person } from '../person';
 
-  public id: number;
+export class Cast {
 
   public cast_id: number;
 
   public character: string;
 
-  public name: string;
+  public person: Person;
 
-  public gender: number;
-
-  public avatarPath: string;
-
-  public biography: string;
+  constructor() {
+    this.person = new Person();
+  }
 }

@@ -8,7 +8,7 @@
 .detail-jumbotron {
   display: flex;
   flex-direction: column;
-  justify-content:center;
+  justify-content: center;
   width: 100%;
 }
 
@@ -23,6 +23,47 @@
   justify-content: center;
 }
 
-.content-origin-country-list{
+.content-origin-country-list {
   display: flex;
+}
+
+.content-img-group-top,
+.content-img-group-bottom {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.content-img-left-top {
+  align-self: flex-start;
+}
+
+.content-img-right-bottom {
+  align-self: flex-end;
+}
+
+.cast-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.cast {
+  display: flex;
+  align-items: center;
+}
+
+.cast-avatar {
+  display: block;
+  flex-shrink: 0;
+}
+
+.content-img-group-bottom {
+
+  .content-img-left-top {
+    align-self: flex-end;
+  }
+
+  .content-img-right-bottom {
+    align-self: flex-start;
+  }
 }

@@ -2,7 +2,7 @@ import { Cast } from '../cast';
 
 export class Content {
 
-  public type = '';
+  public type: 'tv' | 'movie' | 'person';
 
   public voteAverage: number;
 
@@ -24,6 +24,8 @@ export class Content {
 
   public posterPath: string;
 
+  public backdrops: string[];
+
   public overview: string;
 
   public cast: Cast[];
@@ -40,5 +42,6 @@ export class Content {
     this.duration = durationN;
     this.releaseDate = releaseDateN;
     this.visible = true;
+    this.backdrops = [];
   }
 }

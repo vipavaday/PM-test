@@ -1,24 +1,11 @@
+import {
+  MDBCrewJSON,
+  MDBPersonJSON
+} from '../people-parser';
+
 export type MDBOriginCountryJSON = string[];
 
 export type MDBGenreIdsJSON = string[];
-
-export interface MDBCreditsJSON {
-  cast?: MDBCastJSON[];
-  crew?: MDBCrewJSON[];
-}
-
-export interface MDBCastJSON {
-  cast_id: number;
-  character: string;
-  gender: number;
-  name: string;
-  profile_path: string;
-}
-
-export interface MDBCrewJSON {
-  name: string;
-  job: string;
-}
 
 export interface MDBProdCountryJSON {
   iso_3166_1: string;
@@ -65,14 +52,25 @@ export interface MDBTvShowJSON extends MDBResultJSON {
   media_type: 'tv';
 }
 
-export interface MDBPersonJSON {
-  id: number;
-  media_type: 'person';
-}
-
 export interface MDBSearchResponseJSON {
   page: number;
   total_results: number;
   total_pages: number;
   results: (MDBMovieJSON | MDBTvShowJSON | MDBPersonJSON)[];
+}
+
+export interface MDBImageJSON {
+  aspect_ratio?: number;
+  file_path?: string;
+  height?: number;
+  iso_639_1?: string;
+  vote_average?: number;
+  vote_count?: number;
+  width?: number;
+}
+
+export interface MDBContentImagesJSON {
+  id: number;
+  backdrops: MDBImageJSON[];
+  posters: MDBImageJSON[];
 }

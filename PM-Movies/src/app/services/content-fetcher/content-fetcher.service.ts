@@ -49,12 +49,21 @@ export class ContentFetcherService {
   }
 
   /**
-   * Fetch casts details for the specified content
+   * Fetch details for the 10 most important casts of the specified content
    * @param content content for which we want to fetch casts details
    */
   public getCastDetails(content: Content): Observable<Cast[]> {
 
-    return forkJoin(content.cast.map( eachCast => this.contentFetcher.getCastDetails(eachCast.id)));
+    return forkJoin(content.cast.slice(0, 10).map( cast => this.contentFetcher.getPersonDetails(cast.person.id, cast.person).pipe(
+      switchMap(person => of(cast))
+    )));
+  }
+
+  /**
+   * Fetch backdrop images related to the provided content
+   */
+  public getExtraImages(content: Content): Observable<string[]> {
+    return this.contentFetcher.getExtraImages(content);
   }
 
   private checkStoredContent(content: Content): Content {
