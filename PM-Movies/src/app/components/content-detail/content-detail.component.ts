@@ -87,7 +87,7 @@ export class ContentDetailComponent implements OnInit, OnDestroy {
       return '';
     }
 
-    return this.content.backdrops[backdropNo];
+    return (this.content.backdrops[backdropNo].includes('null')) ? '' : this.content.backdrops[backdropNo];
   }
 
 }
