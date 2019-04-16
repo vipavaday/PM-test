@@ -1,12 +1,8 @@
 app-content-thumbnail {
   .card {
     position: relative;
-    margin-bottom: $spacing-none;
-    margin-left: $spacing-xxlarge;
-    margin-right: $spacing-xxlarge;
     width: $card-size;
     height: $card-size;
-    box-shadow: $shadow-medium-3;
     border-radius: $card-top-left-border-radius $card-top-right-border-radius $card-bottom-left-border-radius
       $card-bottom-right-border-radius;
 
@@ -136,6 +132,7 @@ app-content-thumbnail {
 
   .content-year {
     padding: $spacing-medium;
+    align-self: flex-start;
   }
 
   .content-year-val {

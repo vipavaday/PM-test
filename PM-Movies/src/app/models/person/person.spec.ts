@@ -1,9 +1,9 @@
-import { Cast } from './person';
+import { Person } from './person';
 
 describe('Models: Person', () => {
   describe('#new', () => {
     it('should create an instance', () => {
-      expect(() => new Cast()).not.toThrow();
+      expect(() => new Person()).not.toThrow();
     });
   });
 });

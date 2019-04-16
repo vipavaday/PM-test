@@ -8,6 +8,14 @@
   }
 }
 
+.filters-panel-header-title{
+  display: none;
+
+  &.expanded{
+    display: flex;
+  }
+}
+
 .filter {
   display: flex;
   justify-content: space-between;

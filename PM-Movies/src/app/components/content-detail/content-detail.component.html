@@ -56,9 +56,9 @@
 
   </section>
 
-  <div class="content-img-group-top">
-    <img class="content-img content-img-left-top" src="{{ getBackdropImg(0) }}" alt="content poster" />
-    <img class="content-img empty content-img-right-bottom" src="{{ getBackdropImg(1) }}" alt="content poster" />
+  <div class="content-img-group-top" *ngIf="!!getBackdropImg(0) || !!getBackdropImg(1)">
+    <img class="content-img content-img-left-top" src="{{ getBackdropImg(0) }}" alt="content poster" *ngIf="!!getBackdropImg(0)"/>
+    <img class="content-img empty content-img-right-bottom" src="{{ getBackdropImg(1) }}" alt="content poster" *ngIf="!!getBackdropImg(1)" />
   </div>
 
   <section class="detail-section synopsis">
@@ -68,25 +68,27 @@
 
   <section class="detail-section">
     <h2 class="detail-section-title">Cast</h2>
-    <div class="cast-list">
-      <div *ngFor="let cast of content.cast | slice:0:10" class="cast">
-        <img src="{{ cast.person.avatarPath.includes('null')? '': cast.person.avatarPath }}" alt="cast avatar"
-        class="cast-avatar" [class.broken]="(cast.person.avatarPath.includes('null'))"
-        />
-        <div>
-          <h3 class="cast-name">{{ cast.person.name }}</h3>
-          <p class="cast-role" *ngIf="cast.character; else nullRole">In the role of <strong>{{ cast.character }}</strong></p>
-          <p class="cast-biography">{{getFormatedBiography(cast.person.biography, 1)}}</p>
-          <ng-template #nullRole>
-              <label class="error-label" i18n="@@content-cast-role.unknown">Unknown role</label>
-          </ng-template>
+    <div class="cast-list container">
+      <div class="row">
+        <div *ngFor="let cast of content.cast | slice:0:10" class="cast col-6">
+          <img src="{{ cast.person.avatarPath.includes('null')? '': cast.person.avatarPath }}" alt="cast avatar"
+          class="cast-avatar" [class.broken]="(cast.person.avatarPath.includes('null'))"
+          />
+          <div class="cast-information">
+            <h3 class="cast-name">{{ cast.person.name }}</h3>
+            <p class="cast-role" *ngIf="cast.character; else nullRole">In the role of <strong>{{ cast.character }}</strong></p>
+            <p class="cast-biography">{{getFormatedBiography(cast.person.biography, 1)}}</p>
+            <ng-template #nullRole>
+                <label class="error-label" i18n="@@content-cast-role.unknown">Unknown role</label>
+            </ng-template>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <div class="content-img-group-bottom">
-    <img class="content-img content-img-left-top" src="{{ getBackdropImg(2) }}" alt="content poster" />
-    <img class="content-img empty content-img-right-bottom" src="{{ getBackdropImg(3) }}" alt="content poster" />
+  <div class="content-img-group-bottom" *ngIf="!!getBackdropImg(2) || !!getBackdropImg(3)">
+    <img class="content-img content-img-left-top" src="{{ getBackdropImg(2) }}" alt="content poster" *ngIf="!!getBackdropImg(2)"/>
+    <img class="content-img empty content-img-right-bottom" src="{{ getBackdropImg(3) }}" alt="content poster" *ngIf="!!getBackdropImg(3)"/>
   </div>
 </div>

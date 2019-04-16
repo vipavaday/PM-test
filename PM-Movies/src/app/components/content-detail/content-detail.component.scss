@@ -49,7 +49,7 @@
 
 .cast {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .cast-avatar {
@@ -58,6 +58,11 @@
 }
 
 .content-img-group-bottom {
+  width: 100%;
+
+  .content-img-left-top, .content-img-right-bottom{
+    flex-grow: 1;
+  }
 
   .content-img-left-top {
     align-self: flex-end;

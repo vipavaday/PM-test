@@ -23,10 +23,12 @@ app-content-detail {
   .detail-jumbotron {
     background: $detail-jumbotron-gradient;
     color: $contrast-color;
+    height: 20rem;
   }
 
   .jumbotron-title {
     font-size: $input-size-xxlarge;
+    max-width: 35rem;
   }
 
   .jumbotron-section {
@@ -142,8 +144,7 @@ app-content-detail {
 
   .cast-avatar {
     position: relative;
-    margin: $spacing-medium;
-    margin-left: $spacing-none;
+    margin: $spacing-none $spacing-medium $spacing-none $spacing-none;
     object-fit: cover;
     object-position: 25% 1%;
     width: 5rem;
@@ -165,6 +166,10 @@ app-content-detail {
     }
   }
 
+  .cast-information{
+    min-width: 20rem;
+  }
+
   .cast-name {
     font-weight: $weight-bold;
     font-size: $size-medium;
@@ -173,6 +178,10 @@ app-content-detail {
   .cast-role,
   .cast-biography {
     margin-bottom: $spacing-none;
+  }
+
+  .cast-biography{
+    max-width: 20rem;
   }
 
   .cast-role {
@@ -184,11 +193,12 @@ app-content-detail {
   }
 
   .content-img-group-bottom {
-    height: $content-img-group-height * $grow-factor*0.80;
-    margin: $spacing-xxlarge auto;
+    height: $content-img-group-bottom-height;
+    margin: $spacing-xxlarge $spacing-none;
 
     .content-img{
       @include contentImgHugeAspectRatio;
+      min-width: 0;
     }
 
     @media (max-width: map-get($breakpoints, "xlarge")) {

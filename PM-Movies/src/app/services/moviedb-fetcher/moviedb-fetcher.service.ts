@@ -71,8 +71,8 @@ export class MoviedbDataService {
 
     return search$.pipe(
       withLatestFrom(this.imgBaseUrl$),
-      map(([response, imgBaseUrl]) => this.parseContentList(response, imgBaseUrl)
-      ));
+      map(([response, imgBaseUrl]) => this.parseContentList(response, imgBaseUrl).filter(content => !!content))
+    );
   }
 
   /**

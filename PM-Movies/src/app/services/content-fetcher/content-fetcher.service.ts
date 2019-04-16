@@ -34,6 +34,10 @@ export class ContentFetcherService {
   **/
   public getContentInfo(title: string): Observable<Content[]> {
 
+    if (!title) {
+      return of([]);
+    }
+
     const savedContents: Content[] = this.storage.getStoredContents();
     return this.contentFetcher.getContentInfo(title).pipe(map(contents => {
       return contents.map(content => this.checkStoredContent(content));
