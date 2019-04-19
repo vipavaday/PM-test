@@ -1,18 +1,28 @@
 import { Injectable } from '@angular/core';
-import { Content, Cast, Person } from 'src/app/models';
+
+import {
+  Cast,
+  Person,
+  Content
+} from 'src/app/models';
+
 import {
   MDBCreditsJSON,
   MDBCastJSON,
   MDBPersonJSON,
-  MDBPeopleJSON
+  IPeopleParser
 } from './people-parser.service.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PeopleParserService {
+export class PeopleParserService implements IPeopleParser {
 
   public parseCast(json: MDBCastJSON, cast = new Cast()): Cast {
+
+    if (!json) {
+      throw new Error('#parseCast: json should not be undefined');
+    }
 
     cast.person.id = json.id;
     cast.person.gender = json.gender;
@@ -25,6 +35,10 @@ export class PeopleParserService {
 
   public parsePerson(json: MDBPersonJSON, imgBaseUrl: string, person = new Person()): Person {
 
+    if (!json || !imgBaseUrl) {
+      throw new Error('#parsePerson: json and imageBaseUrl parameters should not be undefined');
+    }
+
     person.biography = json.biography;
     person.birthday = json.birthday;
     person.deathday = json.deathday;
@@ -34,10 +48,28 @@ export class PeopleParserService {
     return person;
   }
 
-  public parseCredits(json: MDBCreditsJSON, casts: Cast[] = []): Cast[] {
+  public parseContentCredits(json: MDBCreditsJSON, content = new Content()): Content {
+    if (!json) {
+      throw new Error('#parseContentCredits: json parameter should not be undefined');
+    }
 
-    casts = json.cast.map(castJson => this.parseCast(castJson));
+    content.cast = json.cast.map(castJson => this.parseCast(castJson));
+    if (!content.directors) {
+      this.parseDirectorsFromCredits(json, content);
+    }
 
-    return casts;
+    return content;
+  }
+  public parseDirectorsFromCredits(json: MDBCreditsJSON, content = new Content()): Content {
+
+    if (!json) {
+      throw new Error('#parseDirectorsFromCredits: json parameter should not be undefined');
+    }
+
+    content.directors = json.crew.filter(crewJson => crewJson.job === 'Director').map(crewJson => {
+      return crewJson.name;
+    });
+
+    return content;
   }
 }

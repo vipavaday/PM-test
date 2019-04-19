@@ -1,3 +1,14 @@
+import { Cast, Person, Content } from 'src/app/models';
+
+export interface IPeopleParser {
+  parseCast(json: MDBCastJSON, cast: Cast): Cast;
+
+  parsePerson(json: MDBPersonJSON, imgBaseUrl: string, person: Person): Person;
+
+  parseContentCredits(json: MDBCreditsJSON, content: Content): Content;
+
+  parseDirectorsFromCredits(json: MDBCreditsJSON, content: Content): Content;
+}
 
 export interface MDBPeopleJSON {
   id: number;
