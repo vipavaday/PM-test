@@ -8,72 +8,61 @@ import { IStorageService } from '../storage';
 export class LocalStorageService implements IStorageService {
 
   public getStoredContents(): Content[] {
-    return JSON.parse(localStorage.getItem(`storedContents`) || '[]');
+    return JSON.parse(localStorage.getItem(`storedContents`) || '[]')
+      .map((contentJSON: any) => this.parseContent((contentJSON))
+      );
+  }
+  /**
+   * Stores a content in local storage if any its toWatch or watched property is true
+   */
+  public storeMarkedContent(content: Content): void {
+
+    if (!content) {
+      return;
+    }
+
+    if (!content.toWatch && !content.watched) {
+      this.removeMarkedContentFromStorage(content);
+    }
+
+    const savedContents: Content[] = this.updateStoredContentIfPossible(content);
+    localStorage.setItem(`storedContents`, JSON.stringify(savedContents));
   }
 
-  public addToWatchlist(content: Content): void {
 
+  public removeMarkedContentFromStorage(content: Content): void {
+
+    if (!content) {
+      return;
+    }
+
+    const savedContents: Content[] = this.getStoredContents() || [];
+    const savedContentsFiltered = savedContents.filter(c => c.tmdbId !== content.tmdbId);
+
+    if (savedContents.length !== savedContentsFiltered.length) {
+      localStorage.setItem(`storedContents`, JSON.stringify(savedContentsFiltered));
+    }
+  }
+
+  private updateStoredContentIfPossible(content: Content) {
     const savedContents: Content[] = this.getStoredContents() || [];
     const savedContentList = savedContents.filter(c => c.tmdbId === content.tmdbId);
 
-    if (savedContentList.length > 0) {
-
-      savedContentList[0].toWatch = true;
-    } else {
-
-      content.toWatch = true;
+    if (!savedContentList.length) {
       savedContents.push(content);
-    }
-
-    localStorage.setItem(`storedContents`, JSON.stringify(savedContents));
-  }
-
-  public removeFromWatchList(content: Content): void {
-
-    let savedContents: Content[] = this.getStoredContents() || [];
-    const savedContentList = savedContents.filter(c => c.tmdbId === content.tmdbId);
-
-    if (savedContentList.length > 0 && !savedContentList[0].watched) {
-
-      savedContents = savedContents.filter(c => c.tmdbId !== content.tmdbId);
-    } else if (savedContentList.length > 0) {
-
-      savedContentList[0].toWatch = false;
-    }
-
-    localStorage.setItem(`storedContents`, JSON.stringify(savedContents));
-  }
-
-  public addToWatchedContents(content: Content): void {
-
-    const savedContents: Content[] = this.getStoredContents() || [];
-    const savedContentList = savedContents.filter(c => c.tmdbId === content.tmdbId);
-
-    if (savedContentList.length > 0) {
-
-      savedContentList[0].watched = true;
     } else {
-
-      content.watched = true;
-      savedContents.push(content);
+      savedContentList[0].toWatch = content.toWatch;
+      savedContentList[0].watched = content.watched;
     }
-
-    localStorage.setItem(`storedContents`, JSON.stringify(savedContents));
+    return savedContents;
   }
+  private parseContent(contentJSON: any): Content {
 
-  public removeFromWatchedContents(content: Content): void {
+    const parsedContent = new Content(contentJSON.title, contentJSON.duration, new Date(contentJSON.releaseDate));
+    parsedContent.tmdbId = contentJSON.tmdbId;
+    parsedContent.toWatch = contentJSON.toWatch;
+    parsedContent.watched = contentJSON.watched;
 
-    let savedContents: Content[] = this.getStoredContents() || [];
-    const savedContentList = savedContents.filter(c => c.tmdbId === content.tmdbId);
-
-    if (savedContentList.length > 0 && !savedContentList[0].toWatch) {
-
-      savedContents = savedContents.filter(c => c.tmdbId !== content.tmdbId);
-    } else if (savedContentList.length > 0) {
-
-      savedContentList[0].watched = false;
-    }
-
-    localStorage.setItem(`storedContents`, JSON.stringify(savedContents));
+    return parsedContent;
   }
 }
