@@ -1,40 +1,43 @@
 import { Injectable } from '@angular/core';
 
-import { Content } from 'src/app/models';
+import {
+  Content, Person
+} from 'src/app/models';
+
 import {
   MDBTvShowJSON,
   MDBMovieJSON,
   MDBResultJSON,
-  MDBContentImagesJSON
+  MDBContentImagesJSON,
+  MDBContentJSON,
+  MDBSearchResponseJSON,
+  IContentParser
 } from './content-parser.service.interface';
-
-import {
-  MDBCreditsJSON,
-  MDBPersonJSON
-} from '../people-parser';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ContentParserService {
+export class ContentParserService implements IContentParser {
 
+  public parseContentList(response: MDBSearchResponseJSON, imgBaseUrl: string): Content[] {
 
-  public parse(json: MDBTvShowJSON | MDBMovieJSON | MDBPersonJSON,
-    imgBaseUrl: string, credits?: MDBCreditsJSON, content?: Content): Content {
+    if (!response || !imgBaseUrl) {
+      throw new Error('#parseContentList: response and imgBaseUrl parameters should not be undefined');
+    }
+    return response.results.map(res => this.parse(res, imgBaseUrl));
+  }
 
-    switch (json.media_type) {
-      case 'tv':
-        return this.parseTvShow(json, credits, imgBaseUrl, content);
-      case 'movie':
-        return this.parseMovie(json, credits, imgBaseUrl, content);
+  public parse(json: MDBContentJSON, imgBaseUrl: string, content = new Content()): Content {
+    if (!json) {
+      throw new Error('#parse: json parameter should not be undefined');
     }
 
-    return content;
+    return this.extractContentFromMediaType(json, imgBaseUrl, content);
   }
 
   // Partie specifique
-  public parseTvShow(json: MDBTvShowJSON, credits: MDBCreditsJSON, imgBaseUrl: string, content = new Content()): Content {
-    this.parseResult(json, credits, imgBaseUrl, content);
+  public parseTvShow(json: MDBTvShowJSON, imgBaseUrl: string, content = new Content()): Content {
+    this.parseContentCommons(json, imgBaseUrl, content);
 
     content.type = 'tv';
     content.title = json.name;
@@ -47,28 +50,23 @@ export class ContentParserService {
     return content;
   }
 
-  public parseMovie(json: MDBMovieJSON, credits: MDBCreditsJSON, imgBaseUrl: string, content = new Content()): Content {
-    this.parseResult(json, credits, imgBaseUrl, content);
+  public parseMovie(json: MDBMovieJSON, imgBaseUrl: string, content = new Content()): Content {
+    this.parseContentCommons(json, imgBaseUrl, content);
 
     content.type = 'movie';
     content.title = json.original_title;
     content.releaseDate = this.parseDate(json.release_date);
     content.duration = json.runtime;
-
-    const directors = (!!credits) ? credits.crew.filter(crewMember => crewMember.job === 'Director') : [];
-    content.directors = directors.map(dir => dir.name);
     content.originCountries = (!!json.production_countries) ? json.production_countries.map(country => country.iso_3166_1) : [];
 
     return content;
   }
 
-  public parseContentImages(json: MDBContentImagesJSON, imgBaseUrl: string, contentImg: string[] = []): string[] {
+  public parseContentCommons(json: MDBResultJSON, imgBaseUrl: string, content = new Content()): Content {
+    if (!json || !imgBaseUrl) {
+      throw new Error('#parseContentCommons: json and imgBaseUrl parameters should not be undefined');
+    }
 
-    json.backdrops.map(backdrop => contentImg.push(imgBaseUrl + backdrop.file_path));
-    return contentImg;
-  }
-
-  private parseResult(json: MDBResultJSON, credits: MDBCreditsJSON, imgBaseUrl: string, content: Content): Content {
     content.tmdbId = json.id;
     content.type = json.media_type;
     content.posterUrl = (!!json.poster_path) ? imgBaseUrl + json.poster_path : null;
@@ -77,6 +75,27 @@ export class ContentParserService {
     content.genres = (!!json.genres) ? json.genres.map(genre => genre.name) : [];
 
     return content;
+  }
+  public parseContentImages(json: MDBContentImagesJSON, imgBaseUrl: string, content: Content = new Content()): string[] {
+
+    if (!json || !imgBaseUrl) {
+      throw new Error('#parseContentImages: json and imgBaseUrl parameters should not be undefined');
+    }
+
+    json.backdrops.map(backdrop => content.backdrops.push(imgBaseUrl + backdrop.file_path));
+    return content.backdrops;
+  }
+
+  private extractContentFromMediaType(json: MDBContentJSON, imgBaseUrl: string, content: Content) {
+    switch (json.media_type) {
+      case 'tv':
+        return this.parseTvShow(json, imgBaseUrl, content);
+      case 'movie':
+        return this.parseMovie(json, imgBaseUrl, content);
+      case 'person':
+        content.type = 'person';
+        return content;
+    }
   }
 
   private extractDuration(durations: number[]): number {

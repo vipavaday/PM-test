@@ -3,6 +3,25 @@ import {
   MDBPersonJSON
 } from '../people-parser';
 
+import { Content, ContentType } from 'src/app/models';
+
+export type MDBContentJSON = MDBMovieJSON | MDBTvShowJSON | MDBPersonJSON;
+
+export interface IContentParser {
+
+  parseContentList(response: MDBSearchResponseJSON, imgBaseUrl: string): Content[];
+
+  parse(json: MDBContentJSON, imgBaseUrl: string, content?: Content): Content;
+
+  parseContentCommons(json: MDBResultJSON, imgBaseUrl: string, content: Content): Content;
+
+  parseTvShow(json: MDBTvShowJSON, imgBaseUrl: string, content: Content): Content;
+
+  parseMovie(json: MDBMovieJSON, imgBaseUrl: string, content: Content): Content;
+
+  parseContentImages(json: MDBContentImagesJSON, imgBaseUrl: string, content: Content): string[];
+}
+
 export type MDBOriginCountryJSON = string[];
 
 export type MDBGenreIdsJSON = string[];
@@ -31,7 +50,7 @@ export interface MDBResultJSON {
   vote_average?: number;
   popularity?: number;
   genres?: MDBGenreDetailsJSON[];
-  media_type: 'movie' | 'tv' | 'person';
+  media_type: ContentType;
 }
 
 export interface MDBMovieJSON extends MDBResultJSON {
@@ -52,11 +71,12 @@ export interface MDBTvShowJSON extends MDBResultJSON {
   media_type: 'tv';
 }
 
+
 export interface MDBSearchResponseJSON {
   page: number;
   total_results: number;
   total_pages: number;
-  results: (MDBMovieJSON | MDBTvShowJSON | MDBPersonJSON)[];
+  results: MDBContentJSON[];
 }
 
 export interface MDBImageJSON {
