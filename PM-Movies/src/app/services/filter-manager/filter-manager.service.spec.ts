@@ -26,7 +26,7 @@ describe('Services: FilterManagerService', () => {
       expect(filterService.filtersUpdateSource).toBeTruthy();
     });
 
-    it('should expose a filter replay subject', () => {
+    it('should expose a filter observable', () => {
       expect(filterService.$filtersUpdated).toBeTruthy();
     });
 
