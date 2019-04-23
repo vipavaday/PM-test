@@ -8,11 +8,11 @@ export class Person {
 
   public avatarPath: string;
 
-  public biography: string;
+  public biography?: string;
 
   public birthday?: string;
 
   public deathday?: string;
 
-  public popularity: number;
+  public popularity?: number;
 }
