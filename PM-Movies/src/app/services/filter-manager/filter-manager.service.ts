@@ -18,6 +18,9 @@ export class FilterManagerService {
   public $filtersUpdated = this.filtersUpdateSource.asObservable();
 
   public filterContents(filters: Filter, contents: Content[]): Content[] {
+    if (!filters || ! contents) {
+      throw new Error('#filterContents: filters or contents parameter should not be undefined');
+    }
 
     return contents.map(content => {
       const matchesType = this.filterByContentType(filters, content);

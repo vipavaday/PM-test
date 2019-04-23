@@ -4,7 +4,7 @@ export class Filter {
 
   public ltReleaseDate = '';
 
-  public contentTypes;
+  public contentTypes: Set<string>;
 
   constructor() {
     this.contentTypes = new Set<string>();
