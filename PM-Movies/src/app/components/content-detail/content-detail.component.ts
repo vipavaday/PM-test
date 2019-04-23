@@ -16,7 +16,7 @@ import {
   ContentListStateService
 } from '../../services';
 
-import { Content, Cast } from '../../models';
+import { Content, Cast, ContentType } from '../../models';
 import {
   map,
   switchMap,
@@ -34,7 +34,7 @@ export class ContentDetailComponent implements OnInit, OnDestroy {
 
   public id: number;
 
-  public type: string;
+  public type: ContentType;
 
   public content: Content;
 
@@ -52,7 +52,7 @@ export class ContentDetailComponent implements OnInit, OnDestroy {
 
   public ngOnInit() {
     this.id = parseInt(this.route.snapshot.paramMap.get('id'), 10);
-    this.type = this.route.snapshot.paramMap.get('type');
+    this.type = <ContentType>this.route.snapshot.paramMap.get('type');
 
     this.subscription = this.contentDataProvider.getContentDetails(this.id, this.type).pipe(
       switchMap(content => this.contentDataProvider.getCastDetails(content).pipe(map(cast => ({ cast, content })))),

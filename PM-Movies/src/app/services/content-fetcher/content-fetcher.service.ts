@@ -3,18 +3,21 @@ import { Injectable } from '@angular/core';
 import {
   Observable,
   of,
-  forkJoin,
-  merge
+  forkJoin
 } from 'rxjs';
 
-import { map, switchMap, scan } from 'rxjs/operators';
+import {
+  map,
+  switchMap
+} from 'rxjs/operators';
 
 import {
   Content,
-  Cast
+  Cast,
+  ContentType
 } from '../../models';
 
-import { MoviedbDataService } from '../moviedb-fetcher/moviedb-fetcher.service';
+import { MoviedbDataService } from '../moviedb-fetcher/moviedb-data.service';
 import { StorageService } from '../storage';
 
 /**
@@ -27,7 +30,7 @@ export class ContentFetcherService {
 
   constructor(
     private contentFetcher: MoviedbDataService,
-    private storage: StorageService) {}
+    private storage: StorageService) { }
 
   /**
   * Searches for content of any type matching the provided string (title)
@@ -47,7 +50,7 @@ export class ContentFetcherService {
   /**
   * Retrieves some information about a TV Show or Movie
   **/
-  public getContentDetails(tmdbId: number, type: string ): Observable<Content> {
+  public getContentDetails(tmdbId: number, type: ContentType): Observable<Content> {
 
     return this.contentFetcher.getContentDetails(type, tmdbId);
   }
@@ -58,7 +61,7 @@ export class ContentFetcherService {
    */
   public getCastDetails(content: Content): Observable<Cast[]> {
 
-    return forkJoin(content.cast.slice(0, 10).map( cast => this.contentFetcher.getPersonDetails(cast.person.id, cast.person).pipe(
+    return forkJoin(content.cast.slice(0, 10).map(cast => this.contentFetcher.getPersonDetails(cast.person.id, cast.person).pipe(
       switchMap(person => of(cast))
     )));
   }

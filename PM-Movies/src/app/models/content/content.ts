@@ -1,8 +1,10 @@
 import { Cast } from '../cast';
 
+export type ContentType = 'tv' | 'movie' | 'person';
+
 export class Content {
 
-  public type: 'tv' | 'movie' | 'person';
+  public type: ContentType;
 
   public voteAverage: number;
 
