@@ -17,8 +17,9 @@ import {
   ContentType
 } from '../../models';
 
-import { MoviedbDataService } from '../moviedb-fetcher/moviedb-data.service';
+import { MoviedbDataService } from '../moviedb-fetcher';
 import { StorageService } from '../storage';
+import { IContentFetcherService } from './content-fetcher.service.interface';
 
 /**
 * Gets data about contents (Movie, Tv Show) from the TMDB API and localStorage
@@ -26,7 +27,7 @@ import { StorageService } from '../storage';
 @Injectable({
   providedIn: 'root'
 })
-export class ContentFetcherService {
+export class ContentFetcherService implements IContentFetcherService {
 
   constructor(
     private contentFetcher: MoviedbDataService,
@@ -41,7 +42,6 @@ export class ContentFetcherService {
       return of([]);
     }
 
-    const savedContents: Content[] = this.storage.getStoredContents();
     return this.contentFetcher.getContentInfo(title).pipe(map(contents => {
       return contents.map(content => this.checkStoredContent(content));
     }));
@@ -50,7 +50,7 @@ export class ContentFetcherService {
   /**
   * Retrieves some information about a TV Show or Movie
   **/
-  public getContentDetails(tmdbId: number, type: ContentType): Observable<Content> {
+  public getContentDetails(type: ContentType, tmdbId: number): Observable<Content> {
 
     return this.contentFetcher.getContentDetails(type, tmdbId);
   }
@@ -60,6 +60,9 @@ export class ContentFetcherService {
    * @param content content for which we want to fetch casts details
    */
   public getCastDetails(content: Content): Observable<Cast[]> {
+    if (!content) {
+      throw new Error('#getCastDetails: content parameter should not be undefined');
+    }
 
     return forkJoin(content.cast.slice(0, 10).map(cast => this.contentFetcher.getPersonDetails(cast.person.id, cast.person).pipe(
       switchMap(person => of(cast))
