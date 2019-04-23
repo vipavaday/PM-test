@@ -27,26 +27,13 @@ export class ContentThumbnailComponent {
 
   public toggleWatchList(event: Event) {
     this.content.toWatch = !this.content.toWatch ;
-
-    if (this.content.toWatch) {
-      this.storage.addToWatchlist(this.content);
-    } else {
-      this.storage.removeFromWatchList(this.content);
-    }
-
+    this.storage.storeMarkedContent(this.content);
     event.stopPropagation();
   }
 
   public addToWatchedContents(event: Event) {
-
     this.content.watched = !this.content.watched;
-
-    if (this.content.toWatch) {
-      this.storage.addToWatchedContents(this.content);
-    } else {
-      this.storage.removeFromWatchedContents(this.content);
-    }
-
+    this.storage.storeMarkedContent(this.content);
     event.stopPropagation();
   }
 }
