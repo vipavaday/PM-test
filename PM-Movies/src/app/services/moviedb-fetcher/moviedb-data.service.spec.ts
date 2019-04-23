@@ -4,21 +4,22 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { of } from 'rxjs';
 
-import { MoviedbDataService } from './moviedb-data.service';
 import {
   PeopleParserService,
   PeopleParserServiceMock,
-  MDBPersonJSON
-} from '../people-parser';
-
-import {
+  MDBPersonJSON,
   ContentParserServiceMock,
   ContentParserService,
   MDBSearchResponseJSON,
   MDBContentImagesJSON,
   MDBContentJSON,
-} from '../content-parser';
-import { Content, Person } from 'src/app/models';
+  MoviedbDataService
+} from '../../services';
+
+import {
+  Content,
+  Person
+} from '../../models';
 
 describe('Services: MoviedbDataService', () => {
   let moviedbDataService: MoviedbDataService;

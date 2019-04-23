@@ -33,6 +33,7 @@ import {
   MDBCreditsJSON,
   MDBPersonJSON
 } from '../people-parser';
+import { IMoviedbDataService } from './moviedb-data.service.interface';
 
 /**
 * Gets data about contents (Movie, Tv Show) from the TMDB API and localStorage
@@ -40,7 +41,7 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class MoviedbDataService {
+export class MoviedbDataService implements IMoviedbDataService {
 
   private readonly apiKey = '422113b1d8f5bb170e051db92b9e84b5';
   private readonly baseUrl: string = 'https://api.themoviedb.org/3';
