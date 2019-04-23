@@ -46,5 +46,6 @@ export class Content {
     this.visible = true;
     this.backdrops = [];
     this.tmdbId = tmdbId;
+    this.cast = [];
   }
 }
