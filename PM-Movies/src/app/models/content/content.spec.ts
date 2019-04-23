@@ -38,5 +38,13 @@ describe('Models: Content', () => {
     it('should initialize the backdrop array', () => {
       expect(new Content('test title', 42, new Date('2019-04-12')).backdrops).not.toBeUndefined();
     });
+
+    it('should initialize the cast array', () => {
+      expect(new Content('test title', 42, new Date('2019-04-12')).cast).not.toBeUndefined();
+    });
+
+    it('should initialize the tmdbId if provided', () => {
+      expect(new Content('test title', 42, new Date('2019-04-12'), 1456).tmdbId).toBe(1456);
+    });
   });
 });

@@ -38,12 +38,13 @@ export class Content {
 
   public genres: string[];
 
-  constructor(titleN?: string, durationN?: number, releaseDateN?: Date) {
+  constructor(titleN?: string, durationN?: number, releaseDateN?: Date, tmdbId?: number) {
 
     this.title = titleN;
     this.duration = durationN;
     this.releaseDate = releaseDateN;
     this.visible = true;
     this.backdrops = [];
+    this.tmdbId = tmdbId;
   }
 }
