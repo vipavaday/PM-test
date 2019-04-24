@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { ContentParserService } from './content-parser.service';
-import { Content } from 'src/app/models';
+import { Content, Person } from 'src/app/models';
 import { MDBPersonJSON } from '../people-parser';
 import {
   MDBMovieJSON,
@@ -67,16 +67,20 @@ describe('ContentParserService', () => {
 
   describe('#parseContentList', () => {
     let mdbResponseJson: MDBSearchResponseJSON;
+    let spyParse: jasmine.Spy;
 
     beforeEach(() => {
-      spyOn(contentParser, 'parse').and.returnValue(new Content());
+      spyParse = spyOn(contentParser, 'parse');
+      spyParse.and.returnValue(new Content());
       mdbResponseJson = {
         page: 1,
         results: [
+          mdbMovieJson,
+          mdbMovieJson,
           mdbMovieJson
         ],
         total_pages: 1,
-        total_results: 1
+        total_results: 3
       };
     });
 
@@ -90,9 +94,28 @@ describe('ContentParserService', () => {
         .toThrowError('#parseContentList: response and imgBaseUrl parameters should not be undefined');
     });
 
-    it('should call parse parse method for each content in result json', () => {
+    it('should call parse method for each content in result json', () => {
       contentParser.parseContentList(mdbResponseJson, 'imgBaseUrl');
-      expect(contentParser.parse).toHaveBeenCalledTimes(1);
+      expect(contentParser.parse).toHaveBeenCalledTimes(3);
+    });
+
+    it('should filter parsed results to exclude persons', () => {
+      const person = new Content('a');
+      person.type = 'person';
+      const movie = new Content('b');
+      movie.type = 'movie';
+      const tvshow = new Content('c');
+      tvshow.type = 'tv';
+      spyParse.and.returnValues(person, tvshow, movie);
+
+      expect(contentParser.parseContentList(mdbResponseJson, 'imgBaseUrl')).toEqual(jasmine.arrayWithExactContents([
+        <any>jasmine.objectContaining<Content>({
+          title: 'b'
+        }),
+        <any>jasmine.objectContaining<Content>({
+          title: 'c'
+        })
+      ]));
     });
   });
 
