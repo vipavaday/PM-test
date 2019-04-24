@@ -31,7 +31,7 @@ export class ContentThumbnailComponent {
     event.stopPropagation();
   }
 
-  public addToWatchedContents(event: Event) {
+  public toggleWatchedContent(event: Event) {
     this.content.watched = !this.content.watched;
     this.storage.storeMarkedContent(this.content);
     event.stopPropagation();

@@ -5,6 +5,7 @@ import {
   Filter,
   Content
 } from 'src/app/models';
+import { IFilterManagerService } from './filter-manager.service.interface';
 
 /**
  * Service handling filters on content and related update triggers
@@ -12,7 +13,7 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class FilterManagerService {
+export class FilterManagerService implements IFilterManagerService {
 
   public filtersUpdateSource = new ReplaySubject<Filter>();
   public $filtersUpdated = this.filtersUpdateSource.asObservable();
