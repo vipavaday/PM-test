@@ -18,10 +18,6 @@ describe('Components: ContentDetailComponent', () => {
   let route: ActivatedRoute;
   let contentDataProvider: ContentFetcherService;
 
-  console.log('param', convertToParamMap({
-    'id': '5',
-    'type': 'movie'
-  }));
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [

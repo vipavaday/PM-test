@@ -1,5 +1,6 @@
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { RouterLink } from '@angular/router';
 
 import { RouterTestingModule } from '@angular/router/testing';
 import {
@@ -27,7 +28,7 @@ describe('Component: ContentThumbnailComponent', () => {
         { provide: StorageService, useClass: StorageServiceMock }
       ],
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
       ],
     });
   });
@@ -74,6 +75,7 @@ describe('Component: ContentThumbnailComponent', () => {
 
     it('should be a routerLink to the content detail page', () => {
       const cardBodyElem = hostElement.query(By.css('.card-body'));
+      console.log(cardBodyElem);
       expect(cardBodyElem.properties['href']).toEqual('/detail/movie/7836');
     });
 
