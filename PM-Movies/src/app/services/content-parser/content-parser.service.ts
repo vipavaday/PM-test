@@ -24,7 +24,7 @@ export class ContentParserService implements IContentParser {
     if (!response || !imgBaseUrl) {
       throw new Error('#parseContentList: response and imgBaseUrl parameters should not be undefined');
     }
-    return response.results.map(res => this.parse(res, imgBaseUrl));
+    return response.results.map(res => this.parse(res, imgBaseUrl)).filter( content => content.type !== 'person');
   }
 
   public parse(json: MDBContentJSON, imgBaseUrl: string, content = new Content()): Content {
