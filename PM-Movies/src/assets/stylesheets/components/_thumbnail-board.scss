@@ -1,20 +1,27 @@
 app-thumbnail-board {
-
-  .thumbnail-board-container{
-    margin-left: auto;
+  .thumbnail-board-container {
     margin-left: auto;
     min-height: 60vh;
   }
 
-  .thumbnail-board-empty-msg{
+  .thumbnail-board-sub-container {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .thumbnail-board-empty-msg {
     text-align: center;
-    color: lighten($base-color,70);
+    color: lighten($base-color, 70);
     font-weight: $weight-bold;
     font-size: $size-xxlarge;
   }
 
-  app-content-thumbnail{
-    margin: $spacing-none $spacing-xlarge $spacing-xlarge $spacing-xlarge;
+  app-content-thumbnail {
+    margin: $spacing-none $spacing-xxlarge $spacing-xxlarge $spacing-xxlarge;
     display: flex;
+  }
+
+  .thumbnail-board-thumbnails {
+    max-width: 90rem;
   }
 }

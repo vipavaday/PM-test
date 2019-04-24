@@ -3,10 +3,9 @@ import { ReplaySubject } from 'rxjs';
 
 import {
   Filter,
-  Content,
-  Movie,
-  TvShow
+  Content
 } from 'src/app/models';
+import { IFilterManagerService } from './filter-manager.service.interface';
 
 /**
  * Service handling filters on content and related update triggers
@@ -14,12 +13,15 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class FilterManagerService {
+export class FilterManagerService implements IFilterManagerService {
 
   public filtersUpdateSource = new ReplaySubject<Filter>();
   public $filtersUpdated = this.filtersUpdateSource.asObservable();
 
   public filterContents(filters: Filter, contents: Content[]): Content[] {
+    if (!filters || ! contents) {
+      throw new Error('#filterContents: filters or contents parameter should not be undefined');
+    }
 
     return contents.map(content => {
       const matchesType = this.filterByContentType(filters, content);

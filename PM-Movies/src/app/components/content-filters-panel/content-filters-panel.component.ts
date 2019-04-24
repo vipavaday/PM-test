@@ -20,7 +20,6 @@ export class ContentFiltersPanelComponent implements OnInit {
   public filter: Filter;
 
   constructor(private filterManager: FilterManagerService) {
-
     this.filter = new Filter();
   }
 
@@ -29,19 +28,24 @@ export class ContentFiltersPanelComponent implements OnInit {
   }
 
   public updateGtDate(gtDate: string) {
+    if (isNaN(Date.parse(gtDate))) {
+      throw new Error('#updateGtDate: gtDate should follow dd/mm/yyyy formmat');
+    }
 
     this.filter.gtReleaseDate = gtDate;
     this.onUpdateFilter();
   }
 
   public updateLtDate(ltDate: string) {
+    if (isNaN(Date.parse(ltDate))) {
+      throw new Error('#updateLtDate: ltDate should follow dd/mm/yyyy formmat');
+    }
 
     this.filter.ltReleaseDate = ltDate;
     this.onUpdateFilter();
   }
 
   public toggleShowMovies() {
-
     this.filter.toggleContentType('movie');
     this.onUpdateFilter();
   }
@@ -53,6 +57,7 @@ export class ContentFiltersPanelComponent implements OnInit {
   }
 
   public onUpdateFilter() {
+    console.log(11);
     this.filterManager.filtersUpdateSource.next(this.filter);
   }
 }

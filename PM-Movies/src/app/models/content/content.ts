@@ -1,8 +1,10 @@
 import { Cast } from '../cast';
 
-export abstract class Content {
+export type ContentType = 'tv' | 'movie' | 'person';
 
-  public type = '';
+export class Content {
+
+  public type: ContentType;
 
   public voteAverage: number;
 
@@ -24,6 +26,8 @@ export abstract class Content {
 
   public posterPath: string;
 
+  public backdrops: string[];
+
   public overview: string;
 
   public cast: Cast[];
@@ -34,11 +38,14 @@ export abstract class Content {
 
   public genres: string[];
 
-  constructor(titleN: string, durationN: number, releaseDateN: Date) {
+  constructor(titleN?: string, durationN?: number, releaseDateN?: Date, tmdbId?: number) {
 
     this.title = titleN;
     this.duration = durationN;
     this.releaseDate = releaseDateN;
     this.visible = true;
+    this.backdrops = [];
+    this.tmdbId = tmdbId;
+    this.cast = [];
   }
 }

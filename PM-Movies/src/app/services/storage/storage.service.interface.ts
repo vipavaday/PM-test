@@ -2,13 +2,18 @@ import { Content } from 'src/app/models';
 
 export interface IStorageService {
 
+  /**
+   * Retrieves stored content from localStorage
+   */
   getStoredContents(): Content[];
 
-  addToWatchlist(content: Content): void;
+  /**
+   * Stores a content in local storage if any its toWatch or watched property is true
+   */
+  storeMarkedContent(content: Content): void;
 
-  removeFromWatchList(content: Content): void;
-
-  addToWatchedContents(content: Content): void;
-
-  removeFromWatchedContents(content: Content): void;
+   /**
+   * Removes a content from localStorage
+   */
+  removeMarkedContentFromStorage(content: Content): void;
 }

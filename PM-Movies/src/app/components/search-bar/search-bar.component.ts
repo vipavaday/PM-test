@@ -12,10 +12,9 @@ import { ContentListStateService } from '../../services';
 })
 export class SearchBarComponent {
 
-  constructor(private queryService: ContentListStateService) { }
+  constructor(private contentListStateService: ContentListStateService) { }
 
   public onSearchUpdate(searchQuery: string) {
-
-    this.queryService.updateQuery(searchQuery);
+    this.contentListStateService.updateQuery(searchQuery);
   }
 }

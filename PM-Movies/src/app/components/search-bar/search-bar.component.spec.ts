@@ -1,25 +1,49 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+
+import {
+  ContentListStateServiceMock,
+  ContentListStateService
+} from '../../services';
+
 
 import { SearchBarComponent } from './search-bar.component';
 
 describe('SearchBarComponent', () => {
   let component: SearchBarComponent;
   let fixture: ComponentFixture<SearchBarComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ SearchBarComponent ]
-    })
-    .compileComponents();
-  }));
+  let contentListStateService: ContentListStateService;
 
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        SearchBarComponent
+      ],
+      providers: [
+        { provide: ContentListStateService, useClass: ContentListStateServiceMock }
+      ],
+      schemas: [
+        NO_ERRORS_SCHEMA
+      ]
+    }).compileComponents();
+
+    contentListStateService = TestBed.get(ContentListStateService);
     fixture = TestBed.createComponent(SearchBarComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+
+    spyOn(contentListStateService, 'updateQuery').and.callFake(() => {});
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  describe('#new', () => {
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+  });
+
+  describe('#onSearchUpdate', () => {
+    it('should call updateQuery method of contentListStateService', () => {
+      component.onSearchUpdate('harry potter');
+      expect(contentListStateService.updateQuery).toHaveBeenCalledWith('harry potter');
+    });
   });
 });

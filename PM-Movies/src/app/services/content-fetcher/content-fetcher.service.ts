@@ -2,18 +2,24 @@ import { Injectable } from '@angular/core';
 
 import {
   Observable,
-  ReplaySubject
+  of,
+  forkJoin
 } from 'rxjs';
 
-import { map } from 'rxjs/operators';
+import {
+  map,
+  switchMap
+} from 'rxjs/operators';
 
 import {
   Content,
-  Filter
+  Cast,
+  ContentType
 } from '../../models';
 
-import { MoviedbDataService } from '../moviedb-fetcher/moviedb-fetcher.service';
+import { MoviedbDataService } from '../moviedb-fetcher';
 import { StorageService } from '../storage';
+import { IContentFetcherService } from './content-fetcher.service.interface';
 
 /**
 * Gets data about contents (Movie, Tv Show) from the TMDB API and localStorage
@@ -21,18 +27,21 @@ import { StorageService } from '../storage';
 @Injectable({
   providedIn: 'root'
 })
-export class ContentFetcherService {
+export class ContentFetcherService implements IContentFetcherService {
 
   constructor(
     private contentFetcher: MoviedbDataService,
-    private storage: StorageService) {}
+    private storage: StorageService) { }
 
   /**
   * Searches for content of any type matching the provided string (title)
   **/
   public getContentInfo(title: string): Observable<Content[]> {
 
-    const savedContents: Content[] = this.storage.getStoredContents();
+    if (!title) {
+      return of([]);
+    }
+
     return this.contentFetcher.getContentInfo(title).pipe(map(contents => {
       return contents.map(content => this.checkStoredContent(content));
     }));
@@ -41,9 +50,30 @@ export class ContentFetcherService {
   /**
   * Retrieves some information about a TV Show or Movie
   **/
-  public getContentDetails(type: string, id: string): Observable<Content> {
+  public getContentDetails(type: ContentType, tmdbId: number): Observable<Content> {
 
-    return this.contentFetcher.getContentDetails(type, id);
+    return this.contentFetcher.getContentDetails(type, tmdbId);
+  }
+
+  /**
+   * Fetch details for the 10 most important casts of the specified content
+   * @param content content for which we want to fetch casts details
+   */
+  public getCastDetails(content: Content): Observable<Cast[]> {
+    if (!content) {
+      throw new Error('#getCastDetails: content parameter should not be undefined');
+    }
+
+    return forkJoin(content.cast.slice(0, 10).map(cast => this.contentFetcher.getPersonDetails(cast.person.id, cast.person).pipe(
+      switchMap(person => of(cast))
+    )));
+  }
+
+  /**
+   * Fetch backdrop images related to the provided content
+   */
+  public getExtraImages(content: Content): Observable<string[]> {
+    return this.contentFetcher.getExtraImages(content);
   }
 
   private checkStoredContent(content: Content): Content {

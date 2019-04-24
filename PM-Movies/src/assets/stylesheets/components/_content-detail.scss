@@ -1,12 +1,18 @@
 app-content-detail {
   .detail-container {
+    position: relative;
     margin-top: $spacing-xxlarge * 6;
   }
 
   .detail-section {
     padding: $spacing-medium;
-    padding-left: $spacing-xxlarge * 4;
-    margin-bottom: $spacing-xxlarge;
+    padding-left: $spacing-xxlarge*8;
+    color: lighten($base-color, 30);
+
+    @media (max-width: map-get($breakpoints, "large")){
+      padding-left: $spacing-xxlarge;
+      padding-right: $spacing-xxlarge;
+    }
   }
 
   .detail-section-title {
@@ -17,10 +23,12 @@ app-content-detail {
   .detail-jumbotron {
     background: $detail-jumbotron-gradient;
     color: $contrast-color;
+    height: 20rem;
   }
 
   .jumbotron-title {
     font-size: $input-size-xxlarge;
+    max-width: 35rem;
   }
 
   .jumbotron-section {
@@ -56,10 +64,52 @@ app-content-detail {
     margin-left: $spacing-xxsmall;
   }
 
-  .content-poster {
-    width: 20rem;
-    position: absolute;
-    right: 10rem;
+  .content-img-group-top {
+    height: 30rem;
+    margin: $spacing-xxlarge auto;
+
+    @media (min-width: map-get($breakpoints, "xlarge")) {
+      position: absolute;
+      top: -6rem;
+      right: 5rem;
+    }
+
+    @media (max-width: map-get($breakpoints, "xlarge")) {
+      height: auto;
+      justify-content: center;
+
+      .content-img-right-bottom {
+        margin-left: $spacing-none;
+        margin-top: $spacing-large;
+      }
+    }
+  }
+
+  .content-img {
+    @include contentImgSmallAspectRatio;
+    position: relative;
+    object-fit: cover;
+
+    &::before {
+      width: 100%;
+      height: 100%;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: $accent-bg-color;
+      content: "";
+    }
+  }
+
+  .content-img-right-bottom {
+    margin-left: -10rem;
+    z-index: 0;
+  }
+
+  .content-img-left-top {
+    object-position: 50% 0;
+    z-index: 1;
   }
 
   .content-origin-country-list {
@@ -81,34 +131,26 @@ app-content-detail {
   }
 
   .synopsis {
-    width: 50vw;
-    max-width: 50rem;
-  }
-
-  .cast-list {
-    display: flex;
-    flex-wrap: wrap;
+    max-width: 60rem;
+    font-size: $size-medium;
+    margin-top: $spacing-xxlarge;
   }
 
   .cast {
-    display: flex;
     width: 30rem;
-    align-items: center;
     padding: $spacing-medium;
     padding-left: $spacing-none;
   }
 
   .cast-avatar {
     position: relative;
-    margin: $spacing-medium;
-    margin-left: $spacing-none;
+    margin: $spacing-none $spacing-medium $spacing-none $spacing-none;
     object-fit: cover;
     object-position: 25% 1%;
     width: 5rem;
     height: 5rem;
     border-radius: 3rem;
     overflow: hidden;
-    display: block;
 
     &.broken:after {
       position: absolute;
@@ -124,8 +166,54 @@ app-content-detail {
     }
   }
 
+  .cast-information{
+    min-width: 20rem;
+  }
+
   .cast-name {
     font-weight: $weight-bold;
-    font-size: $size-large;
+    font-size: $size-medium;
+  }
+
+  .cast-role,
+  .cast-biography {
+    margin-bottom: $spacing-none;
+  }
+
+  .cast-biography{
+    max-width: 20rem;
+  }
+
+  .cast-role {
+    font-size: $size-medium;
+  }
+
+  .cast-biography {
+    font-size: $size-small;
+  }
+
+  .content-img-group-bottom {
+    height: $content-img-group-bottom-height;
+    margin: $spacing-xxlarge $spacing-none;
+
+    .content-img{
+      @include contentImgHugeAspectRatio;
+      min-width: 0;
+    }
+
+    @media (max-width: map-get($breakpoints, "xlarge")) {
+      flex-direction: column;
+      height: auto;
+
+      .content-img{
+        align-self: center;
+        width: 80vw;
+        min-width: 80vw;
+        height: 50vw;
+        min-height: 50vw;
+        margin: $spacing-none;
+        margin-bottom: $spacing-medium;
+      }
+    }
   }
 }

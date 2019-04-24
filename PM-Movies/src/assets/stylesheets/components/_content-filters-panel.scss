@@ -51,6 +51,12 @@ app-content-filters-panel {
     }
   }
 
+  .filters-panel-header-title{
+    color: $accent-color;
+    font-size: $size-xlarge;
+    margin-bottom: $spacing-none;
+  }
+
   .filter-category {
     padding-top: $spacing-xxlarge;
     padding-bottom: $spacing-small;

@@ -34,7 +34,7 @@ import {
 })
 export class ThumbnailBoardComponent implements OnInit, OnDestroy {
 
-  private contents: Content[];
+  public contents: Content[];
   public contentListStateSubscription: Subscription;
 
   constructor(

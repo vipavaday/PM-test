@@ -14,19 +14,13 @@ export class StorageService implements IStorageService {
     return this.storage.getStoredContents();
   }
 
-  public addToWatchlist(content: Content) {
-    return this.storage.addToWatchlist(content);
+  public storeMarkedContent(content: Content) {
+    return this.storage.storeMarkedContent(content);
   }
 
-  public removeFromWatchedContents(content: Content) {
-    return this.storage.removeFromWatchedContents(content);
-  }
-
-  public removeFromWatchList(content: Content) {
-    return this.storage.removeFromWatchList(content);
-  }
-
-  public addToWatchedContents(content: Content) {
-    return this.storage.addToWatchedContents(content);
+  public removeMarkedContentFromStorage(content: Content): void {
+    if (content && !content.watched && !content.toWatch) {
+      return this.storage.removeMarkedContentFromStorage(content);
+    }
   }
 }
