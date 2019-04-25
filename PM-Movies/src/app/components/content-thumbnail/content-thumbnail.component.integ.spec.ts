@@ -1,6 +1,5 @@
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { RouterLink } from '@angular/router';
 
 import { RouterTestingModule } from '@angular/router/testing';
 import {
@@ -28,7 +27,7 @@ describe('Component: ContentThumbnailComponent', () => {
         { provide: StorageService, useClass: StorageServiceMock }
       ],
       imports: [
-        RouterTestingModule,
+        RouterTestingModule
       ],
     });
   });
