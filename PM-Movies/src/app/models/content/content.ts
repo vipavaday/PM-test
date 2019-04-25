@@ -24,19 +24,17 @@ export class Content {
 
   public visible: boolean;
 
-  public posterPath: string;
-
-  public backdrops: string[];
-
   public overview: string;
 
-  public cast: Cast[];
+  public backdrops: string[] = [];
 
-  public directors: string[];
+  public cast: Cast[] = [];
 
-  public originCountries: string[];
+  public directors: string[] = [];
 
-  public genres: string[];
+  public originCountries: string[] = [];
+
+  public genres: string[] = [];
 
   constructor(titleN?: string, durationN?: number, releaseDateN?: Date, tmdbId?: number) {
 
@@ -44,8 +42,6 @@ export class Content {
     this.duration = durationN;
     this.releaseDate = releaseDateN;
     this.visible = true;
-    this.backdrops = [];
     this.tmdbId = tmdbId;
-    this.cast = [];
   }
 }
