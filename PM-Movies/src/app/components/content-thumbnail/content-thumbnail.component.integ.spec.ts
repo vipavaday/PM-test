@@ -75,7 +75,6 @@ describe('Component: ContentThumbnailComponent', () => {
 
     it('should be a routerLink to the content detail page', () => {
       const cardBodyElem = hostElement.query(By.css('.card-body'));
-      console.log(cardBodyElem);
       expect(cardBodyElem.properties['href']).toEqual('/detail/movie/7836');
     });
 
