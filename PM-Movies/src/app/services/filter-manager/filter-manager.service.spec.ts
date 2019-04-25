@@ -111,7 +111,7 @@ describe('Services: FilterManagerService', () => {
 
     describe('should return contents that match content type criteria', () => {
       it('when filtered type is tv show', () => {
-        filter.toggleContentType('tv');
+        filter.contentTypes.delete('movie');
         expect(filterService.filterContents(filter, contents).filter(item => item.visible === true))
           .toEqual(jasmine.arrayWithExactContents([
             <any>jasmine.objectContaining<Content>({
@@ -123,8 +123,8 @@ describe('Services: FilterManagerService', () => {
           );
       });
 
-      it('when filtered type is tv show', () => {
-        filter.toggleContentType('movie');
+      it('when filtered type is movie', () => {
+        filter.contentTypes.delete('tv');
         expect(filterService.filterContents(filter, contents).filter(item => item.visible === true))
           .toEqual(jasmine.arrayWithExactContents([
             <any>jasmine.objectContaining<Content>({
@@ -147,7 +147,7 @@ describe('Services: FilterManagerService', () => {
     });
 
     it('should be able to combine content type and date filters', () => {
-      filter.toggleContentType('movie');
+      filter.contentTypes.delete('tv');
       filter.ltReleaseDate = '09/11/2001';
       expect(filterService.filterContents(filter, contents).filter(item => item.visible === true))
         .toEqual(jasmine.arrayWithExactContents([
