@@ -1,17 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Cast, Content, Person } from 'src/app/models';
+import { IPeopleParser, MDBCastJSON, MDBCreditsJSON, MDBPersonJSON } from './people-parser.service.interface';
 
-import {
-  Cast,
-  Person,
-  Content
-} from 'src/app/models';
 
-import {
-  MDBCreditsJSON,
-  MDBCastJSON,
-  MDBPersonJSON,
-  IPeopleParser
-} from './people-parser.service.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -54,7 +45,7 @@ export class PeopleParserService implements IPeopleParser {
     }
 
     content.cast = json.cast.map(castJson => this.parseCast(castJson));
-    if (!content.directors) {
+    if (content.directors.length === 0) {
       this.parseDirectorsFromCredits(json, content);
     }
 

@@ -19,32 +19,44 @@ describe('Models: Content', () => {
       expect(() => new Content('', 42, undefined)).not.toThrow();
     });
 
-    it('should set the title', () => {
+    it('should set title', () => {
       expect(new Content('test title', 42, new Date()).title).toEqual('test title');
     });
 
-    it('should set the duration', () => {
+    it('should set duration', () => {
       expect(new Content('test title', 42, new Date()).duration).toEqual(42);
     });
 
-    it('should set the releaseDate', () => {
+    it('should set releaseDate', () => {
       expect(new Content('test title', 42, new Date('2019-04-12')).releaseDate).toEqual(new Date('2019-04-12'));
     });
 
-    it('should set the visible state', () => {
+    it('should set visible state', () => {
       expect(new Content('test title', 42, new Date('2019-04-12')).visible).toBe(true);
     });
 
-    it('should initialize the backdrop array', () => {
+    it('should initialize tmdbId when provided', () => {
+      expect(new Content('test title', 42, new Date('2019-04-12'), 1456).tmdbId).toBe(1456);
+    });
+
+    it('should initialize backdrops array', () => {
       expect(new Content('test title', 42, new Date('2019-04-12')).backdrops).not.toBeUndefined();
     });
 
-    it('should initialize the cast array', () => {
+    it('should initialize cast array', () => {
       expect(new Content('test title', 42, new Date('2019-04-12')).cast).not.toBeUndefined();
     });
 
-    it('should initialize the tmdbId if provided', () => {
-      expect(new Content('test title', 42, new Date('2019-04-12'), 1456).tmdbId).toBe(1456);
+    it('should initialize directors array', () => {
+      expect(new Content('test title', 42, new Date('2019-04-12')).directors).not.toBeUndefined();
+    });
+
+    it('should initialize originCountries array', () => {
+      expect(new Content('test title', 42, new Date('2019-04-12')).originCountries).not.toBeUndefined();
+    });
+
+    it('should initialize genres array', () => {
+      expect(new Content('test title', 42, new Date('2019-04-12')).genres).not.toBeUndefined();
     });
   });
 });
