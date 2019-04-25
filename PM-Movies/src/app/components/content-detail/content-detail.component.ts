@@ -59,7 +59,9 @@ export class ContentDetailComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if (!!this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   public getFormatedBiography(biography: string, maxPhrase: number): string {
