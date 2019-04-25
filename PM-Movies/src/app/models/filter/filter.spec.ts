@@ -9,6 +9,14 @@ describe('Models: Filter', () => {
     it('should initialize contentTypes set', () => {
       expect(new Filter().contentTypes).not.toBeUndefined();
     });
+
+    it('should add tv as default enabled contentTypes filter', () => {
+      expect(new Filter().contentTypes).toContain('tv');
+    });
+
+    it('should add movie as default enabled contentTypes filter', () => {
+      expect(new Filter().contentTypes).toContain('movie');
+    });
   });
 
   describe('#toggleContentType', () => {
@@ -19,27 +27,19 @@ describe('Models: Filter', () => {
       filter = new Filter();
     });
 
-    it('should add content type', () => {
+    it('should add content type when missing', () => {
+      filter.contentTypes.clear();
       filter.toggleContentType('tv');
       expect(filter.contentTypes.has('tv')).toEqual(true);
     });
 
-    it('should remove content type', () => {
-      filter.toggleContentType('tv');
+    it('should remove content type when present', () => {
+      filter.contentTypes.add('tv');
       filter.toggleContentType('tv');
       expect(filter.contentTypes.has('tv')).toEqual(false);
     });
 
-    it('should not remove content type if another is added', () => {
-      filter.toggleContentType('tv');
-      filter.toggleContentType('movie');
-      expect(filter.contentTypes.has('tv')).toEqual(true);
-      expect(filter.contentTypes.has('movie')).toEqual(true);
-    });
-
     it('should remove only specified type', () => {
-      filter.toggleContentType('tv');
-      filter.toggleContentType('movie');
       filter.toggleContentType('movie');
       expect(filter.contentTypes.has('tv')).toEqual(true);
       expect(filter.contentTypes.has('movie')).toEqual(false);

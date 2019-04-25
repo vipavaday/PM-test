@@ -8,6 +8,8 @@ export class Filter {
 
   constructor() {
     this.contentTypes = new Set<string>();
+    this.contentTypes.add('tv');
+    this.contentTypes.add('movie');
   }
 
   public toggleContentType(contentType: string) {
