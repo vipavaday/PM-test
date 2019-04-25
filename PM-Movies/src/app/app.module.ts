@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import {
   AppComponent,
@@ -28,7 +29,8 @@ import { MinutesToHoursPipe } from './pipes';
   imports: [
     BrowserModule,
     HttpClientModule,
-    ContentRoutingModule
+    ContentRoutingModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

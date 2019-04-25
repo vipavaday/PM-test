@@ -27,37 +27,18 @@ export class ContentFiltersPanelComponent implements OnInit {
     this.onUpdateFilter();
   }
 
-  public updateGtDate(gtDate: string) {
-    if (isNaN(Date.parse(gtDate))) {
-      throw new Error('#updateGtDate: gtDate should follow dd/mm/yyyy formmat');
-    }
-
-    this.filter.gtReleaseDate = gtDate;
-    this.onUpdateFilter();
-  }
-
-  public updateLtDate(ltDate: string) {
-    if (isNaN(Date.parse(ltDate))) {
-      throw new Error('#updateLtDate: ltDate should follow dd/mm/yyyy formmat');
-    }
-
-    this.filter.ltReleaseDate = ltDate;
-    this.onUpdateFilter();
-  }
-
-  public toggleShowMovies() {
+  public toggleMovieFilter() {
     this.filter.toggleContentType('movie');
     this.onUpdateFilter();
   }
 
-  public toggleShowTvShows() {
+  public toggleTvshowFilter() {
 
     this.filter.toggleContentType('tv');
     this.onUpdateFilter();
   }
 
   public onUpdateFilter() {
-    console.log(11);
     this.filterManager.filtersUpdateSource.next(this.filter);
   }
 }

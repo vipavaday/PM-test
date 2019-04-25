@@ -2,13 +2,12 @@ import {
   ComponentFixture,
   TestBed
 } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import {
   FilterManagerService,
   FilterManagerServiceMock
 } from '../../services';
-
-import { Filter } from '../../models';
 
 import { ContentFiltersPanelComponent } from './content-filters-panel.component';
 
@@ -22,6 +21,9 @@ describe('Component: ContentFiltersPanelComponent', () => {
     const testBed = TestBed.configureTestingModule({
       declarations: [
         ContentFiltersPanelComponent
+      ],
+      imports: [
+        FormsModule,
       ],
       providers: [
         { provide: FilterManagerService, useClass: FilterManagerServiceMock }
@@ -54,61 +56,27 @@ describe('Component: ContentFiltersPanelComponent', () => {
     });
   });
 
-  describe('#updateGtDate', () => {
-    it('should throw an error when parameter is not parsable as a date', () => {
-      expect(() => contentFilterPanel.updateGtDate('82/24/1987'))
-      .toThrowError('#updateGtDate: gtDate should follow dd/mm/yyyy formmat');
-    });
-
-    it('should set filter greater than date property', () => {
-      contentFilterPanel.updateGtDate('12/12/1987');
-      expect(contentFilterPanel.filter.gtReleaseDate).toBe('12/12/1987');
-    });
-
-    it('should call onUpdateFilter method', () => {
-      contentFilterPanel.updateGtDate('12/12/1987');
-      expect(spyOnUpdateFilter).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('#updateLtDate', () => {
-    it('should throw an error when parameter is not parsable as a date', () => {
-      expect(() => contentFilterPanel.updateLtDate('82/24/1987'))
-      .toThrowError('#updateLtDate: ltDate should follow dd/mm/yyyy formmat');
-    });
-
-    it('should set filter lower than date property', () => {
-      contentFilterPanel.updateLtDate('12/12/1987');
-      expect(contentFilterPanel.filter.ltReleaseDate).toBe('12/12/1987');
-    });
-
-    it('should call onUpdateFilter method', () => {
-      contentFilterPanel.updateLtDate('12/12/1987');
-      expect(spyOnUpdateFilter).toHaveBeenCalledTimes(1);
-    });
-  });
-
   describe('#toggleShowMovies', () => {
 
     it('should call toogleContentType on filter', () => {
-      contentFilterPanel.toggleShowMovies();
+      contentFilterPanel.toggleMovieFilter();
       expect(contentFilterPanel.filter.toggleContentType).toHaveBeenCalledWith('movie');
     });
 
     it('should call onUpdateFilter method', () => {
-      contentFilterPanel.toggleShowMovies();
+      contentFilterPanel.toggleMovieFilter();
       expect(spyOnUpdateFilter).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('#toggleShowTvShow', () => {
     it('should call toogleContentType on filter', () => {
-      contentFilterPanel.toggleShowTvShows();
+      contentFilterPanel.toggleTvshowFilter();
       expect(contentFilterPanel.filter.toggleContentType).toHaveBeenCalledWith('tv');
     });
 
     it('should call onUpdateFilter method', () => {
-      contentFilterPanel.toggleShowTvShows();
+      contentFilterPanel.toggleTvshowFilter();
       expect(spyOnUpdateFilter).toHaveBeenCalledTimes(1);
     });
   });
