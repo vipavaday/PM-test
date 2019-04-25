@@ -1,8 +1,8 @@
 export class Filter {
 
-  public gtReleaseDate = '';
+  private _gtReleaseDate = '';
 
-  public ltReleaseDate = '';
+  private _ltReleaseDate = '';
 
   public contentTypes: Set<string>;
 
@@ -14,5 +14,29 @@ export class Filter {
 
   public toggleContentType(contentType: string) {
     this.contentTypes.has(contentType) ? this.contentTypes.delete(contentType) : this.contentTypes.add(contentType);
+  }
+
+  set gtReleaseDate(date: string) {
+
+    if (isNaN(Date.parse(date))) {
+      throw new Error('#set gtReleaseDate: gtDate should follow dd/mm/yyyy formmat');
+    }
+    this._gtReleaseDate = date;
+  }
+
+  get gtReleaseDate(): string {
+    return this._gtReleaseDate;
+  }
+
+  set ltReleaseDate(date: string) {
+
+    if (isNaN(Date.parse(date))) {
+      throw new Error('#set ltReleaseDate: ltDate should follow dd/mm/yyyy formmat');
+    }
+    this._ltReleaseDate = date;
+  }
+
+  get ltReleaseDate(): string {
+    return this._ltReleaseDate;
   }
 }
