@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import {
@@ -11,7 +12,6 @@ import {
   FilterManagerServiceMock
 } from '../../services';
 import { ContentFiltersPanelComponent } from './content-filters-panel.component';
-import { FormsModule } from '@angular/forms';
 
 describe('Component: ContentFiltersPanelComponent', () => {
   let createHost: HostComponentFactory<ContentFiltersPanelComponent>;

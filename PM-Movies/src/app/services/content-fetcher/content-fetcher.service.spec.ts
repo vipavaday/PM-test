@@ -11,8 +11,8 @@ import {
 } from '../../services';
 
 import {
-  Content,
   Cast,
+  Content,
   Person
 } from '../../models';
 
