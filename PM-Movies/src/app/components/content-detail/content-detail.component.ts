@@ -1,24 +1,18 @@
 import {
   Component,
-  OnInit,
-  OnDestroy
+  OnDestroy,
+  OnInit
 } from '@angular/core';
-
 import { ActivatedRoute } from '@angular/router';
 
 import { Subscription } from 'rxjs';
-
-import {
-  map,
-  switchMap,
-} from 'rxjs/operators';
-
-import { ContentFetcherService } from '../../services';
+import { map, switchMap } from 'rxjs/operators';
 
 import {
   Content,
   ContentType
 } from '../../models';
+import { ContentFetcherService } from '../../services';
 
 /**
 * Represents a bunch of detail infos about a content
