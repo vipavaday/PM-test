@@ -1,22 +1,26 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   TestBed
 } from '@angular/core/testing';
 
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs';
 
 import {
+  Content,
+  Filter
+} from '../../models';
+
+import {
   ContentFetcherService,
-  ContentListStateService,
   ContentFetcherServiceMock,
+  ContentListStateService,
   ContentListStateServiceMock,
   FilterManagerService,
   FilterManagerServiceMock
 } from '../../services';
 
 import { ThumbnailBoardComponent } from './thumbnail-board.component';
-import { Content, Filter } from '../../models';
 
 describe('ThumbnailBoardComponent', () => {
   let component: ThumbnailBoardComponent;
