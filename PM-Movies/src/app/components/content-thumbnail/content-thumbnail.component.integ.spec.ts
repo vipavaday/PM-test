@@ -9,11 +9,11 @@ import {
 } from '@pm/spectator';
 
 import {
-  StorageServiceMock,
-  StorageService
+  StorageService,
+  StorageServiceMock
 } from 'src/app/services';
-import { Content } from '../../models';
 import { ContentThumbnailComponent } from '../../components';
+import { Content } from '../../models';
 
 describe('Component: ContentThumbnailComponent', () => {
   let createHost: HostComponentFactory<ContentThumbnailComponent>;
