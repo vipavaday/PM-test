@@ -10,7 +10,7 @@ export class MinutesToHoursPipe implements PipeTransform {
 
   public transform(minutes: number): string {
     if (minutes === undefined || Number.isNaN(minutes)) {
-      return 'Unknown duration';
+      return null;
     }
 
     const hours = Math.floor(minutes / 60);

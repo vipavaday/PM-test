@@ -13,11 +13,11 @@ describe('MinutesToHoursPipe', () => {
   });
 
   it('should return Unknown duration when undefined', () => {
-    expect(pipe.transform(undefined)).toEqual('Unknown duration');
+    expect(pipe.transform(undefined)).toBeNull();
   });
 
   it('should return Unknown duration when NaN', () => {
-    expect(pipe.transform(Number.NaN)).toEqual('Unknown duration');
+    expect(pipe.transform(Number.NaN)).toBeNull();
   });
 
   it('should return minutes when inferior to an hour', () => {
