@@ -27,6 +27,10 @@ app-content-thumbnail {
     color: $contrast-color;
     padding: $spacing-medium;
     cursor: pointer;
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 
   .card-text {
