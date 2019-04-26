@@ -1,9 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import {
-  ContentListStateServiceMock,
-  ContentListStateService
+  ContentListStateService,
+  ContentListStateServiceMock
 } from '../../services';
 
 
@@ -31,7 +31,7 @@ describe('SearchBarComponent', () => {
     fixture = TestBed.createComponent(SearchBarComponent);
     component = fixture.componentInstance;
 
-    spyOn(contentListStateService, 'updateQuery').and.callFake(() => {});
+    spyOn(contentListStateService, 'updateQuery').and.callFake(() => { });
   });
 
   describe('#new', () => {
