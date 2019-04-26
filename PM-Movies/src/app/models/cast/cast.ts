@@ -4,7 +4,7 @@ export class Cast {
 
   public cast_id: number;
 
-  public character: string;
+  public character = '';
 
   public person: Person;
 

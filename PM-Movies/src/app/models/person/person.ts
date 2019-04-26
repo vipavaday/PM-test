@@ -6,9 +6,9 @@ export class Person {
 
   public gender: number;
 
-  public avatarPath: string;
+  public avatarPath = '';
 
-  public biography?: string;
+  public biography?= '';
 
   public birthday?: string;
 
