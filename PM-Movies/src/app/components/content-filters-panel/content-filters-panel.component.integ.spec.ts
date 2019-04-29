@@ -45,7 +45,7 @@ describe('Component: ContentFiltersPanelComponent', () => {
       expect(filterPanelFluidContainerElem.classList).toContain('expanded');
     });
 
-    it('should have expanded class expanded when hidden property is true', () => {
+    it('should have expanded class when hidden property is true', () => {
       host.component.hidden = true;
       host.detectChanges();
       const filterPanelFluidContainerElem = host.debugElement.query(By.css('.filters-panel-fluid-container')).nativeElement;
@@ -61,7 +61,7 @@ describe('Component: ContentFiltersPanelComponent', () => {
       expect(filterPanelHeaderElem.classList).toContain('expanded');
     });
 
-    it('should not have expanded class expanded when hidden property is true', () => {
+    it('should not have expanded class when hidden property is true', () => {
       host.component.hidden = true;
       host.detectChanges();
       const filterPanelHeaderElem = host.debugElement.query(By.css('.filters-panel-header')).nativeElement;
@@ -93,7 +93,7 @@ describe('Component: ContentFiltersPanelComponent', () => {
       expect(filterPanelHeaderTitleElem.classList).toContain('expanded');
     });
 
-    it('should not have expanded class expanded when hidden property is true', () => {
+    it('should not have expanded class when hidden property is true', () => {
       host.component.hidden = true;
       host.detectChanges();
       const filterPanelHeaderTitleElem = host.debugElement.query(By.css('.filters-panel-header-title')).nativeElement;

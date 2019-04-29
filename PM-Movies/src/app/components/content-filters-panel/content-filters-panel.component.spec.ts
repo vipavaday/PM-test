@@ -35,8 +35,8 @@ describe('Component: ContentFiltersPanelComponent', () => {
     fixture = testBed.createComponent(ContentFiltersPanelComponent);
     contentFilterPanel = fixture.componentInstance;
     spyOnUpdateFilter = spyOn(contentFilterPanel, 'onUpdateFilter');
-    spyOnUpdateFilter.and.callFake(() => {});
-    spyOn(contentFilterPanel.filter, 'toggleContentType').and.callFake(() => {});
+    spyOnUpdateFilter.and.callFake(() => { });
+    spyOn(contentFilterPanel.filter, 'toggleContentType').and.callFake(() => { });
   });
 
   describe('#new', () => {
@@ -58,7 +58,7 @@ describe('Component: ContentFiltersPanelComponent', () => {
 
   describe('#toggleShowMovies', () => {
 
-    it('should call toogleContentType on filter', () => {
+    it('should call toggleContentType on filter', () => {
       contentFilterPanel.toggleMovieFilter();
       expect(contentFilterPanel.filter.toggleContentType).toHaveBeenCalledWith('movie');
     });

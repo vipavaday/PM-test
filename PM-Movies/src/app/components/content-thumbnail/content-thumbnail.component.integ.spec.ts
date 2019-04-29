@@ -119,28 +119,28 @@ describe('Component: ContentThumbnailComponent', () => {
       expect(host.component.toggleWatchedContent).toHaveBeenCalled();
     });
 
-    it('should display to-watch button with plain color background when content is to be watched', () => {
+    it('should add class btn-primary on to-watch button when content is to be watched', () => {
       host.component.content.toWatch = true;
       host.detectChanges();
       const toggleWatchedElem = hostElement.query(By.css('.btn.to-watch')).nativeElement;
       expect(toggleWatchedElem.classList).toContain('btn-primary');
     });
 
-    it('should display watched button with plain color background when content is to be watched', () => {
+    it('should add class btn-primary on watched button when content is to be watched', () => {
       host.component.content.watched = true;
       host.detectChanges();
       const toggleWatchedElem = hostElement.query(By.css('.btn.watched')).nativeElement;
       expect(toggleWatchedElem.classList).toContain('btn-primary');
     });
 
-    it('should display to-watch button with outlined color background when content is not to be watched', () => {
+    it('should add class btn-outline-primary on to-watch button when content is not to be watched', () => {
       host.component.content.toWatch = false;
       host.detectChanges();
       const toggleWatchedElem = hostElement.query(By.css('.btn.to-watch')).nativeElement;
       expect(toggleWatchedElem.classList).toContain('btn-outline-primary');
     });
 
-    it('should display watched button with outlined color background when content is not to be watched', () => {
+    it('should add class btn-outline-primary watched button when content is not to be watched', () => {
       host.component.content.watched = false;
       host.detectChanges();
       const toggleWatchedElem = hostElement.query(By.css('.btn.watched')).nativeElement;
