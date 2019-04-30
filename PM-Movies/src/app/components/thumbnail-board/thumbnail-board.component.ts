@@ -1,17 +1,15 @@
 import {
   Component,
-  OnInit,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 
 import {
   Subscription,
-  zip
 } from 'rxjs';
 
 import {
-  switchMap,
-  map
+  map,
+  switchMap
 } from 'rxjs/operators';
 
 import {
@@ -32,9 +30,9 @@ import {
   templateUrl: './thumbnail-board.component.html',
   styleUrls: ['./thumbnail-board.component.scss']
 })
-export class ThumbnailBoardComponent implements OnInit, OnDestroy {
+export class ThumbnailBoardComponent implements OnDestroy {
 
-  public contents: Content[];
+  public contents: Content[] = [];
   public contentListStateSubscription: Subscription;
 
   constructor(
@@ -44,18 +42,14 @@ export class ThumbnailBoardComponent implements OnInit, OnDestroy {
   ) {
 
     this.contentListStateSubscription = contentListStateService.queryUpdated$
-      .pipe(switchMap(query => this.contentDataProvider.getContentInfo(query)))
-      .subscribe(contents => this.contents = contents);
-
-    this.filterManager.$filtersUpdated.pipe(
-      map( filters => {
-        return this.filterManager.filterContents(filters, this.contents);
-      })
-    ).subscribe(contents => this.contents = contents);
-  }
-
-  public ngOnInit() {
-    this.contents = [];
+      .pipe(
+        switchMap(query => this.contentDataProvider.getContentInfo(query)),
+        switchMap(contents => this.filterManager.$filtersUpdated.pipe(
+          map(filters => {
+            return this.filterManager.filterContents(filters, contents);
+          })
+        ))
+      ).subscribe(contents => this.contents = contents);
   }
 
   public ngOnDestroy(): void {
