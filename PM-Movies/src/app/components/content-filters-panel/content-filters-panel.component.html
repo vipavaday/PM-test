@@ -1,9 +1,10 @@
 <div class="filters-panel-fluid-container" [class.expanded]="!hidden"></div>
-<div class="filters-panel-fixed-container" >
+<div class="filters-panel-fixed-container">
   <div class="filters-panel-header" [class.expanded]="!hidden" (click)="hidden=!hidden">
     <img src="/assets/icons/filter.svg" alt="filter icon" class="filters-panel-header-icon tab-icon" />
     <h2 class="filters-panel-header-title" [class.expanded]="!hidden">Filters</h2>
-    <img *ngIf="!hidden" src="/assets/icons/close.svg" alt="Close filter panel" class="filters-panel-header-icon close-icon"/>
+    <img *ngIf="!hidden" src="/assets/icons/close.svg" alt="Close filter panel"
+      class="filters-panel-header-icon close-icon" />
   </div>
 
   <div class="filters-panel" *ngIf="!hidden">
@@ -13,11 +14,13 @@
 
       <div class="filter">
         <label for="movieCat">Movies</label>
-        <input type="checkbox" checked (click)="toggleMovieFilter()" name="movieCat" class="form-control filter-input toggle-movie-filter-input" />
+        <input type="checkbox" [checked]="filter.contentTypes.has('movie')" (click)="toggleMovieFilter()"
+          name="movieCat" class="form-control filter-input toggle-movie-filter-input" />
       </div>
       <div class="filter">
         <label for="tvCat">TV Shows</label>
-        <input type="checkbox" checked (click)="toggleTvshowFilter()" name="tvCat" class="form-control filter-input toggle-tvshow-filter-input" />
+        <input type="checkbox" [checked]="filter.contentTypes.has('tv')" (click)="toggleTvshowFilter()" name="tvCat"
+          class="form-control filter-input toggle-tvshow-filter-input" />
       </div>
     </section>
 
@@ -27,8 +30,8 @@
       <div class="filter filter-vertical">
         <label for="gt-release-date">After</label>
         <div class="input-group">
-          <input [(ngModel)]="filter.gtReleaseDate" (ngModelChange)="onUpdateFilter()"
-            name="gt-release-date" type="date" class="form-control filter-input gt-release-date"/>
+          <input [(ngModel)]="filter.gtReleaseDate" (ngModelChange)="onUpdateFilter()" name="gt-release-date"
+            type="date" class="form-control filter-input gt-release-date" />
           <div class="input-group-append">
             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
           </div>
@@ -38,8 +41,8 @@
       <div class="filter filter-vertical">
         <label for="lt-release-date">Before</label>
         <div class="input-group">
-          <input [(ngModel)]="filter.ltReleaseDate" #ltDate (ngModelChange)="onUpdateFilter()"
-            name="lt-release-date" type="date" class="form-control filter-input lt-release-date"/>
+          <input [(ngModel)]="filter.ltReleaseDate" #ltDate (ngModelChange)="onUpdateFilter()" name="lt-release-date"
+            type="date" class="form-control filter-input lt-release-date" />
           <div class="input-group-append">
             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
           </div>

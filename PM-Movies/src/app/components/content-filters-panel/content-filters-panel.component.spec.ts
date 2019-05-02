@@ -37,6 +37,7 @@ describe('Component: ContentFiltersPanelComponent', () => {
     spyOnUpdateFilter = spyOn(contentFilterPanel, 'onUpdateFilter');
     spyOnUpdateFilter.and.callFake(() => { });
     spyOn(contentFilterPanel.filter, 'toggleContentType').and.callFake(() => { });
+    spyOn(filterManager.filtersUpdateSource, 'getValue');
   });
 
   describe('#new', () => {
@@ -50,9 +51,9 @@ describe('Component: ContentFiltersPanelComponent', () => {
   });
 
   describe('#ngOnInit', () => {
-    it('should call onUpdateFilter method', () => {
+    it('should retrieve last filter', () => {
       contentFilterPanel.ngOnInit();
-      expect(spyOnUpdateFilter).toHaveBeenCalledTimes(1);
+      expect(filterManager.filtersUpdateSource.getValue).toHaveBeenCalledTimes(1);
     });
   });
 

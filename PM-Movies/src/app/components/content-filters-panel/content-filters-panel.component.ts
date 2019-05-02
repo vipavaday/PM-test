@@ -24,7 +24,7 @@ export class ContentFiltersPanelComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.onUpdateFilter();
+    this.filter = this.filterManager.filtersUpdateSource.getValue();
   }
 
   public toggleMovieFilter() {
