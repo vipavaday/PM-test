@@ -41,15 +41,14 @@ export class ThumbnailBoardComponent implements OnDestroy {
     private filterManager: FilterManagerService
   ) {
 
-    this.contentListStateSubscription = contentListStateService.queryUpdated$
-      .pipe(
-        switchMap(query => this.contentDataProvider.getContentInfo(query)),
-        switchMap(contents => this.filterManager.$filtersUpdated.pipe(
-          map(filters => {
-            return this.filterManager.filterContents(filters, contents);
-          })
-        ))
-      ).subscribe(contents => this.contents = contents);
+    this.contentListStateSubscription = contentListStateService.queryUpdated$.pipe(
+      switchMap(query => this.contentDataProvider.getContentInfo(query)),
+      map(contents => this.filterManager.filterContents(contents))
+    ).subscribe(contents => this.contents = contents);
+
+    this.filterManager.$filtersUpdated.subscribe(() => {
+      this.contents = this.filterManager.filterContents(this.contents);
+    });
   }
 
   public ngOnDestroy(): void {

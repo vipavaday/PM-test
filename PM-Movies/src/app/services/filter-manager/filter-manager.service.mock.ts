@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { ReplaySubject } from 'rxjs';
+import { BehaviorSubject, ReplaySubject } from 'rxjs';
 
 import {
-  Filter,
-  Content
+  Content,
+  Filter
 } from 'src/app/models';
 
 import { IFilterManagerService } from './filter-manager.service.interface';
@@ -14,10 +14,10 @@ import { IFilterManagerService } from './filter-manager.service.interface';
 })
 export class FilterManagerServiceMock implements IFilterManagerService {
 
-  public filtersUpdateSource = new ReplaySubject<Filter>();
+  public filtersUpdateSource = new BehaviorSubject<Filter>(new Filter());
   public $filtersUpdated = this.filtersUpdateSource.asObservable();
 
-  public filterContents(filters: Filter, contents: Content[]): Content[] {
+  public filterContents(clearcontents: Content[]): Content[] {
     return [];
   }
 }

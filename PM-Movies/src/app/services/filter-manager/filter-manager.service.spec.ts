@@ -1,6 +1,9 @@
 import { TestBed } from '@angular/core/testing';
+import {
+  Content,
+  Filter
+} from 'src/app/models';
 import { FilterManagerService } from './filter-manager.service';
-import { Filter, Content } from 'src/app/models';
 
 describe('Services: FilterManagerService', () => {
   let filterService: FilterManagerService;
@@ -32,11 +35,11 @@ describe('Services: FilterManagerService', () => {
 
     it('should update $filtersUpdated when filtersUpdateSource emits a new value', done => {
       filter.gtReleaseDate = '04/08/1976';
+      filterService.filtersUpdateSource.next(filter);
       filterService.$filtersUpdated.subscribe(itemFilter => {
         expect(itemFilter.gtReleaseDate).toBe('04/08/1976');
         done();
       }, () => fail());
-      filterService.filtersUpdateSource.next(filter);
     });
   });
 
@@ -53,19 +56,15 @@ describe('Services: FilterManagerService', () => {
       contents[2].type = 'movie';
     });
 
-    it('should throw an error when filters parameter is undefined', () => {
-      expect(() => filterService.filterContents(undefined, []))
-        .toThrowError('#filterContents: filters or contents parameter should not be undefined');
-    });
-
-    it('should throw an error when filters parameter is undefined', () => {
-      expect(() => filterService.filterContents(new Filter(), undefined))
+    it('should throw an error when contents parameter is undefined', () => {
+      expect(() => filterService.filterContents(undefined))
         .toThrowError('#filterContents: filters or contents parameter should not be undefined');
     });
 
     it('should return contents that match minimum date filter criteria', () => {
       filter.gtReleaseDate = '12/12/2015';
-      expect(filterService.filterContents(filter, contents).filter(item => item.visible === true))
+      filterService.filtersUpdateSource.next(filter);
+      expect(filterService.filterContents(contents).filter(item => item.visible === true))
         .toEqual(jasmine.arrayWithExactContents([
           <any>jasmine.objectContaining<Content>({
             title: 'b',
@@ -74,12 +73,12 @@ describe('Services: FilterManagerService', () => {
           })
         ])
         );
-
     });
 
     it('should return contents that match maximum date filter criteria', () => {
       filter.ltReleaseDate = '12/12/2000';
-      expect(filterService.filterContents(filter, contents).filter(item => item.visible === true))
+      filterService.filtersUpdateSource.next(filter);
+      expect(filterService.filterContents(contents).filter(item => item.visible === true))
         .toEqual(jasmine.arrayWithExactContents([
           <any>jasmine.objectContaining<Content>({
             title: 'c',
@@ -90,10 +89,15 @@ describe('Services: FilterManagerService', () => {
         );
     });
 
+    it('should return all contents that have no release date', () => {
+      expect(filterService.filterContents([new Content()]).length).toEqual(1);
+    });
+
     it('should return contents that match date range filter criteria', () => {
       filter.gtReleaseDate = '12/12/2000';
       filter.ltReleaseDate = '12/12/2017';
-      expect(filterService.filterContents(filter, contents).filter(item => item.visible === true))
+      filterService.filtersUpdateSource.next(filter);
+      expect(filterService.filterContents(contents).filter(item => item.visible === true))
         .toEqual(jasmine.arrayWithExactContents([
           <any>jasmine.objectContaining<Content>({
             title: 'a',
@@ -105,14 +109,15 @@ describe('Services: FilterManagerService', () => {
     });
 
     it('should not filter on date when empty date criteria is provided', () => {
-      expect(filterService.filterContents(filter, contents).filter(item => item.visible === true).length)
+      expect(filterService.filterContents(contents).filter(item => item.visible === true).length)
         .toBe(3);
     });
 
     describe('should return contents that match content type criteria', () => {
       it('when filtered type is tv show', () => {
         filter.contentTypes.delete('movie');
-        expect(filterService.filterContents(filter, contents).filter(item => item.visible === true))
+        filterService.filtersUpdateSource.next(filter);
+        expect(filterService.filterContents(contents).filter(item => item.visible === true))
           .toEqual(jasmine.arrayWithExactContents([
             <any>jasmine.objectContaining<Content>({
               title: 'a',
@@ -125,7 +130,8 @@ describe('Services: FilterManagerService', () => {
 
       it('when filtered type is movie', () => {
         filter.contentTypes.delete('tv');
-        expect(filterService.filterContents(filter, contents).filter(item => item.visible === true))
+        filterService.filtersUpdateSource.next(filter);
+        expect(filterService.filterContents(contents).filter(item => item.visible === true))
           .toEqual(jasmine.arrayWithExactContents([
             <any>jasmine.objectContaining<Content>({
               title: 'b',
@@ -142,14 +148,15 @@ describe('Services: FilterManagerService', () => {
     });
 
     it('should not filter on type when content type criteria is empty', () => {
-      expect(filterService.filterContents(filter, contents).filter(item => item.visible === true).length)
+      expect(filterService.filterContents(contents).filter(item => item.visible === true).length)
         .toBe(3);
     });
 
     it('should be able to combine content type and date filters', () => {
       filter.contentTypes.delete('tv');
       filter.ltReleaseDate = '09/11/2001';
-      expect(filterService.filterContents(filter, contents).filter(item => item.visible === true))
+      filterService.filtersUpdateSource.next(filter);
+      expect(filterService.filterContents(contents).filter(item => item.visible === true))
         .toEqual(jasmine.arrayWithExactContents([
           <any>jasmine.objectContaining<Content>({
             title: 'c',

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import {
-  Filter,
-  Content
+  Content,
+  Filter
 } from 'src/app/models';
 import { IFilterManagerService } from './filter-manager.service.interface';
 
@@ -15,17 +15,17 @@ import { IFilterManagerService } from './filter-manager.service.interface';
 })
 export class FilterManagerService implements IFilterManagerService {
 
-  public filtersUpdateSource = new ReplaySubject<Filter>();
+  public filtersUpdateSource = new BehaviorSubject<Filter>(new Filter());
   public $filtersUpdated = this.filtersUpdateSource.asObservable();
 
-  public filterContents(filters: Filter, contents: Content[]): Content[] {
-    if (!filters || ! contents) {
+  public filterContents(contents: Content[]): Content[] {
+    if (!contents) {
       throw new Error('#filterContents: filters or contents parameter should not be undefined');
     }
 
     return contents.map(content => {
-      const matchesType = this.filterByContentType(filters, content);
-      const matchesDate = this.filterByReleaseDate(filters, content);
+      const matchesType = this.filterByContentType(this.filtersUpdateSource.value, content);
+      const matchesDate = this.filterByReleaseDate(this.filtersUpdateSource.value, content);
       content.visible = matchesType && matchesDate;
 
       return content;
@@ -33,6 +33,10 @@ export class FilterManagerService implements IFilterManagerService {
   }
 
   private filterByReleaseDate(filters: Filter, content: Content): boolean {
+
+    if (!content.releaseDate) {
+      return true;
+    }
 
     const matchesLtDate = content.releaseDate.getTime() < new Date(filters.ltReleaseDate).getTime() || !filters.ltReleaseDate;
     const matchesGtDate = content.releaseDate.getTime() > new Date(filters.gtReleaseDate).getTime() || !filters.gtReleaseDate;

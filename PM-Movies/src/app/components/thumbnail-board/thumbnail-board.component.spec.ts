@@ -5,6 +5,10 @@ import {
 } from '@angular/core/testing';
 
 import { of } from 'rxjs';
+import {
+  map,
+  switchMap
+} from 'rxjs/operators';
 
 import {
   Content,
@@ -53,19 +57,19 @@ describe('ThumbnailBoardComponent', () => {
   });
 
   describe('#new', () => {
-    let content: Content;
+    let contents: Content[];
 
     beforeEach(() => {
-      content = new Content();
-      spyOn(contentDataProvider, 'getContentInfo').and.callFake(() => of(content));
-      spyOn(filterManager, 'filterContents').and.callFake(() => []);
+      contents = [new Content()];
+      spyOn(contentDataProvider, 'getContentInfo').and.callFake(() => of(contents));
+      spyOn(filterManager, 'filterContents').and.callFake(() => [contents]);
     });
 
     it('should create', () => {
       expect(component).toBeTruthy();
     });
 
-    it('should subscribe to query updates to fetch content ', done => {
+    it('should subscribe to query updates to fetch content', done => {
       contentListStateService.queryUpdatedSource.next('blabla');
       contentListStateService.queryUpdated$.subscribe(() => {
         expect(contentDataProvider.getContentInfo).toHaveBeenCalled();
@@ -74,17 +78,14 @@ describe('ThumbnailBoardComponent', () => {
     });
 
     it('should subscribe to filter updates to update visible content', done => {
+      filterManager.filtersUpdateSource.next(new Filter());
       filterManager.$filtersUpdated.subscribe(() => {
         expect(filterManager.filterContents).toHaveBeenCalled();
         done();
       }, () => fail());
-      filterManager.filtersUpdateSource.next(new Filter());
     });
-  });
 
-  describe('#ngOnInit', () => {
     it('should initialize component content array', () => {
-      component.ngOnInit();
       expect(component.contents).toEqual([]);
     });
   });
