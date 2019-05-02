@@ -20,12 +20,12 @@ export class ContentListStateService implements IContentListStateService {
 
   private lastSearch: string;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   public updateQuery(query: string) {
 
     this.router.navigate(['/thumbnail-board']);
-    this.queryUpdatedSource.next(query || this.lastSearch);
+    this.queryUpdatedSource.next(query);
     this.lastSearch = query;
   }
 }
