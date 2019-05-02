@@ -1,104 +1,110 @@
-<div *ngIf="content" class="detail-container">
-
-  <section class="detail-section detail-jumbotron">
-    <div class="detail-jumbotron-content">
-      <h1 class="jumbotron-title">{{ content.title }}</h1>
-      <div class="jumbotron-section content-main-info">
-        <div class="jumbotron-property release-date-block" *ngIf="content.releaseDate; else nullReleaseDate">
-          <label class="jumbotron-property-label">Released on</label>
-          <strong class="content-release-date">{{ content.releaseDate | date: 'dd MMMM yyyy' }}</strong>
-        </div>
-        <ng-template #nullReleaseDate>
-          <label class="error-label release-date-error" i18n="@@content-detail-release-date.unknown">
-            Unknown release date
-          </label>
-        </ng-template>
-        <span class="separator">-</span>
-        <div *ngIf="content.duration | minutesToHours as duration; else nullDuration"
-          class="content-duration jumbotron-property">
-          {{ duration }}
-        </div>
-        <ng-template #nullDuration>
-          <label class="error-label duration-error" i18n="@@content-detail-duration.unknown">Unknown duration</label>
-        </ng-template>
-        <span class="separator">-</span>
-        <div *ngIf="content.genres.length; else nullGenres" class="content-genres jumbotron-property">
-          {{ content.genres.join(', ') }}
-        </div>
-        <ng-template #nullGenres>
-          <label class="error-label genres-error" i18n="@@content-genres.unknown">Unknown genre</label>
-        </ng-template>
-      </div>
-      <div class="jumbotron-section content-directors">
-        <label *ngIf="content.directors.length === 0" class="error-label directors-error"
-          i18n="@@content-directors.unknown">
-          Unknown director</label>
-        <ng-container *ngIf="(content.directors.length !== 0 && content.directors.length < 3); else manyDirectors">
-          <div class="jumbotron-property">
-            <label
-              class="jumbotron-property-label director-label">{{ content.type === 'movie'? 'Movie realized by':'Tv show created by' }}</label>
-            <strong class="directors-name-row">{{ content.directors.join(' & ') }}</strong>
+<div class="detail-container">
+  <div *ngIf="content; else missingDetails">
+    <section class="detail-section detail-jumbotron">
+      <div class="detail-jumbotron-content">
+        <h1 class="jumbotron-title">{{ content.title }}</h1>
+        <div class="jumbotron-section content-main-info">
+          <div class="jumbotron-property release-date-block" *ngIf="content.releaseDate; else nullReleaseDate">
+            <label class="jumbotron-property-label">Released on</label>
+            <strong class="content-release-date">{{ content.releaseDate | date: 'dd MMMM yyyy' }}</strong>
           </div>
-        </ng-container>
-        <ng-template #manyDirectors>
-          <label class="jumbotron-property-label director-label">
-            {{ content.type === 'movie'? 'Movie realized by :':'Tv show created by :' }}
-          </label>
-          <p *ngFor="let director of content.directors" class="director">
-            <strong class="director-name">{{ director }}</strong>
-          </p>
-        </ng-template>
+          <ng-template #nullReleaseDate>
+            <label class="error-label release-date-error" i18n="@@content-detail-release-date.unknown">
+              Unknown release date
+            </label>
+          </ng-template>
+          <span class="separator">-</span>
+          <div *ngIf="content.duration | minutesToHours as duration; else nullDuration"
+            class="content-duration jumbotron-property">
+            {{ duration }}
+          </div>
+          <ng-template #nullDuration>
+            <label class="error-label duration-error" i18n="@@content-detail-duration.unknown">Unknown duration</label>
+          </ng-template>
+          <span class="separator">-</span>
+          <div *ngIf="content.genres.length; else nullGenres" class="content-genres jumbotron-property">
+            {{ content.genres.join(', ') }}
+          </div>
+          <ng-template #nullGenres>
+            <label class="error-label genres-error" i18n="@@content-genres.unknown">Unknown genre</label>
+          </ng-template>
+        </div>
+        <div class="jumbotron-section content-directors">
+          <label *ngIf="content.directors.length === 0" class="error-label directors-error"
+            i18n="@@content-directors.unknown">
+            Unknown director</label>
+          <ng-container *ngIf="(content.directors.length !== 0 && content.directors.length < 3); else manyDirectors">
+            <div class="jumbotron-property">
+              <label
+                class="jumbotron-property-label director-label">{{ content.type === 'movie'? 'Movie realized by':'Tv show created by' }}</label>
+              <strong class="directors-name-row">{{ content.directors.join(' & ') }}</strong>
+            </div>
+          </ng-container>
+          <ng-template #manyDirectors>
+            <label class="jumbotron-property-label director-label">
+              {{ content.type === 'movie'? 'Movie realized by :':'Tv show created by :' }}
+            </label>
+            <p *ngFor="let director of content.directors" class="director">
+              <strong class="director-name">{{ director }}</strong>
+            </p>
+          </ng-template>
+        </div>
+        <ul class="jumbotron-section content-origin-country-list">
+          <li class="content-origin-country" *ngFor="let country of content.originCountries">
+            <img class="country-flag" src="https://www.countryflags.io/{{ country }}/flat/32.png" />
+          </li>
+          <li class="content-origin-country" *ngIf="!content.originCountries.length"
+            i18n="@@content-origin-countries.unknown">
+            <label class="error-label origin-country-error">Unknown origin country</label>
+          </li>
+        </ul>
       </div>
-      <ul class="jumbotron-section content-origin-country-list">
-        <li class="content-origin-country" *ngFor="let country of content.originCountries">
-          <img class="country-flag" src="https://www.countryflags.io/{{ country }}/flat/32.png" />
-        </li>
-        <li class="content-origin-country" *ngIf="!content.originCountries.length"
-          i18n="@@content-origin-countries.unknown">
-          <label class="error-label origin-country-error">Unknown origin country</label>
-        </li>
-      </ul>
+
+    </section>
+
+    <div class="content-img-group-top" *ngIf="!!getBackdropImg(0) || !!getBackdropImg(1)">
+      <img class="content-img content-img-left-top" src="{{ getBackdropImg(0) }}" alt="content poster"
+        *ngIf="!!getBackdropImg(0)" />
+      <img class="content-img empty content-img-right-bottom" src="{{ getBackdropImg(1) }}" alt="content poster"
+        *ngIf="!!getBackdropImg(1)" />
     </div>
 
-  </section>
+    <section class="detail-section synopsis">
+      <h2 class="detail-section-title">Synopsis</h2>
+      <p class="synopsis-tx">{{ content.overview }}</p>
+    </section>
 
-  <div class="content-img-group-top" *ngIf="!!getBackdropImg(0) || !!getBackdropImg(1)">
-    <img class="content-img content-img-left-top" src="{{ getBackdropImg(0) }}" alt="content poster"
-      *ngIf="!!getBackdropImg(0)" />
-    <img class="content-img empty content-img-right-bottom" src="{{ getBackdropImg(1) }}" alt="content poster"
-      *ngIf="!!getBackdropImg(1)" />
-  </div>
-
-  <section class="detail-section synopsis">
-    <h2 class="detail-section-title">Synopsis</h2>
-    <p class="synopsis-tx">{{ content.overview }}</p>
-  </section>
-
-  <section class="detail-section">
-    <h2 class="detail-section-title">Cast</h2>
-    <div class="cast-list container">
-      <div class="row">
-        <div *ngFor="let cast of content.cast | slice:0:10" class="cast col-6">
-          <img src="{{ cast.person.avatarPath.includes('null')? '': cast.person.avatarPath }}" alt="cast avatar"
-            class="cast-avatar" [class.broken]="(cast.person.avatarPath.includes('null'))" />
-          <div class="cast-information">
-            <h3 class="cast-name">{{ cast.person.name }}</h3>
-            <p class="cast-role" *ngIf="cast.character; else nullRole">In the role of
-              <strong>{{ cast.character }}</strong></p>
-            <p class="cast-biography">{{getFormatedBiography(cast.person.biography, 1)}}</p>
-            <ng-template #nullRole>
-              <label class="error-label cast-role-error" i18n="@@content-cast-role.unknown">Unknown role</label>
-            </ng-template>
+    <section class="detail-section">
+      <h2 class="detail-section-title">Cast</h2>
+      <div class="cast-list container">
+        <div class="row">
+          <div *ngFor="let cast of content.cast | slice:0:10" class="cast col-6">
+            <img src="{{ cast.person.avatarPath.includes('null')? '': cast.person.avatarPath }}" alt="cast avatar"
+              class="cast-avatar" [class.broken]="(cast.person.avatarPath.includes('null'))" />
+            <div class="cast-information">
+              <h3 class="cast-name">{{ cast.person.name }}</h3>
+              <p class="cast-role" *ngIf="cast.character; else nullRole">In the role of
+                <strong>{{ cast.character }}</strong></p>
+              <p class="cast-biography">{{getFormatedBiography(cast.person.biography, 1)}}</p>
+              <ng-template #nullRole>
+                <label class="error-label cast-role-error" i18n="@@content-cast-role.unknown">Unknown role</label>
+              </ng-template>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <div class="content-img-group-bottom" *ngIf="!!getBackdropImg(2) || !!getBackdropImg(3)">
-    <img class="content-img content-img-left-top" src="{{ getBackdropImg(2) }}" alt="content poster"
-      *ngIf="!!getBackdropImg(2)" />
-    <img class="content-img empty content-img-right-bottom" src="{{ getBackdropImg(3) }}" alt="content poster"
-      *ngIf="!!getBackdropImg(3)" />
+    <div class="content-img-group-bottom" *ngIf="!!getBackdropImg(2) || !!getBackdropImg(3)">
+      <img class="content-img content-img-left-top" src="{{ getBackdropImg(2) }}" alt="content poster"
+        *ngIf="!!getBackdropImg(2)" />
+      <img class="content-img empty content-img-right-bottom" src="{{ getBackdropImg(3) }}" alt="content poster"
+        *ngIf="!!getBackdropImg(3)" />
+    </div>
   </div>
 </div>
+<ng-template #missingDetails>
+  <div class="missing-details">
+    <p>No detailed information available for this content</p>
+  </div>
+</ng-template>

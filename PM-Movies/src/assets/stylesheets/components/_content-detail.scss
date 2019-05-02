@@ -2,14 +2,15 @@ app-content-detail {
   .detail-container {
     position: relative;
     margin-top: $spacing-xxlarge * 6;
+    min-height: 50vh;
   }
 
   .detail-section {
     padding: $spacing-medium;
-    padding-left: $spacing-xxlarge*8;
+    padding-left: $spacing-xxlarge * 8;
     color: lighten($base-color, 30);
 
-    @media (max-width: map-get($breakpoints, "large")){
+    @media (max-width: map-get($breakpoints, "large")) {
       padding-left: $spacing-xxlarge;
       padding-right: $spacing-xxlarge;
     }
@@ -166,7 +167,7 @@ app-content-detail {
     }
   }
 
-  .cast-information{
+  .cast-information {
     min-width: 20rem;
   }
 
@@ -180,7 +181,7 @@ app-content-detail {
     margin-bottom: $spacing-none;
   }
 
-  .cast-biography{
+  .cast-biography {
     max-width: 20rem;
   }
 
@@ -196,7 +197,7 @@ app-content-detail {
     height: $content-img-group-bottom-height;
     margin: $spacing-xxlarge $spacing-none;
 
-    .content-img{
+    .content-img {
       @include contentImgHugeAspectRatio;
       min-width: 0;
     }
@@ -205,7 +206,7 @@ app-content-detail {
       flex-direction: column;
       height: auto;
 
-      .content-img{
+      .content-img {
         align-self: center;
         width: 80vw;
         min-width: 80vw;
@@ -215,5 +216,11 @@ app-content-detail {
         margin-bottom: $spacing-medium;
       }
     }
+  }
+
+  .missing-details {
+    color: lighten($base-color, 70);
+    font-weight: $weight-bold;
+    font-size: $size-xxlarge;
   }
 }
