@@ -4,7 +4,7 @@
       <img class="content-poster" src="{{ content.posterUrl }}" alt="Content poster unavailable" />
     </div>
     <a class="card-body" routerLink="/detail/{{content.type}}/{{content.tmdbId}}">
-      <p class="card-text" title="{{ content.overview }}">{{ content.overview | slice:0:250 }}...</p>
+      <p class=" card-text" title="{{ content.overview }}">{{ content.overview | slice:0:250 }}...</p>
       <div class="btn-toolbar">
         <button type="button" [class.btn-primary]="content.toWatch" [class.btn-outline-primary]="!content.toWatch"
           class="btn to-watch" (click)="toggleWatchList($event)">A voir
