@@ -1,3 +1,4 @@
+import { SelectMultipleControlValueAccessor } from '@angular/forms';
 import { browser, by, By, ExpectedConditions } from 'protractor';
 import { ContentDetailPage } from '../page-objects/content-detail.po';
 import { FilterSPanelPage as FiltersPanelPage } from '../page-objects/filters-panel.po';
@@ -12,10 +13,10 @@ describe('Thumbnail board', () => {
     thumbnailBoardPage = new ThumbnailBoardPage();
     filtersPanelPage = new FiltersPanelPage();
     contentDetailPage = new ContentDetailPage();
+    thumbnailBoardPage.navigateTo();
   });
 
   it('should display search page', () => {
-    thumbnailBoardPage.navigateTo();
     expect(thumbnailBoardPage.rootEl.isDisplayed()).toBe(true);
   });
 
@@ -44,9 +45,9 @@ describe('Thumbnail board', () => {
   });
 
   it('should display search results when user types keywords in the searchbar', () => {
-    thumbnailBoardPage.searchContentByKeyword('star');
-    browser.wait(ExpectedConditions.presenceOf(thumbnailBoardPage.thumbnailsParentEl.$('.content-thumbnail')));
-    expect(thumbnailBoardPage.thumbnailsParentEl.$('.content-thumbnail').isDisplayed()).toBe(true);
+    thumbnailBoardPage.searchContentByKeyword('the hobbit');
+    browser.wait(ExpectedConditions.presenceOf(thumbnailBoardPage.thumbnails.get(0)));
+    expect(thumbnailBoardPage.thumbnails.get(0).isDisplayed()).toBe(true);
   });
 
   it('should collapse filters panel when user clicks on the close button', () => {
@@ -56,6 +57,8 @@ describe('Thumbnail board', () => {
 
   it('should display contents thumbnails aside from filter panel with no overlap', () => {
     filtersPanelPage.expandFiltersPanel();
+    browser.wait(ExpectedConditions.visibilityOf(filtersPanelPage.ltDateEl));
+    browser.wait(ExpectedConditions.visibilityOf(thumbnailBoardPage.thumbnails.get(0)));
     expect(thumbnailBoardPage.thumbnails.get(0).isDisplayed()).toBe(true);
   });
 
@@ -78,7 +81,6 @@ describe('Thumbnail board', () => {
       browser.wait(ExpectedConditions.visibilityOf(thumbnailBoardPage.thumbnails.get(0).$('.btn.watched')));
       expect(thumbnailBoardPage.thumbnails.get(0).$('.btn.watched').isDisplayed()).toBe(true);
     });
-
   });
 
   it('should not redirect to detail page when content watched button is clicked', () => {
@@ -103,7 +105,7 @@ describe('Thumbnail board', () => {
 
   describe('when redirected from detail page', () => {
     it('should display previous search result ', () => {
-      expect(thumbnailBoardPage.thumbnails.getSize()).not.toBe(0);
+      expect(thumbnailBoardPage.thumbnails.count()).not.toBe(0);
     });
 
     it('should display previous search in searchbar', () => {
@@ -117,65 +119,120 @@ describe('Thumbnail board', () => {
       thumbnailBoardPage.searchContentByKeyword('star wars');
     });
 
-    it('should contain all results at first when all filters are disaled', done => {
+    it('should contain all results at first when all filters are disabled', () => {
+      browser.wait(() => thumbnailBoardPage.thumbnails.count().then(count => count > 0));
       browser.wait(ExpectedConditions.visibilityOf(thumbnailBoardPage.thumbnails.get(0)));
-      thumbnailBoardPage.isThumbnailPresent('Star Wars').then(res => {
-        expect(res).toBe(true);
-        done();
-      }, () => fail());
+      expect(thumbnailBoardPage.isThumbnailPresent('Star Wars')).toBe(true);
     });
 
-    it('should not display movies when corresponding checkbox disabled', done => {
-      filtersPanelPage.toggleMovieFilter();
-      browser.wait(ExpectedConditions.visibilityOf(thumbnailBoardPage.thumbnails.get(0)));
-      thumbnailBoardPage.isThumbnailPresent('Star Wars').then(res => {
-        expect(res).toBe(false);
-        done();
-      }, () => fail());
+    describe('content type filters', () => {
+      it('should not display movies when corresponding checkbox disabled', () => {
+        filtersPanelPage.disableMovieFilter();
+        browser.wait(ExpectedConditions.visibilityOf(thumbnailBoardPage.thumbnails.get(0)));
+        expect(thumbnailBoardPage.isThumbnailPresent('Star Wars')).toBe(false);
+      });
+
+      it('should display all results when all type filter checkbox disabled', () => {
+        filtersPanelPage.disableTvShowFilter();
+        browser.wait(ExpectedConditions.visibilityOf(thumbnailBoardPage.thumbnails.get(0)));
+        expect(thumbnailBoardPage.isThumbnailPresent('Star Wars Rebels')).toBe(true);
+      });
+
+      it('should not display tvshows when corresponding checkbox disabled', () => {
+        filtersPanelPage.enableMovieFilter();
+        filtersPanelPage.disableTvShowFilter();
+        browser.wait(() => thumbnailBoardPage.thumbnails.count().then(count => count > 0));
+        expect(thumbnailBoardPage.isThumbnailPresent('Star Wars Rebels')).toBe(false);
+      });
+
+      afterAll(() => {
+        filtersPanelPage.enableMovieFilter();
+        filtersPanelPage.enableTvShowFilter();
+      });
     });
 
-    it('should display all results when all type filter checkbox disabled', done => {
-      filtersPanelPage.toggleTvShowFilter();
-      browser.wait(ExpectedConditions.visibilityOf(thumbnailBoardPage.thumbnails.get(0)));
-      thumbnailBoardPage.isThumbnailPresent('Star Wars Rebels').then(res => {
-        expect(res).toBe(true);
-        done();
-      }, () => fail());
+    describe('date filters', () => {
+      it('should not display contents with date inferior to minimum date filter', () => {
+        filtersPanelPage.filterByGtDate('12/12/2008');
+        browser.wait(ExpectedConditions.visibilityOf(thumbnailBoardPage.thumbnails.get(0)));
+        expect(thumbnailBoardPage.isThumbnailPresent('Star Wars: Episode I - ThePhantom Menace')).toBe(false);
+      });
+
+      it('should not display contents with date superior to maximum date filter', () => {
+        filtersPanelPage.filterByLtDate('12/13/2016');
+        browser.wait(ExpectedConditions.visibilityOf(thumbnailBoardPage.thumbnails.get(0)));
+        expect(thumbnailBoardPage.isThumbnailPresent('Star Wars: The Last Jedi')).toBe(false);
+      });
+
+      it('should display empty component when minimum date exceeds maximum date', () => {
+        filtersPanelPage.filterByGtDate('12/13/2017');
+        expect(thumbnailBoardPage.thumbnails.count()).toBe(0);
+      });
+
+      afterAll(() => {
+        filtersPanelPage.clearDate(filtersPanelPage.gtDateEl);
+        filtersPanelPage.clearDate(filtersPanelPage.ltDateEl);
+      });
     });
 
-    it('should not display tvshows when corresponding checkbox disabled', done => {
-      filtersPanelPage.toggleMovieFilter();
-      browser.wait(ExpectedConditions.visibilityOf(thumbnailBoardPage.thumbnails.get(0)));
-      thumbnailBoardPage.isThumbnailPresent('Star Wars Rebels').then(res => {
-        expect(res).toBe(false);
-        done();
-      }, () => fail());
+    describe('filters conservation throughout navigation', () => {
+      beforeAll(() => {
+        filtersPanelPage.filterByGtDate('12/16/2000');
+        filtersPanelPage.filterByLtDate('01/03/2017');
+        filtersPanelPage.disableMovieFilter();
+        filtersPanelPage.enableTvShowFilter();
+        thumbnailBoardPage.clickDetailLink(0);
+        thumbnailBoardPage.searchContentByKeyword('Astérix');
+      });
+
+      it('should keep min release date filter', () => {
+        expect(filtersPanelPage.gtDateEl.getAttribute('value')).toEqual('2000-12-16');
+      });
+
+      it('should keep max release date filter', () => {
+        expect(filtersPanelPage.ltDateEl.getAttribute('value')).toEqual('2017-01-03');
+      });
+
+      it('should keep movie content type filter', () => {
+        expect(filtersPanelPage.toggleMovieEl.isSelected()).toBe(false);
+      });
+
+      it('should keep tv show content type filter', () => {
+        expect(filtersPanelPage.toggleTvShowEl.isSelected()).toBe(true);
+      });
+
+      afterAll(() => {
+        filtersPanelPage.clearDate(filtersPanelPage.gtDateEl);
+        filtersPanelPage.clearDate(filtersPanelPage.ltDateEl);
+        filtersPanelPage.clearDate(filtersPanelPage.gtDateEl);
+        filtersPanelPage.clearDate(filtersPanelPage.ltDateEl);
+      });
+    });
+  });
+
+  describe('marked contents conservation througout user sessions', () => {
+    beforeAll(() => {
+      browser.executeScript('window.localStorage.clear()');
+      thumbnailBoardPage.searchContentByKeyword('star wars');
+      browser.wait(() => thumbnailBoardPage.thumbnails.count().then(count => count > 0));
+      thumbnailBoardPage.toggleToWatchState(0);
+      thumbnailBoardPage.toggleWatchedState(0);
+      browser.refresh();
+      browser.wait(ExpectedConditions.visibilityOf(thumbnailBoardPage.rootEl));
+      thumbnailBoardPage.searchContentByKeyword('star wars');
+      browser.wait(() => thumbnailBoardPage.thumbnails.count().then(count => count > 0));
     });
 
-    it('should not display contents with date inferior to minimum date filter', done => {
-      filtersPanelPage.filterByGtDate('12/12/2008');
-      browser.wait(ExpectedConditions.visibilityOf(thumbnailBoardPage.thumbnails.get(0)));
-      thumbnailBoardPage.isThumbnailPresent('Star Wars: Episode I - ThePhantom Menace').then(res => {
-        expect(res).toBe(false);
-        done();
-      }, () => fail());
+    it('should keep to watch marker', () => {
+      expect(thumbnailBoardPage.isContentToWatch(0)).toBe(true);
     });
 
-    it('should not display contents with date superior to maximum date filter', done => {
-      filtersPanelPage.filterByLtDate('13/12/2017');
-      browser.wait(ExpectedConditions.visibilityOf(thumbnailBoardPage.thumbnails.get(0)));
-      thumbnailBoardPage.isThumbnailPresent('Star Wars: The Last Jedi').then(res => {
-        expect(res).toBe(false);
-        done();
-      }, () => fail());
+    it('should keep watched marker', () => {
+      expect(thumbnailBoardPage.isContentWatched(0)).toBe(true);
     });
 
-    it('should display empty component when minimum date exceeds maximum date', done => {
-      filtersPanelPage.filterByLtDate('13/12/2001');
-      thumbnailBoardPage.thumbnails.count().then(nb => {
-        expect(nb).toBe(0);
-        done();
-      }, () => fail());
+    afterAll(() => {
+      browser.executeScript('window.localStorage.clear()');
     });
   });
 });

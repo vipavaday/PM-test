@@ -1,5 +1,5 @@
-<div class="detail-container">
-  <div *ngIf="content; else missingDetails">
+<div class="detail-container-wrapper">
+  <div *ngIf="content; else missingDetails" class="detail-container">
     <section class="detail-section detail-jumbotron">
       <div class="detail-jumbotron-content">
         <h1 class="jumbotron-title">{{ content.title }}</h1>

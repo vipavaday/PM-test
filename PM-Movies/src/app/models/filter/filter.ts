@@ -18,7 +18,7 @@ export class Filter {
 
   set gtReleaseDate(date: string) {
 
-    if (isNaN(Date.parse(date))) {
+    if (date !== '' && isNaN(Date.parse(date))) {
       throw new Error('#set gtReleaseDate: gtDate should follow dd/mm/yyyy formmat');
     }
     this._gtReleaseDate = date;
@@ -30,7 +30,7 @@ export class Filter {
 
   set ltReleaseDate(date: string) {
 
-    if (isNaN(Date.parse(date))) {
+    if (date !== '' && isNaN(Date.parse(date))) {
       throw new Error('#set ltReleaseDate: ltDate should follow dd/mm/yyyy formmat');
     }
     this._ltReleaseDate = date;

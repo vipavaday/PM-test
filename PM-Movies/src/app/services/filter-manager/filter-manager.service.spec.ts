@@ -89,8 +89,8 @@ describe('Services: FilterManagerService', () => {
         );
     });
 
-    it('should return all contents that have no release date', () => {
-      expect(filterService.filterContents([new Content()]).length).toEqual(1);
+    it('should exclude contents with no date available when filtering', () => {
+      expect(filterService.filterContents([new Content()]).length).toEqual(0);
     });
 
     it('should return contents that match date range filter criteria', () => {

@@ -35,7 +35,7 @@ export class FilterManagerService implements IFilterManagerService {
   private filterByReleaseDate(filters: Filter, content: Content): boolean {
 
     if (!content.releaseDate) {
-      return true;
+      return false;
     }
 
     const matchesLtDate = content.releaseDate.getTime() < new Date(filters.ltReleaseDate).getTime() || !filters.ltReleaseDate;

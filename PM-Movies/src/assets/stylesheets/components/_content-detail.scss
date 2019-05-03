@@ -1,7 +1,12 @@
 app-content-detail {
+  .detail-container-wrapper {
+    min-height: 70vh;
+    margin-top: $margin-to-header;
+  }
+
   .detail-container {
     position: relative;
-    margin-top: $spacing-xxlarge * 6;
+    margin-top: $spacing-xxlarge * 3;
     min-height: 50vh;
   }
 

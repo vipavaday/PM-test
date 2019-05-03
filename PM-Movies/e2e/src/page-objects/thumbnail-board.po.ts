@@ -4,7 +4,7 @@ export class ThumbnailBoardPage {
   public rootEl = $('app-thumbnail-board');
   public emptyComponentEl = $('.thumbnail-board-empty-msg');
   public thumbnailsParentEl = $('.thumbnail-board-thumbnails');
-  public thumbnails = $$('.content-thumbnail .card');
+  public thumbnails = $$('.content-thumbnail');
   public searchBar = $('.search-bar-input');
 
   public navigateTo() {
@@ -20,20 +20,31 @@ export class ThumbnailBoardPage {
     browser.actions().mouseMove(this.thumbnails.get(index)).perform();
   }
 
+  public isContentWatched(index: number) {
+    return this.thumbnails.get(index).$('.btn.watched.btn-primary').isPresent();
+  }
+
+  public isContentToWatch(index: number) {
+    return this.thumbnails.get(index).$('.btn.to-watch.btn-primary').isPresent();
+  }
+
   public toggleWatchedState(contentIndex: number) {
+    this.hoverThumbnail(contentIndex);
     this.thumbnails.get(contentIndex).$('.btn.watched').click();
   }
 
   public toggleToWatchState(contentIndex: number) {
-    this.thumbnails.get(contentIndex).$('.btn.watched').click();
+    this.hoverThumbnail(contentIndex);
+    this.thumbnails.get(contentIndex).$('.btn.to-watch').click();
   }
 
   public clickDetailLink(contentIndex: number) {
-    this.thumbnails.get(contentIndex).$('.card-body').click();
+    $$('.content-thumbnail .card').get(contentIndex).$('.card-body').click();
   }
 
-  public isThumbnailPresent(contentTitle: string) {
+  public async isThumbnailPresent(contentTitle: string) {
     const filteredThumbnails = this.thumbnails.filter(thumbnail => thumbnail.$('.card-title').getText().then(tx => tx === contentTitle));
-    return filteredThumbnails.count().then(res => res > 0);
+    const res = await filteredThumbnails.count();
+    return res > 0;
   }
 }
