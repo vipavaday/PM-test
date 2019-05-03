@@ -1,5 +1,4 @@
 app-header {
-
   header {
     position: fixed;
     background-color: $accent-bg-color;
@@ -7,22 +6,27 @@ app-header {
     z-index: 10;
   }
 
-  .header-title{
+  .header-title {
     width: 20rem;
     width: 50%;
   }
 
-  .header-title-logo{
+  .logo-wrapper {
+    flex-grow: 1;
+  }
+
+  .header-title-logo {
     padding-left: $spacing-large;
     padding-right: $spacing-large;
     height: 100%;
     object-fit: contain;
   }
 
-  .header-title-text{
+  .header-title-text {
     margin-top: auto;
     margin-bottom: auto;
     font-size: $size-large;
+    flex-grow: 5;
   }
 
   .header-title-link {
@@ -31,7 +35,7 @@ app-header {
     text-decoration: none;
   }
 
-  @media (max-width: map-get($breakpoints, 'small')) {
+  @media (max-width: map-get($breakpoints, "small")) {
     .header-title-text {
       display: none;
     }
