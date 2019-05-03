@@ -82,6 +82,34 @@ describe('Component: ContentFiltersPanelComponent', () => {
     });
   });
 
+  describe('#getMinLtDate', () => {
+    it('should return absolute min date when gtDate is missing', () => {
+      expect(contentFilterPanel.getMinLtDate()).toEqual(new Date('1850-01-01'));
+    });
+
+    it('should return gtDate when it is available', () => {
+      contentFilterPanel.filter.gtReleaseDate = '2010-09-13';
+      expect(contentFilterPanel.getMinLtDate()).toEqual(new Date('2010-09-13'));
+    });
+  });
+
+  describe('#getTodayDate', () => {
+    it('should return current date', () => {
+      expect(contentFilterPanel.getTodayDate()).toEqual(new Date());
+    });
+  });
+
+  describe('#getMaxGtDate', () => {
+    it('should return current date when ltDate is missing', () => {
+      expect(contentFilterPanel.getMaxGtDate()).toEqual(new Date());
+    });
+
+    it('should return ltDate when it is available', () => {
+      contentFilterPanel.filter.ltReleaseDate = '2014-11-20';
+      expect(contentFilterPanel.getMaxGtDate()).toEqual(new Date('2014-11-20'));
+    });
+  });
+
   describe('#onUpdateFilter', () => {
     beforeEach(() => {
       spyOnUpdateFilter.and.callThrough();

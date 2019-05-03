@@ -30,9 +30,9 @@
       <div class="filter filter-vertical">
         <label for="gt-release-date">After</label>
         <div class="input-group">
-          <input [(ngModel)]="filter.gtReleaseDate" min="1850-01-01" [max]="filter.ltReleaseDate"
-            (ngModelChange)="onUpdateFilter()" name="gt-release-date" type="date"
-            class="form-control filter-input gt-release-date" />
+          <input [(ngModel)]="filter.gtReleaseDate" [min]="absoluteMinReleaseDate | date: 'yyyy-MM-dd'"
+            [max]="getMaxGtDate() | date: 'yyyy-MM-dd'" (ngModelChange)="onUpdateFilter()" name="gt-release-date"
+            type="date" class="form-control filter-input gt-release-date" />
           <div class="input-group-append">
             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
           </div>
@@ -42,9 +42,9 @@
       <div class="filter filter-vertical">
         <label for="lt-release-date">Before</label>
         <div class="input-group">
-          <input [(ngModel)]="filter.ltReleaseDate" [min]="filter.gtReleaseDate || '1850-01-01'"
-            (ngModelChange)="onUpdateFilter()" name="lt-release-date" type="date"
-            class="form-control filter-input lt-release-date" />
+          <input [(ngModel)]="filter.ltReleaseDate" [min]="getMinLtDate()| date: 'yyyy-MM-dd'"
+            [max]="getTodayDate()| date: 'yyyy-MM-dd'" (ngModelChange)="onUpdateFilter()" name="lt-release-date"
+            type="date" class="form-control filter-input lt-release-date" />
           <div class="input-group-append">
             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
           </div>

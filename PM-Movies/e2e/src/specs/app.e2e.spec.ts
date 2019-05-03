@@ -243,6 +243,15 @@ describe('Thumbnail board', () => {
 
   it('should redirect user to search page when app logo is clicked', () => {
     contentDetailPage.navigateTo('movie', '2639');
+    appPage.logo.click();
+    browser.wait(ExpectedConditions.visibilityOf(thumbnailBoardPage.rootEl));
+    expect(thumbnailBoardPage.rootEl.isDisplayed()).toBe(true);
+  });
 
+  it('should redirect user to search page when app title is clicked', () => {
+    contentDetailPage.navigateTo('movie', '2639');
+    appPage.title.click();
+    browser.wait(ExpectedConditions.visibilityOf(thumbnailBoardPage.rootEl));
+    expect(thumbnailBoardPage.rootEl.isDisplayed()).toBe(true);
   });
 });
