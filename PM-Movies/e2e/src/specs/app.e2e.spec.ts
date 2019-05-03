@@ -1,15 +1,20 @@
-import { SelectMultipleControlValueAccessor } from '@angular/forms';
-import { browser, by, By, ExpectedConditions } from 'protractor';
+import {
+  browser,
+  ExpectedConditions
+} from 'protractor';
+import { AppPage } from '../page-objects/app.po';
 import { ContentDetailPage } from '../page-objects/content-detail.po';
-import { FilterSPanelPage as FiltersPanelPage } from '../page-objects/filters-panel.po';
+import { FiltersPanelPage } from '../page-objects/filters-panel.po';
 import { ThumbnailBoardPage } from '../page-objects/thumbnail-board.po';
 
 describe('Thumbnail board', () => {
+  let appPage: AppPage;
   let thumbnailBoardPage: ThumbnailBoardPage;
   let filtersPanelPage: FiltersPanelPage;
   let contentDetailPage: ContentDetailPage;
 
   beforeAll(() => {
+    appPage = new AppPage();
     thumbnailBoardPage = new ThumbnailBoardPage();
     filtersPanelPage = new FiltersPanelPage();
     contentDetailPage = new ContentDetailPage();
@@ -45,7 +50,7 @@ describe('Thumbnail board', () => {
   });
 
   it('should display search results when user types keywords in the searchbar', () => {
-    thumbnailBoardPage.searchContentByKeyword('the hobbit');
+    appPage.searchContentByKeyword('the hobbit');
     browser.wait(ExpectedConditions.presenceOf(thumbnailBoardPage.thumbnails.get(0)));
     expect(thumbnailBoardPage.thumbnails.get(0).isDisplayed()).toBe(true);
   });
@@ -99,7 +104,7 @@ describe('Thumbnail board', () => {
   });
 
   it('should redirect to thumbnail board page when user types a keyword in the searchbar from detail page', () => {
-    thumbnailBoardPage.searchContentByKeyword('harry');
+    appPage.searchContentByKeyword('harry');
     expect(thumbnailBoardPage.rootEl.isDisplayed()).toBe(true);
   });
 
@@ -109,14 +114,14 @@ describe('Thumbnail board', () => {
     });
 
     it('should display previous search in searchbar', () => {
-      browser.wait(ExpectedConditions.presenceOf(thumbnailBoardPage.searchBar));
-      expect(thumbnailBoardPage.searchBar.getAttribute('value')).toEqual('harry');
+      browser.wait(ExpectedConditions.presenceOf(appPage.searchBar));
+      expect(appPage.searchBar.getAttribute('value')).toEqual('harry');
     });
   });
 
   describe('when user filters results', () => {
     beforeAll(() => {
-      thumbnailBoardPage.searchContentByKeyword('star wars');
+      appPage.searchContentByKeyword('star wars');
     });
 
     it('should contain all results at first when all filters are disabled', () => {
@@ -182,7 +187,7 @@ describe('Thumbnail board', () => {
         filtersPanelPage.disableMovieFilter();
         filtersPanelPage.enableTvShowFilter();
         thumbnailBoardPage.clickDetailLink(0);
-        thumbnailBoardPage.searchContentByKeyword('Astérix');
+        appPage.searchContentByKeyword('Astérix');
       });
 
       it('should keep min release date filter', () => {
@@ -213,13 +218,13 @@ describe('Thumbnail board', () => {
   describe('marked contents conservation througout user sessions', () => {
     beforeAll(() => {
       browser.executeScript('window.localStorage.clear()');
-      thumbnailBoardPage.searchContentByKeyword('star wars');
+      appPage.searchContentByKeyword('star wars');
       browser.wait(() => thumbnailBoardPage.thumbnails.count().then(count => count > 0));
       thumbnailBoardPage.toggleToWatchState(0);
       thumbnailBoardPage.toggleWatchedState(0);
       browser.refresh();
       browser.wait(ExpectedConditions.visibilityOf(thumbnailBoardPage.rootEl));
-      thumbnailBoardPage.searchContentByKeyword('star wars');
+      appPage.searchContentByKeyword('star wars');
       browser.wait(() => thumbnailBoardPage.thumbnails.count().then(count => count > 0));
     });
 
@@ -234,5 +239,10 @@ describe('Thumbnail board', () => {
     afterAll(() => {
       browser.executeScript('window.localStorage.clear()');
     });
+  });
+
+  it('should redirect user to search page when app logo is clicked', () => {
+    contentDetailPage.navigateTo('movie', '2639');
+
   });
 });

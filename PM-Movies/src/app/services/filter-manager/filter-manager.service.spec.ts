@@ -90,7 +90,11 @@ describe('Services: FilterManagerService', () => {
     });
 
     it('should exclude contents with no date available when filtering', () => {
-      expect(filterService.filterContents([new Content()]).length).toEqual(0);
+      expect(filterService.filterContents([new Content()])).toEqual(jasmine.arrayContaining([
+        <any>jasmine.objectContaining<Content>({
+          visible: false
+        })
+      ]));
     });
 
     it('should return contents that match date range filter criteria', () => {

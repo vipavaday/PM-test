@@ -5,15 +5,9 @@ export class ThumbnailBoardPage {
   public emptyComponentEl = $('.thumbnail-board-empty-msg');
   public thumbnailsParentEl = $('.thumbnail-board-thumbnails');
   public thumbnails = $$('.content-thumbnail');
-  public searchBar = $('.search-bar-input');
 
   public navigateTo() {
     return browser.get('/');
-  }
-
-  public searchContentByKeyword(keyword: string) {
-    this.searchBar.clear();
-    this.searchBar.sendKeys(keyword);
   }
 
   public hoverThumbnail(index: number) {
