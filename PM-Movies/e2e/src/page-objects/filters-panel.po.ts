@@ -1,6 +1,6 @@
 import { $, ElementFinder, protractor } from 'protractor';
 
-export class FilterSPanelPage {
+export class FiltersPanelPage {
   public rootEl = $('.filters-panel');
   public gtDateEl = $('.gt-release-date');
   public ltDateEl = $('.lt-release-date');
