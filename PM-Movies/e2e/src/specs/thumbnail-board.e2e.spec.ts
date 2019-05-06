@@ -197,12 +197,24 @@ describe('Thumbnail board', () => {
         AppPage.clearInput(filtersPanelPage.ltDateEl);
       });
 
-      it('should display empty component when minimum date exceeds maximum date', () => {
-        filtersPanelPage.filterByLtDate('12/13/2016');
-        filtersPanelPage.filterByGtDate('12/13/2017');
-        expect(thumbnailBoardPage.thumbnails.count()).toBe(0);
-        AppPage.clearInput(filtersPanelPage.gtDateEl);
-        AppPage.clearInput(filtersPanelPage.ltDateEl);
+      describe('when minimum date exceeds maximum date', () => {
+        beforeAll(() => {
+          filtersPanelPage.filterByLtDate('12/13/2016');
+          filtersPanelPage.filterByGtDate('12/13/2017');
+        });
+
+        afterAll(() => {
+          AppPage.clearInput(filtersPanelPage.gtDateEl);
+          AppPage.clearInput(filtersPanelPage.ltDateEl);
+        });
+
+        it('should display no content thumbnails', () => {
+          expect(thumbnailBoardPage.thumbnails.count()).toBe(0);
+        });
+
+        it('should display no content notification', () => {
+          expect(thumbnailBoardPage.emptyComponentEl.isDisplayed()).toBe(true);
+        });
       });
     });
 

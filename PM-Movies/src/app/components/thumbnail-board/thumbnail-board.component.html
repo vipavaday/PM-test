@@ -2,10 +2,10 @@
   <app-content-filters-panel></app-content-filters-panel>
   <div class="thumbnail-board-sub-container">
     <div class="thumbnail-board-thumbnails" [class.empty]="!contents.length">
-      <div *ngFor="let content of contents">
+      <ng-container *ngFor="let content of contents">
         <app-content-thumbnail *ngIf="content.visible" [content]="content"></app-content-thumbnail>
-      </div>
-      <p *ngIf="!contents.length" class="thumbnail-board-empty-msg">No content to display</p>
+      </ng-container>
+      <p *ngIf="!getVisibleContents().length" class="thumbnail-board-empty-msg">No content to display</p>
     </div>
   </div>
 </div>

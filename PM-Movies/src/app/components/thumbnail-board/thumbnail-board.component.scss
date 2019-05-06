@@ -1,25 +1,26 @@
-.thumbnail-board-container{
+.thumbnail-board-container {
   display: flex;
   justify-content: space-between;
 }
 
-.thumbnail-board-sub-container{
+.thumbnail-board-sub-container {
   display: flex;
   justify-content: center;
 }
 
-.thumbnail-board-thumbnails{
+.thumbnail-board-thumbnails {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+  align-items: center;
   width: 100%;
 
-  &.empty{
+  &.empty {
     flex-direction: column;
     justify-content: center;
   }
 }
 
-.thumbnail-board-empty-msg{
+.thumbnail-board-empty-msg {
   width: 100%;
 }
