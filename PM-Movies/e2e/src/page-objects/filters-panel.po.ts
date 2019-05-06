@@ -1,4 +1,5 @@
-import { $, ElementFinder, protractor } from 'protractor';
+import { $ } from 'protractor';
+import { AppPage } from './app.po';
 
 export class FiltersPanelPage {
   public rootEl = $('.filters-panel');
@@ -48,7 +49,7 @@ export class FiltersPanelPage {
    * @param date mm/dd/yyyy format
    */
   public filterByGtDate(date: string) {
-    this.clearDate(this.gtDateEl).then(() => this.gtDateEl.sendKeys(date));
+    AppPage.clearInput(this.gtDateEl).then(() => this.gtDateEl.sendKeys(date));
   }
 
   /**
@@ -56,19 +57,6 @@ export class FiltersPanelPage {
    * @param date mm/dd/yyyy format
    */
   public filterByLtDate(date: string) {
-    this.clearDate(this.ltDateEl).then(() => this.ltDateEl.sendKeys(date));
-  }
-
-  public clearDate(el: ElementFinder) {
-    return el.getAttribute('value').then(val => {
-      const length = val.length;
-      let backspaceSeries = '';
-
-      for (let i = 0; i < length; ++i) {
-        backspaceSeries += protractor.Key.BACK_SPACE;
-      }
-      el.sendKeys(backspaceSeries);
-      return true;
-    });
+    AppPage.clearInput(this.ltDateEl).then(() => this.ltDateEl.sendKeys(date));
   }
 }

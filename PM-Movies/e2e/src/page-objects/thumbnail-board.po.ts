@@ -1,4 +1,4 @@
-import { $, $$, browser } from 'protractor';
+import { $, $$, browser, promise } from 'protractor';
 
 export class ThumbnailBoardPage {
   public rootEl = $('app-thumbnail-board');
@@ -14,7 +14,7 @@ export class ThumbnailBoardPage {
     browser.actions().mouseMove(this.thumbnails.get(index)).perform();
   }
 
-  public isContentWatched(index: number) {
+  public isContentWatched(index: number): promise.Promise<boolean> {
     return this.thumbnails.get(index).$('.btn.watched.btn-primary').isPresent();
   }
 
