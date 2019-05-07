@@ -48,7 +48,7 @@ describe('Content details', () => {
       });
 
       it('should display previous search keywords in searchbar', () => {
-        browser.wait(ExpectedConditions.presenceOf(appPage.searchBar));
+        browser.wait(ExpectedConditions.visibilityOf(appPage.searchBar));
         expect(appPage.searchBar.getAttribute('value')).toEqual('star wars');
       });
     });

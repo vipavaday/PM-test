@@ -86,7 +86,7 @@ describe('Thumbnail board', () => {
 
     it('should display search results when user types keywords in the searchbar', () => {
       appPage.searchContentByKeyword('star wars');
-      browser.wait(ExpectedConditions.presenceOf(thumbnailBoardPage.thumbnails.get(0)));
+      browser.wait(ExpectedConditions.visibilityOf(thumbnailBoardPage.thumbnails.get(0)));
       expect(thumbnailBoardPage.thumbnails.get(0).isDisplayed()).toBe(true);
     });
   });
@@ -94,7 +94,7 @@ describe('Thumbnail board', () => {
   describe('hover on thumbnail :', () => {
     beforeAll(() => {
       appPage.searchContentByKeyword('star wars');
-      browser.wait(() => thumbnailBoardPage.thumbnails.count().then(count => count > 0));
+      waitThumbnailsLoaded(thumbnailBoardPage);
       thumbnailBoardPage.hoverThumbnail(0);
     });
 
@@ -143,7 +143,7 @@ describe('Thumbnail board', () => {
       appPage.searchContentByKeyword('star wars');
       filtersPanelPage.enableMovieFilter();
       filtersPanelPage.enableTvShowFilter();
-      browser.wait(() => thumbnailBoardPage.thumbnails.count().then(count => count > 0));
+      waitThumbnailsLoaded(thumbnailBoardPage);
     });
 
     afterAll(() => {
@@ -176,7 +176,7 @@ describe('Thumbnail board', () => {
       it('should not display tvshows when corresponding checkbox disabled', () => {
         filtersPanelPage.enableMovieFilter();
         filtersPanelPage.disableTvShowFilter();
-        browser.wait(() => thumbnailBoardPage.thumbnails.count().then(count => count > 0));
+        waitThumbnailsLoaded(thumbnailBoardPage);
         expect(thumbnailBoardPage.isThumbnailPresent('Star Wars Rebels')).toBe(false);
         filtersPanelPage.enableMovieFilter();
       });
@@ -255,13 +255,13 @@ describe('Thumbnail board', () => {
     beforeAll(() => {
       browser.executeScript('window.localStorage.clear()');
       appPage.searchContentByKeyword('star wars');
-      browser.wait(() => thumbnailBoardPage.thumbnails.count().then(count => count > 0));
+      waitThumbnailsLoaded(thumbnailBoardPage);
       thumbnailBoardPage.toggleToWatchState(0);
       thumbnailBoardPage.toggleWatchedState(0);
       browser.refresh();
       browser.wait(ExpectedConditions.visibilityOf(thumbnailBoardPage.rootEl));
       appPage.searchContentByKeyword('star wars');
-      browser.wait(() => thumbnailBoardPage.thumbnails.count().then(count => count > 0));
+      waitThumbnailsLoaded(thumbnailBoardPage);
     });
 
     it('should keep to watch marker', () => {
@@ -277,3 +277,8 @@ describe('Thumbnail board', () => {
     });
   });
 });
+
+function waitThumbnailsLoaded(thumbnailBoardPage: ThumbnailBoardPage) {
+  browser.wait(thumbnailBoardPage.isThumbnailsLoaded());
+}
+

@@ -1,4 +1,7 @@
-import { $ } from 'protractor';
+import {
+  $,
+  promise
+} from 'protractor';
 import { AppPage } from './app.po';
 
 export class FiltersPanelPage {
@@ -8,12 +11,12 @@ export class FiltersPanelPage {
   public toggleMovieEl = $('.toggle-movie-filter-input');
   public toggleTvShowEl = $('.toggle-tvshow-filter-input');
 
-  public collapseFiltersPanel() {
-    $('.filters-panel-header-icon.close-icon').click();
+  public async collapseFiltersPanel(): promise.Promise<void> {
+    return $('.filters-panel-header-icon.close-icon').click();
   }
 
-  public expandFiltersPanel() {
-    $('.filters-panel-header-icon.tab-icon').click();
+  public async expandFiltersPanel(): promise.Promise<void> {
+    return $('.filters-panel-header-icon.tab-icon').click();
   }
 
   public async enableMovieFilter(): Promise<void> {
@@ -48,15 +51,17 @@ export class FiltersPanelPage {
    * Type date in After filter
    * @param date mm/dd/yyyy format
    */
-  public filterByGtDate(date: string) {
-    AppPage.clearInput(this.gtDateEl).then(() => this.gtDateEl.sendKeys(date));
+  public async filterByGtDate(date: string): promise.Promise<void> {
+    AppPage.clearInput(this.gtDateEl);
+    return this.gtDateEl.sendKeys(date);
   }
 
   /**
    * Type date in Before filter
    * @param date mm/dd/yyyy format
    */
-  public filterByLtDate(date: string) {
-    AppPage.clearInput(this.ltDateEl).then(() => this.ltDateEl.sendKeys(date));
+  public async filterByLtDate(date: string): promise.Promise<void> {
+    AppPage.clearInput(this.ltDateEl);
+    return this.ltDateEl.sendKeys(date);
   }
 }
