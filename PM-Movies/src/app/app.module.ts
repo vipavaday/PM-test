@@ -27,7 +27,7 @@ import { MinutesToHoursPipe } from './pipes';
     MinutesToHoursPipe
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule,
     ContentRoutingModule,
     FormsModule,

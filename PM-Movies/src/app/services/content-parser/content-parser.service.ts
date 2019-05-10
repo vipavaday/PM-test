@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
 
-import {
-  Content, Person
-} from 'src/app/models';
+import { Content } from '../../models';
 
 import {
-  MDBTvShowJSON,
-  MDBMovieJSON,
-  MDBResultJSON,
+  IContentParser,
   MDBContentImagesJSON,
   MDBContentJSON,
+  MDBMovieJSON,
+  MDBResultJSON,
   MDBSearchResponseJSON,
-  IContentParser
+  MDBTvShowJSON
 } from './content-parser.service.interface';
 
 @Injectable({
@@ -24,7 +22,7 @@ export class ContentParserService implements IContentParser {
     if (!response || !imgBaseUrl) {
       throw new Error('#parseContentList: response and imgBaseUrl parameters should not be undefined');
     }
-    return response.results.map(res => this.parse(res, imgBaseUrl)).filter( content => content.type !== 'person');
+    return response.results.map(res => this.parse(res, imgBaseUrl)).filter(content => content.type !== 'person');
   }
 
   public parse(json: MDBContentJSON, imgBaseUrl: string, content = new Content()): Content {

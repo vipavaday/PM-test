@@ -1,4 +1,8 @@
-import { Cast, Person, Content } from 'src/app/models';
+import {
+  Cast,
+  Content,
+  Person
+} from '../../models';
 
 export interface IPeopleParser {
   parseCast(json: MDBCastJSON, cast: Cast): Cast;

@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 
 import {
   Cast,
-  Person,
-  Content
-} from 'src/app/models';
+  Content,
+  Person
+} from '../../models';
 
 import {
-  MDBCreditsJSON,
+  IPeopleParser,
   MDBCastJSON,
-  MDBPersonJSON,
-  IPeopleParser
+  MDBCreditsJSON,
+  MDBPersonJSON
 } from './people-parser.service.interface';
 
 @Injectable({
@@ -29,7 +29,7 @@ export class PeopleParserServiceMock implements IPeopleParser {
   public parseContentCredits(json: MDBCreditsJSON, content = new Content()): Content {
     return content;
   }
-  public parseDirectorsFromCredits(json: MDBCreditsJSON, content= new Content()): Content {
+  public parseDirectorsFromCredits(json: MDBCreditsJSON, content = new Content()): Content {
     return content;
   }
 }

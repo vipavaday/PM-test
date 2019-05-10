@@ -5,7 +5,7 @@ import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import {
   Content,
   Filter
-} from 'src/app/models';
+} from '../../models';
 
 import { IFilterManagerService } from './filter-manager.service.interface';
 

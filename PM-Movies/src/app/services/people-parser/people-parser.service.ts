@@ -1,6 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Cast, Content, Person } from 'src/app/models';
-import { IPeopleParser, MDBCastJSON, MDBCreditsJSON, MDBPersonJSON } from './people-parser.service.interface';
+import {
+  Cast,
+  Content,
+  Person
+} from '../../models';
+import {
+  IPeopleParser,
+  MDBCastJSON,
+  MDBCreditsJSON,
+  MDBPersonJSON
+} from './people-parser.service.interface';
 
 
 

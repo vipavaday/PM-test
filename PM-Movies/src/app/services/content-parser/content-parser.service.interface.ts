@@ -3,7 +3,7 @@ import {
   MDBPersonJSON
 } from '../people-parser';
 
-import { Content, ContentType } from 'src/app/models';
+import { Content, ContentType } from '../../models';
 
 export type MDBContentJSON = MDBMovieJSON | MDBTvShowJSON | MDBPersonJSON;
 

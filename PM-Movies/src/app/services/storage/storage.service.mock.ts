@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Content } from 'src/app/models';
+import { Content } from '../../models';
 import { IStorageService } from './storage.service.interface';
 
 

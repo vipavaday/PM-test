@@ -1,4 +1,4 @@
-import { Content } from 'src/app/models';
+import { Content } from '../../models';
 
 export interface IStorageService {
 
@@ -12,8 +12,8 @@ export interface IStorageService {
    */
   storeMarkedContent(content: Content): void;
 
-   /**
-   * Removes a content from localStorage
-   */
+  /**
+  * Removes a content from localStorage
+  */
   removeMarkedContentFromStorage(content: Content): void;
 }

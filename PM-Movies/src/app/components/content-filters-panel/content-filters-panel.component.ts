@@ -3,8 +3,8 @@ import {
   OnInit
 } from '@angular/core';
 
-import { FilterManagerService } from 'src/app/services';
 import { Filter } from '../../models/filter/filter';
+import { FilterManagerService } from '../../services';
 
 /**
 * Represents a filter panel that permits daterange-based and content type filtering
